@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import dao.MemberInfoDao;
 import vo.MemberInfo;
 
 /**
@@ -30,6 +31,15 @@ public class JoinController extends HttpServlet {
 		// 유효성 검증은 jsp에서 바로 할 수 있게 만들기!!!!
 		
 		MemberInfo newMember = new MemberInfo(id,pw,name,email,regDate);
+		
+		MemberInfoDao dao = new MemberInfoDao();
+		MemberService service = new MemberService();
+		if (service.isAlreadyIdorTelorEmail(newMember)) response.setStatus(HttpServletResponse.SC_CONFLICT);
+		else {
+			int status = dao.insertMemberInfo(newMember);
+			response.setStatus(status);
+		}
+	
 	}
 
 }
