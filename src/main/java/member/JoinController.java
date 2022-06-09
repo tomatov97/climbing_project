@@ -28,13 +28,13 @@ public class JoinController extends HttpServlet {
 		String email = request.getParameter("email");
 		LocalDateTime regDate = LocalDateTime.now();
 		
-		// 유효성 검증은 jsp에서 바로 할 수 있게 만들기!!!!
+		// �쑀�슚�꽦 寃�利앹� jsp�뿉�꽌 諛붾줈 �븷 �닔 �엳寃� 留뚮뱾湲�!!!!
 		
 		MemberInfo newMember = new MemberInfo(id,pw,name,email,regDate);
 		
 		MemberInfoDao dao = new MemberInfoDao();
 		MemberService service = new MemberService();
-		if (service.isAlreadyIdorTelorEmail(newMember)) response.setStatus(HttpServletResponse.SC_CONFLICT);
+		if (service.isAlreadyIdOrEmail(newMember)) response.setStatus(HttpServletResponse.SC_CONFLICT);
 		else {
 			int status = dao.insertMemberInfo(newMember);
 			response.setStatus(status);
