@@ -18,7 +18,7 @@ public class GymInfoDao {
 		
 		try {
 			// 3. 쿼리 작성
-			String sql = "INSERT INTO gymInfo(`name`, `addr`, `tel`, `img`, `manager`,`regDate`) VALUES(?, ?, ?, ?, ?, ?)";
+			String sql = "INSERT INTO gyms(`name`, `addr`, `tel`, `img`, `manager`,`regDate`) VALUES(?, ?, ?, ?, ?, ?)";
 			
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, newGymInfo.getGymName());
@@ -49,7 +49,7 @@ public class GymInfoDao {
 		PreparedStatement pstmt = null;
 		
 		try {
-			String sql = "UPDATE gymInfo SET name=?, addr=?, tel=?, img=?, manager=? WHERE idx=?";
+			String sql = "UPDATE gyms SET name=?, addr=?, tel=?, img=?, manager=? WHERE idx=?";
 			
 			pstmt = conn.prepareStatement(sql);			
 			pstmt.setString(1, gymInfo.getGymName());
@@ -79,7 +79,7 @@ public class GymInfoDao {
 		PreparedStatement pstmt = null;
 		
 		try {
-			String sql = "INSERT INTO sectorInfo(`gymId`, `sectorName`) VALUES(?, ?)";
+			String sql = "INSERT INTO sectors(`gymId`, `sectorName`) VALUES(?, ?)";
 			
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, newSectorInfo.getGymId());
@@ -106,7 +106,7 @@ public class GymInfoDao {
 		PreparedStatement pstmt = null;
 		
 		try {
-			String sql = "UPDATE sectorInfo SET gymId=?, sectorName=? WHERE sectorId=?";
+			String sql = "UPDATE sectors SET gymId=?, sectorName=? WHERE sectorId=?";
 			
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, sector.getGymId());
@@ -134,7 +134,7 @@ public class GymInfoDao {
 		PreparedStatement pstmt = null;
 		
 		try {
-			String sql = "INSERT INTO setting(`sectorId`, `setDate`, `removeDate`) VALUES(?, ?, ?)";
+			String sql = "INSERT INTO settings(`sectorId`, `setDate`, `removeDate`) VALUES(?, ?, ?)";
 			
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt	(1, newSettingInfo.getSectorId());
@@ -162,7 +162,7 @@ public class GymInfoDao {
 		PreparedStatement pstmt = null;
 		
 		try {
-			String sql = "UPDATE setting SET sectorId=?, setDate=?, removeDate WHERE settingId=?";
+			String sql = "UPDATE settings SET sectorId=?, setDate=?, removeDate WHERE settingId=?";
 			
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt	(1, setting.getSectorId());
