@@ -108,12 +108,80 @@ public class MemberInfoDao {
 			}
 			
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
 			db.closePstmt(pstmt);
 			db.closeConnection(conn);
 		}
 		return memberInfo;
+	}
+	
+	public int updateByIdx(MemberInfo memberInfo) {
+		Database db = new Database();		
+		Connection conn = db.getConnection();
+		PreparedStatement pstmt = null;
+		
+		try {
+			String sql = "UPDATE memberInfo SET name=?, email=?, nickname=?, img=? WHERE idx=?";
+			
+			pstmt = conn.prepareStatement(sql);			
+			pstmt.setString(1, memberInfo.getName());
+			pstmt.setString(2, memberInfo.getEmail());
+			pstmt.setString(3, memberInfo.getNickname());
+			pstmt.setString(4, memberInfo.getImgPath());
+			pstmt.setInt(5, memberInfo.getIdx());
+			
+			// 4. stmt 를 통해서 쿼리 실행 및 결과 전달
+			int count = pstmt.executeUpdate();
+			if (count == 1) return 200;
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			db.closePstmt(pstmt);
+			db.closeConnection(conn);
+		}	
+		return 400;
+	}
+	
+	public void updatePasswordByIdx(int idx, String newPw) {
+		Database db = new Database();		
+		Connection conn = db.getConnection();
+		PreparedStatement pstmt = null;
+		
+		try {
+			String sql = "UPDATE memberInfo SET pw=? WHERE idx=?";
+			
+			pstmt = conn.prepareStatement(sql);			
+			pstmt.setString(1, newPw);
+			pstmt.setInt(2, idx);
+			pstmt.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			db.closePstmt(pstmt);
+			db.closeConnection(conn);
+		}		
+	}
+	
+	public void deleteMemberInfo(int idx) {
+		Database db = new Database();		
+		Connection conn = db.getConnection();
+		PreparedStatement pstmt = null;
+		
+		try {
+			String sql = "DELETE FROM memberInfo WHERE idx=?";
+			
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, idx);
+			pstmt.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			db.closePstmt(pstmt);
+			db.closeConnection(conn);
+		}
 	}
 }
