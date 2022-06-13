@@ -12,6 +12,8 @@ public class RouteInfo {
 	private String img;
 	private int levelScoreAvg;
 	private int funScoreAvg;
+	
+	
 		
 	public RouteInfo(int settingId, String routeName, String holdColor, String levelColor, String comment, String img) {
 		super();

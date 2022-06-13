@@ -18,7 +18,7 @@ public class MemberInfoDao {
 		
 		try {
 			// 3. 쿼리 작성
-			String sql = "INSERT INTO memberInfo(`id`, `pw`, `name`, `email`,`regDate`) VALUES(?, ?, ?, ?, ?, ?, ?)";
+			String sql = "INSERT INTO memberInfo(`id`, `pw`, `name`, `email`,`regDate`) VALUES(?, ?, ?, ?, ?)";
 			
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, newMemberInfo.getId());
