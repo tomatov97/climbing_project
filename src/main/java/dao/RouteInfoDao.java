@@ -149,4 +149,66 @@ public class RouteInfoDao {
 		
 		return amount;		
 	}
+
+	public int updateById(RouteInfo routeInfo) {
+Database db = new Database();
+		
+		Connection conn = db.getConnection();
+		PreparedStatement pstmt = null;
+		
+		try {
+			String sql = "UPDATE routes SET settingId=?, name=?, hold-color=?, level-color=?, comment=?, img=? WHERE routeId=?";
+			
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, routeInfo.getSettingId());
+			pstmt.setString(2, routeInfo.getRouteName());
+			pstmt.setString(3, routeInfo.getHoldColor());
+			pstmt.setString(4, routeInfo.getLevelColor());
+			pstmt.setString(5, routeInfo.getComment());
+			pstmt.setString(6, routeInfo.getImg());
+			pstmt.setInt(7, routeInfo.getRouteId());
+
+			int count = pstmt.executeUpdate();
+			
+			if (count == 1) return 200;
+			else return 400;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			
+			return 409;
+		} finally {
+			db.closePstmt(pstmt);
+			db.closeConnection(conn);
+		}
+	}
+	
+	public int getAmountOfRoute(RouteInfo route) {
+		Database db = new Database();
+		
+		Connection conn = db.getConnection();
+		PreparedStatement pstmt = null;		
+		ResultSet rs = null;
+		
+		int amount = 0;
+		
+		try {
+			String sql = "SELECT COUNT(*) AS amount FROM productInfo";
+			
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			
+			rs.next();
+			amount = rs.getInt("amount");
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			db.closeResultSet(rs);
+			db.closePstmt(pstmt);
+			db.closeConnection(conn);
+		}
+		
+		return amount;	
+	}
 }

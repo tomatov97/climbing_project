@@ -11,10 +11,19 @@ public class RouteInfo {
 	private String comment;
 	private String img;
 	private int levelScoreAvg;
-	private int funScoreAvg;
-	
-	
-		
+	private int funScoreAvg;	
+			
+	public RouteInfo(int routeId, int settingId, String routeName, String holdColor, String levelColor, String comment,
+			String img) {
+		super();
+		this.routeId = routeId;
+		this.settingId = settingId;
+		RouteName = routeName;
+		this.holdColor = holdColor;
+		this.levelColor = levelColor;
+		this.comment = comment;
+		this.img = img;
+	}
 	public RouteInfo(int settingId, String routeName, String holdColor, String levelColor, String comment, String img) {
 		super();
 		this.settingId = settingId;

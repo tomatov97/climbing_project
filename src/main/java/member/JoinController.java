@@ -28,8 +28,6 @@ public class JoinController extends HttpServlet {
 		String email = request.getParameter("email");
 		LocalDateTime regDate = LocalDateTime.now();
 		
-		// �쑀�슚�꽦 寃�利앹� jsp�뿉�꽌 諛붾줈 �븷 �닔 �엳寃� 留뚮뱾湲�!!!!
-		
 		MemberInfo newMember = new MemberInfo(id,pw,name,email,regDate);
 		
 		MemberInfoDao dao = new MemberInfoDao();
