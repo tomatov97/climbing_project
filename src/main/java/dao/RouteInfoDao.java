@@ -18,7 +18,7 @@ public class RouteInfoDao {
 		
 		try {
 			// 3. 쿼리 작성
-			String sql = "INSERT INTO routes(`settingId`, `name`, `hold-color`, `level-color`, `comment`, `img`, `routeId`) VALUES(?, ?, ?, ?, ?, ?, ?)";
+			String sql = "INSERT INTO routes(`settingId`, `name`, `holdColor`, `levelColor`, `comment`, `img`, `routeId`) VALUES(?, ?, ?, ?, ?, ?, ?)";
 			
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, newRouteInfo.getSettingId());
@@ -52,7 +52,7 @@ public class RouteInfoDao {
 		ResultSet rs = null;
 		
 		try {
-			String sql = "SELECT * FROM routes WHERE routeId=?";			
+			String sql = "SELECT * FROM routes WHERE `routeId`=?";			
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, id);
 			
@@ -89,7 +89,7 @@ public class RouteInfoDao {
 		ResultSet rs = null;
 		
 		try {
-			String sql = "SELECT * FROM routes WHERE routeId=?, name=?";			
+			String sql = "SELECT * FROM routes WHERE `routeId`=? AND `name`=?";			
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, id);
 			pstmt.setString(2, name);
@@ -117,6 +117,7 @@ public class RouteInfoDao {
 		}
 		return RouteInfo;
 	}
+	
 	public int countRoutesByColors(int settingId, String holdColor, String levelColor) {
 		Database db = new Database();
 		
@@ -127,7 +128,7 @@ public class RouteInfoDao {
 		int amount = 0;
 		
 		try {
-			String sql = "SELECT COUNT(*) AS amount FROM routes WHERE settingId=?, hold-color=?, level-color=?";
+			String sql = "SELECT COUNT(*) AS amount FROM routes WHERE `settingId`=? AND `holdColor`=? AND `levelColor`=?";
 			
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, settingId);
@@ -151,13 +152,13 @@ public class RouteInfoDao {
 	}
 
 	public int updateById(RouteInfo routeInfo) {
-Database db = new Database();
+		Database db = new Database();
 		
 		Connection conn = db.getConnection();
 		PreparedStatement pstmt = null;
 		
 		try {
-			String sql = "UPDATE routes SET settingId=?, name=?, hold-color=?, level-color=?, comment=?, img=? WHERE routeId=?";
+			String sql = "UPDATE routes SET `settingId`=?, `name`=?, `holdColor`=?, `levelColor`=?, `comment`=?, `img`=? WHERE `routeId`=?";
 			
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, routeInfo.getSettingId());
