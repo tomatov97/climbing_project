@@ -4,9 +4,14 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 import etc.Database;
+import vo.ProductInfo;
+import vo.RouteFilter;
 import vo.RouteInfo;
 
 public class RouteInfoDao {
@@ -183,7 +188,7 @@ public class RouteInfoDao {
 		}
 	}
 	
-	public int getAmountOfRoute(RouteInfo route) {
+	public int getAmountOfRoute(String filter) {
 		Database db = new Database();
 		
 		Connection conn = db.getConnection();
@@ -193,7 +198,7 @@ public class RouteInfoDao {
 		int amount = 0;
 		
 		try {
-			String sql = "SELECT COUNT(*) AS amount FROM productInfo";
+			String sql = "SELECT COUNT(*) AS amount FROM routes " + filter;
 			
 			pstmt = conn.prepareStatement(sql);
 			rs = pstmt.executeQuery();
@@ -212,4 +217,109 @@ public class RouteInfoDao {
 		
 		return amount;	
 	}
+	
+	public int deleteImg(int id) {
+		Database db = new Database();		
+		Connection conn = db.getConnection();
+		PreparedStatement pstmt = null;
+		
+		try {
+			String sql = "UPDATE routes SET img=? WHERE routeId=?";
+			
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, null);
+			pstmt.setInt(2, id);
+
+			int count = pstmt.executeUpdate();
+			if (count == 1) return 200;
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			db.closePstmt(pstmt);
+			db.closeConnection(conn);
+		}	
+		return 400;
+	}
+
+	public List<Integer> getSettingIdByDate(LocalDate from, LocalDate to, int gymId) {
+		Database db = new Database();		
+		Connection conn = db.getConnection();
+		PreparedStatement pstmt = null;		
+		ResultSet rs = null;		
+		List<Integer> settingIds = new ArrayList<>();
+		
+		try {
+			String sql = "SELECT settingId FROM settings WHERE (`set-date`<=? OR `remove-date>=?) AND `gymId`=?`";
+			
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, to.toString());
+			pstmt.setString(2, from.toString());
+			pstmt.setInt(3, gymId);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				settingIds.add(rs.getInt("settingId"));
+			};
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			db.closeResultSet(rs);
+			db.closePstmt(pstmt);
+			db.closeConnection(conn);
+		}
+		
+		return settingIds;
+	}
+	
+public List<RouteInfo> selectRouteListInfo(int pageNumber) {
+	Database db = new Database();
+	
+	Connection conn = db.getConnection();
+	PreparedStatement pstmt = null;
+	ResultSet rs = null;
+	
+	List<RouteInfo> routeInfoList = null;
+	try {
+		String sql = "SELECT * FROM routes ORDER BY productId DESC LIMIT ?, ? ";
+		int amountPerPage = 8;
+		int startIndex = (pageNumber-1)*amountPerPage;
+		
+		pstmt = conn.prepareStatement(sql);
+		pstmt.setInt(1, startIndex);
+		pstmt.setInt(2, amountPerPage);
+		
+		rs = pstmt.executeQuery();
+		
+		while(rs.next()) {
+			int productId = rs.getInt("productId");
+			String productName = rs.getString("productName");
+			String category = rs.getString("category");
+			int stock = rs.getInt("stock");
+			int price = rs.getInt("price");
+			String productImg = rs.getString("productImg");
+			String t_insertDate = rs.getString("insertDate");
+			
+			t_insertDate = t_insertDate.substring(0, t_insertDate.indexOf('.'));
+			t_insertDate = t_insertDate.replace(' ', 'T');
+			LocalDateTime insertDate = LocalDateTime.parse(t_insertDate);
+			
+			ProductInfo nthProductInfo = new ProductInfo(productId, productName, category, stock, price, productImg, insertDate);
+			
+			ProductInfoList.add(nthProductInfo);
+		}
+	} catch (SQLException e) {
+		e.printStackTrace();
+	} finally {
+		db.closeResultSet(rs);
+		db.closePstmt(pstmt);
+		db.closeConnection(conn);
+	}
+	
+	return ProductInfoList;
+	
+	}
+	
 }
