@@ -274,7 +274,7 @@ public class RouteInfoDao {
 		return settingIds;
 	}
 	
-public List<RouteInfo> selectRouteListInfo(int pageNumber) {
+public List<RouteInfo> selectRouteListInfo(int pageNumber, String filter) {
 	Database db = new Database();
 	
 	Connection conn = db.getConnection();
@@ -283,8 +283,8 @@ public List<RouteInfo> selectRouteListInfo(int pageNumber) {
 	
 	List<RouteInfo> routeInfoList = null;
 	try {
-		String sql = "SELECT * FROM routes ORDER BY productId DESC LIMIT ?, ? ";
-		int amountPerPage = 8;
+		String sql = "SELECT * FROM routes" + filter + " LIMIT ?, ? ";
+		int amountPerPage = 15;
 		int startIndex = (pageNumber-1)*amountPerPage;
 		
 		pstmt = conn.prepareStatement(sql);
@@ -294,19 +294,15 @@ public List<RouteInfo> selectRouteListInfo(int pageNumber) {
 		rs = pstmt.executeQuery();
 		
 		while(rs.next()) {
-			int productId = rs.getInt("productId");
-			String productName = rs.getString("productName");
-			String category = rs.getString("category");
-			int stock = rs.getInt("stock");
-			int price = rs.getInt("price");
-			String productImg = rs.getString("productImg");
-			String t_insertDate = rs.getString("insertDate");
+			int routeId = rs.getInt("routeId");
+			int settingId = rs.getInt("settingId");
+			String routeName = rs.getString("routeName");
+			String holdColor = rs.getString("holdColor");
+			String levelColor = rs.getString("levelColor");
+			String comment = rs.getString("comment");
+			String img = rs.getString("img");
 			
-			t_insertDate = t_insertDate.substring(0, t_insertDate.indexOf('.'));
-			t_insertDate = t_insertDate.replace(' ', 'T');
-			LocalDateTime insertDate = LocalDateTime.parse(t_insertDate);
-			
-			ProductInfo nthProductInfo = new ProductInfo(productId, productName, category, stock, price, productImg, insertDate);
+			RouteInfo nthRouteInfo = new RouteInfo(routeId, settingId, routeName, holdColor, levelColor, comment, img);
 			
 			ProductInfoList.add(nthProductInfo);
 		}
