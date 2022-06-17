@@ -5,13 +5,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 import etc.Database;
-import vo.ProductInfo;
-import vo.RouteFilter;
 import vo.RouteInfo;
 
 public class RouteInfoDao {
@@ -274,48 +271,53 @@ public class RouteInfoDao {
 		return settingIds;
 	}
 	
-public List<RouteInfo> selectRouteListInfo(int pageNumber, String filter) {
-	Database db = new Database();
-	
-	Connection conn = db.getConnection();
-	PreparedStatement pstmt = null;
-	ResultSet rs = null;
-	
-	List<RouteInfo> routeInfoList = null;
-	try {
-		String sql = "SELECT * FROM routes" + filter + " LIMIT ?, ? ";
-		int amountPerPage = 15;
-		int startIndex = (pageNumber-1)*amountPerPage;
+	public List<RouteInfo> selectRouteListInfo(int pageNumber, String filter) {
+		Database db = new Database();
 		
-		pstmt = conn.prepareStatement(sql);
-		pstmt.setInt(1, startIndex);
-		pstmt.setInt(2, amountPerPage);
+		Connection conn = db.getConnection();
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
 		
-		rs = pstmt.executeQuery();
-		
-		while(rs.next()) {
-			int routeId = rs.getInt("routeId");
-			int settingId = rs.getInt("settingId");
-			String routeName = rs.getString("routeName");
-			String holdColor = rs.getString("holdColor");
-			String levelColor = rs.getString("levelColor");
-			String comment = rs.getString("comment");
-			String img = rs.getString("img");
+		List<RouteInfo> routeInfoList = null;
+		try {
+			String sql = "SELECT * FROM routes" + filter + " LIMIT ?, ? ";
+			int amountPerPage = 15;
+			int startIndex = (pageNumber-1)*amountPerPage;
 			
-			RouteInfo nthRouteInfo = new RouteInfo(routeId, settingId, routeName, holdColor, levelColor, comment, img);
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, startIndex);
+			pstmt.setInt(2, amountPerPage);		
+			rs = pstmt.executeQuery();
 			
-			ProductInfoList.add(nthProductInfo);
-		}
-	} catch (SQLException e) {
-		e.printStackTrace();
-	} finally {
-		db.closeResultSet(rs);
-		db.closePstmt(pstmt);
-		db.closeConnection(conn);
-	}
-	
-	return ProductInfoList;
-	
-	}
-	
+			while(rs.next()) {
+				int routeId = rs.getInt("routeId");
+				int settingId = rs.getInt("settingId");
+				String routeName = rs.getString("routeName");
+				String holdColor = rs.getString("holdColor");
+				String levelColor = rs.getString("levelColor");
+				String comment = rs.getString("comment");
+				String img = rs.getString("img");
+				
+				sql = "SELECT AVG(funScore) AS `funScore-avg`, AVG(levelScore) AS `Score-avg` FROM review WHERE `routeId`=?;"
+						+ "SELECT name AS `sectorName` FROM sectors WHERE sectorId=(SELECT sectorId FROM settings WHERE settingId=?)";
+				pstmt.setInt(1, routeId);
+				pstmt.setInt(2, settingId);
+				rs = pstmt.executeQuery();
+				
+				int funScoreAvg = rs.getInt("funScore-avg");
+				int levelScoreAvg = rs.getInt("levelScore-avg");
+				String sectorName = rs.getString("sectorName");
+				
+				RouteInfo nthRouteInfo = new RouteInfo(routeId, settingId, routeName, holdColor, levelColor, comment, img);			
+				routeInfoList.add(nthRouteInfo);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			db.closeResultSet(rs);
+			db.closePstmt(pstmt);
+			db.closeConnection(conn);
+		}	
+		return routeInfoList;	
+	}	
 }
