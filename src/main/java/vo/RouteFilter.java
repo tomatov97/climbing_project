@@ -2,12 +2,8 @@ package vo;
 
 import java.time.LocalDate;
 
-public class RouteFilter {
+public class RouteFilter extends RouteInfo {
 	private int pageNumber;
-	private int gymId;
-	private int sectorId;
-	private String holdColor;
-	private String leveColor;
 	private LocalDate fromDate;
 	private LocalDate toDate;
 	private String order;	
@@ -25,7 +21,7 @@ public class RouteFilter {
 		this.gymId = gymId;
 		this.sectorId = sectorId;
 		this.holdColor = holdColor;
-		this.leveColor = leveColor;
+		this.levelColor = leveColor;
 		this.fromDate = fromDate;
 		this.toDate = toDate;
 		this.order = order;
@@ -55,10 +51,10 @@ public class RouteFilter {
 		this.holdColor = holdColor;
 	}
 	public String getLeveColor() {
-		return leveColor;
+		return levelColor;
 	}
 	public void setLeveColor(String leveColor) {
-		this.leveColor = leveColor;
+		this.levelColor = leveColor;
 	}
 	public LocalDate getFromDate() {
 		return fromDate;

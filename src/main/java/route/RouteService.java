@@ -50,17 +50,17 @@ public class RouteService {
 		LocalDate toDate = filter.getToDate();
 		String order = filter.getOrder();
 		
-		String where = "WHERE gymId=" + gymId;
-		if (sector != 0) where = where + " AND `sectorId`="+ sector;
-		if (hold != null) where = where + " AND `holdColor`="+ hold;
-		if (level != null) where = where + " AND `levelColor`="+ level;
+		String where = "WHERE G.gymId=" + gymId;
+		if (sector != 0) where = where + " AND `S.sectorId`="+ sector;
+		if (hold != null) where = where + " AND `R.holdColor`="+ hold;
+		if (level != null) where = where + " AND `R.levelColor`="+ level;
 		if (fromDate != null || toDate != null) {
 			// settingId 들고오기
 			RouteInfoDao dao = new RouteInfoDao();
 			List<Integer> settingIds = dao.getSettingIdByDate(fromDate, toDate, gymId);
 			String settingIdQuery = null;
 			// settingId를 이용한 쿼리 만들기
-			for (int id : settingIds) settingIdQuery = settingIdQuery + " OR settingId="+id;
+			for (int id : settingIds) settingIdQuery = settingIdQuery + " OR S.settingId="+id;
 			settingIdQuery = settingIdQuery.substring(4);
 			// 이어 붙이기
 			where = where + " AND (" + settingIdQuery + ")";

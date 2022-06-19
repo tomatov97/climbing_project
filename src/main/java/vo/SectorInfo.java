@@ -1,7 +1,7 @@
 package vo;
 
-public class SectorInfo {
-	private int gymId;
+public class SectorInfo extends GymInfo{
+	protected int gymId;
 	private int sectorId;
 	private String sectorName;	
 	
@@ -17,6 +17,8 @@ public class SectorInfo {
 		this.sectorId = sectorId;
 		this.sectorName = sectorName;
 	}
+	
+	public SectorInfo() {}
 	
 	public int getGymId() {
 		return gymId;

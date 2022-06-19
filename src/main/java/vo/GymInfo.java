@@ -45,6 +45,8 @@ public class GymInfo {
 		this.managerId = managerId;
 		this.regDate = regDate;
 	}
+	
+	public GymInfo() {}
 
 	public int getGymId() {
 		return gymId;

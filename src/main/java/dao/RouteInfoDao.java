@@ -45,7 +45,6 @@ public class RouteInfoDao {
 			db.closeConnection(conn);
 		}
 	}
-	
 	public RouteInfo selectRouteById(int id) {
 		Database db = new Database();		
 		Connection conn = db.getConnection();
@@ -54,23 +53,29 @@ public class RouteInfoDao {
 		ResultSet rs = null;
 		
 		try {
-			String sql = "SELECT * FROM routes WHERE `routeId`=?";			
+			String sql = "SELECT R.name, R.holdColor, R.levelColor, R.comment, R.img, SC.name AS `sectorName`, `sectorName`, CONCAT_WS(~,S.setDate,S.removeDate) AS `date`,"
+					+ "AVG(RV.levelScore) AS `levelScore-avg`, AVG(RV.funScore) AS `funScore-avg` FROM routes R"
+					+ "JOIN settings S ON S.settingId=R.settingId"
+					+ "JOIN sectors SC ON SC.sectorId=S.sectorId"
+					+ "JOIN gyms G ON G.id=SC.gymId"
+					+ "JOIN review RV ON RV.routeId=R.routeId WHERE `routeId`=?";			
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, id);
 			
 			rs = pstmt.executeQuery();
 			
 			if (rs.next()) {
-				int settingId = rs.getInt("settingId");
 				String routeName = rs.getString("name");
-				String holdColor = rs.getString("hold-color");
-				String levelColor = rs.getString("level-color");
+				String holdColor = rs.getString("holdColor");
+				String levelColor = rs.getString("levelColor");
 				String comment = rs.getString("comment");
 				String img = rs.getString("img");
+				String sectorName = rs.getString("sectorName");
+				String dateString = rs.getString("date");
 				int levelScoreAvg = rs.getInt("levelScore-avg");
 				int funScoreAvg = rs.getInt("funScore-avg");
 				
-				RouteInfo = new RouteInfo(id, settingId, routeName, holdColor, levelColor, comment, img, levelScoreAvg, funScoreAvg);
+				RouteInfo = new RouteInfo(id, routeName, holdColor, levelColor, comment, img, sectorName, dateString, levelScoreAvg, funScoreAvg);
 			}
 			
 		} catch (SQLException e) {
@@ -91,7 +96,7 @@ public class RouteInfoDao {
 		ResultSet rs = null;
 		
 		try {
-			String sql = "SELECT * FROM routes WHERE `routeId`=? AND `name`=?";			
+			String sql = "SELECT * FROM routes WHERE `settingId`=? AND `name`=?";			
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, id);
 			pstmt.setString(2, name);
@@ -104,10 +109,8 @@ public class RouteInfoDao {
 				String levelColor = rs.getString("level-color");
 				String comment = rs.getString("comment");
 				String img = rs.getString("img");
-				int levelScoreAvg = rs.getInt("levelScore-avg");
-				int funScoreAvg = rs.getInt("funScore-avg");
 				
-				RouteInfo = new RouteInfo(routeId, id, name, holdColor, levelColor, comment, img, levelScoreAvg, funScoreAvg);
+				RouteInfo = new RouteInfo(routeId, id, name, holdColor, levelColor, comment, img);
 			}
 			
 		} catch (SQLException e) {
@@ -195,7 +198,10 @@ public class RouteInfoDao {
 		int amount = 0;
 		
 		try {
-			String sql = "SELECT COUNT(*) AS amount FROM routes " + filter;
+			String sql = "SELECT COUNT(*) AS amount FROM routes R"
+					+ "JOIN settings S ON S.settingId=R.settingId"
+					+ "JOIN sectors SC ON SC.sectorId=S.sectorId"
+					+ "JOIN gyms G ON G.id=SC.gymId " + filter;
 			
 			pstmt = conn.prepareStatement(sql);
 			rs = pstmt.executeQuery();
@@ -272,15 +278,15 @@ public class RouteInfoDao {
 	}
 	
 	public List<RouteInfo> selectRouteListInfo(int pageNumber, String filter) {
-		Database db = new Database();
-		
+		Database db = new Database(); 	
 		Connection conn = db.getConnection();
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		
-		List<RouteInfo> routeInfoList = null;
+		PreparedStatement pstmt = null; ResultSet rs = null; List<RouteInfo> routeInfoList = null;	
 		try {
-			String sql = "SELECT * FROM routes" + filter + " LIMIT ?, ? ";
+			String sql = "SELECT R.routeId, R.name AS `routeName`, R.holdColor, R.levelColor, R.img, SC.name AS `sectorName`, CONCAT_WS(~,S.setDate,S.removeDate) AS `date`"
+					+ "FROM routes R"
+					+ "JOIN settings S ON S.settingId=R.settingId"
+					+ "JOIN sectors SC ON SC.sectorId=S.sectorId"
+					+ "JOIN gyms G ON G.id=SC.gymId " + filter + " LIMIT ?, ? ";
 			int amountPerPage = 15;
 			int startIndex = (pageNumber-1)*amountPerPage;
 			
@@ -291,33 +297,25 @@ public class RouteInfoDao {
 			
 			while(rs.next()) {
 				int routeId = rs.getInt("routeId");
-				int settingId = rs.getInt("settingId");
 				String routeName = rs.getString("routeName");
 				String holdColor = rs.getString("holdColor");
 				String levelColor = rs.getString("levelColor");
-				String comment = rs.getString("comment");
 				String img = rs.getString("img");
-				
-				sql = "SELECT AVG(funScore) AS `funScore-avg`, AVG(levelScore) AS `Score-avg` FROM review WHERE `routeId`=?;"
-						+ "SELECT name AS `sectorName` FROM sectors WHERE sectorId=(SELECT sectorId FROM settings WHERE settingId=?)";
-				pstmt.setInt(1, routeId);
-				pstmt.setInt(2, settingId);
-				rs = pstmt.executeQuery();
-				
-				int funScoreAvg = rs.getInt("funScore-avg");
-				int levelScoreAvg = rs.getInt("levelScore-avg");
 				String sectorName = rs.getString("sectorName");
+				String dateString = rs.getString("date");
 				
-				RouteInfo nthRouteInfo = new RouteInfo(routeId, settingId, routeName, holdColor, levelColor, comment, img);			
+				RouteInfo nthRouteInfo = new RouteInfo(routeId, routeName, holdColor, levelColor, img, sectorName, dateString);			
 				routeInfoList.add(nthRouteInfo);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			db.closeResultSet(rs);
-			db.closePstmt(pstmt);
-			db.closeConnection(conn);
+			db.closeResultSet(rs); db.closePstmt(pstmt); db.closeConnection(conn);			
+			
 		}	
 		return routeInfoList;	
 	}	
+
+	public 
 }
+

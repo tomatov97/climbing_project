@@ -1,24 +1,47 @@
 package vo;
 
-import java.time.LocalDate;
-
-public class RouteInfo {
+public class RouteInfo extends SettingInfo{
 	private int routeId;
-	private int settingId;
-	private String RouteName;
-	private String holdColor;
-	private String levelColor;
+	private String routeName;
+	protected String holdColor;
+	protected String levelColor;
 	private String comment;
 	private String img;
 	private int levelScoreAvg;
-	private int funScoreAvg;	
+	private int funScoreAvg;
+	
+	public RouteInfo(int routeId, String routeName, String holdColor, String levelColor, String img, String sectorName, String dateString) {
+		super();
+		this.routeId = routeId;
+		this.routeName = routeName;
+		this.holdColor = holdColor;
+		this.levelColor = levelColor;
+		this.comment = comment;
+		this.img = img;
+		this.setSectorName(sectorName);
+		this.setDateString(dateString);
+	}
+	
+	public RouteInfo(int routeId, String routeName, String holdColor, String levelColor, String comment, String img, String sectorName, String dateString, int levelScoreAvg, int funScoreAvg) {
+		super();
+		this.routeId = routeId;
+		this.routeName = routeName;
+		this.holdColor = holdColor;
+		this.levelColor = levelColor;
+		this.img = img;
+		this.setSectorName(sectorName);
+		this.setDateString(dateString);
+		this.levelScoreAvg = levelScoreAvg;
+		this.funScoreAvg = funScoreAvg;
+		
+	}
 			
 	public RouteInfo(int routeId, int settingId, String routeName, String holdColor, String levelColor, String comment,
 			String img) {
 		super();
 		this.routeId = routeId;
 		this.settingId = settingId;
-		RouteName = routeName;
+		this.routeName = routeName;
 		this.holdColor = holdColor;
 		this.levelColor = levelColor;
 		this.comment = comment;
@@ -27,7 +50,7 @@ public class RouteInfo {
 	public RouteInfo(int settingId, String routeName, String holdColor, String levelColor, String comment, String img) {
 		super();
 		this.settingId = settingId;
-		RouteName = routeName;
+		this.routeName = routeName;
 		this.holdColor = holdColor;
 		this.levelColor = levelColor;
 		this.comment = comment;
@@ -38,7 +61,7 @@ public class RouteInfo {
 		super();
 		this.routeId = routeId;
 		this.settingId = settingId;
-		RouteName = routeName;
+		this.routeName = routeName;
 		this.holdColor = holdColor;
 		this.levelColor = levelColor;
 		this.comment = comment;
@@ -46,6 +69,11 @@ public class RouteInfo {
 		this.levelScoreAvg = levelScoreAvg;
 		this.funScoreAvg = funScoreAvg;
 	}
+
+	public RouteInfo() {
+		// TODO Auto-generated constructor stub
+	}
+
 	public int getRouteId() {
 		return routeId;
 	}
@@ -59,10 +87,10 @@ public class RouteInfo {
 		this.settingId = settingId;
 	}
 	public String getRouteName() {
-		return RouteName;
+		return routeName;
 	}
 	public void setRouteName(String routeName) {
-		RouteName = routeName;
+		this.routeName = routeName;
 	}
 	public String getHoldColor() {
 		return holdColor;

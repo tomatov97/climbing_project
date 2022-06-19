@@ -2,12 +2,19 @@ package vo;
 
 import java.time.LocalDate;
 
-public class SettingInfo {
-	private int settingId;
-	private int sectorId;
-	private LocalDate setDate;
-	private LocalDate removeDate;	
+public class SettingInfo extends SectorInfo{
+	protected int settingId;
+	protected int sectorId;
+	protected LocalDate setDate;
+	protected LocalDate removeDate;
+	protected String dateString;
 	
+	public String getDateString() {
+		return dateString;
+	}
+	public void setDateString(String dateString) {
+		this.dateString = dateString;
+	}
 	public SettingInfo(int sectorId, LocalDate setDate, LocalDate removeDate) {
 		super();
 		this.sectorId = sectorId;
@@ -21,6 +28,9 @@ public class SettingInfo {
 		this.setDate = setDate;
 		this.removeDate = removeDate;
 	}
+	
+	public SettingInfo() {}
+	
 	public int getSettingId() {
 		return settingId;
 	}
