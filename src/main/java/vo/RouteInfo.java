@@ -3,14 +3,25 @@ package vo;
 public class RouteInfo extends SettingInfo{
 	private int routeId;
 	private String routeName;
-	protected String holdColor;
-	protected String levelColor;
+	private String holdColor;
+	private String levelColor;
 	private String comment;
 	private String img;
 	private int levelScoreAvg;
 	private int funScoreAvg;
-	
+	// 문제 리스트
 	public RouteInfo(int routeId, String routeName, String holdColor, String levelColor, String img, String sectorName, String dateString) {
+		super();
+		this.routeId = routeId;
+		this.routeName = routeName;
+		this.holdColor = holdColor;
+		this.levelColor = levelColor;
+		this.img = img;
+		this.setSectorName(sectorName);
+		this.setDateString(dateString);
+	}
+	// 문제 상세 정보
+	public RouteInfo(int routeId, String routeName, String holdColor, String levelColor, String img, String comment, String sectorName, String dateString) {
 		super();
 		this.routeId = routeId;
 		this.routeName = routeName;
@@ -32,15 +43,14 @@ public class RouteInfo extends SettingInfo{
 		this.setSectorName(sectorName);
 		this.setDateString(dateString);
 		this.levelScoreAvg = levelScoreAvg;
-		this.funScoreAvg = funScoreAvg;
-		
+		this.funScoreAvg = funScoreAvg;		
 	}
 			
 	public RouteInfo(int routeId, int settingId, String routeName, String holdColor, String levelColor, String comment,
 			String img) {
 		super();
 		this.routeId = routeId;
-		this.settingId = settingId;
+		this.setSettingId(settingId);
 		this.routeName = routeName;
 		this.holdColor = holdColor;
 		this.levelColor = levelColor;
@@ -49,7 +59,7 @@ public class RouteInfo extends SettingInfo{
 	}
 	public RouteInfo(int settingId, String routeName, String holdColor, String levelColor, String comment, String img) {
 		super();
-		this.settingId = settingId;
+		this.setSettingId(settingId);
 		this.routeName = routeName;
 		this.holdColor = holdColor;
 		this.levelColor = levelColor;
@@ -60,7 +70,7 @@ public class RouteInfo extends SettingInfo{
 			String img, int levelScoreAvg, int funScoreAvg) {
 		super();
 		this.routeId = routeId;
-		this.settingId = settingId;
+		this.setSettingId(settingId);
 		this.routeName = routeName;
 		this.holdColor = holdColor;
 		this.levelColor = levelColor;
@@ -73,18 +83,12 @@ public class RouteInfo extends SettingInfo{
 	public RouteInfo() {
 		// TODO Auto-generated constructor stub
 	}
-
+	
 	public int getRouteId() {
 		return routeId;
 	}
 	public void setRouteId(int routeId) {
 		this.routeId = routeId;
-	}
-	public int getSettingId() {
-		return settingId;
-	}
-	public void setSettingId(int settingId) {
-		this.settingId = settingId;
 	}
 	public String getRouteName() {
 		return routeName;

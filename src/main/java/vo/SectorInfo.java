@@ -1,7 +1,7 @@
 package vo;
 
 public class SectorInfo extends GymInfo{
-	protected int gymId;
+	private int gymId;
 	private int sectorId;
 	private String sectorName;	
 	

@@ -11,13 +11,10 @@ import vo.SettingInfo;
 
 public class GymInfoDao {
 	public int insertGymInfo(GymInfo newGymInfo) {
-		Database db = new Database();
-		
-		Connection conn = db.getConnection();
+		Connection conn = Database.getConnection();
 		PreparedStatement pstmt = null;
 		
 		try {
-			// 3. 쿼리 작성
 			String sql = "INSERT INTO gyms(`name`, `addr`, `tel`, `img`, `manager`,`regDate`) VALUES(?, ?, ?, ?, ?, ?)";
 			
 			pstmt = conn.prepareStatement(sql);
@@ -28,24 +25,20 @@ public class GymInfoDao {
 			pstmt.setString(5, newGymInfo.getManagerId());
 			pstmt.setString(6, newGymInfo.getregDate().toString());
 			
-			// 4. stmt 를 통해서 쿼리 실행 및 결과 전달
-			int count = pstmt.executeUpdate();
-			
+			int count = pstmt.executeUpdate();			
 			if (count == 1) return 200;
-			else return 400;
+			else 			return 400;
 		} catch (SQLException e) {
-			e.printStackTrace();
-			
+			e.printStackTrace();			
 			return 409;
 		} finally {
-			db.closePstmt(pstmt);
-			db.closeConnection(conn);
+			Database.closePstmt(pstmt);
+			Database.closeConnection(conn);
 		}
 	}
 
 	public int updateGymByIdx(GymInfo gymInfo) {
-		Database db = new Database();		
-		Connection conn = db.getConnection();
+		Connection conn = Database.getConnection();
 		PreparedStatement pstmt = null;
 		
 		try {
@@ -59,23 +52,20 @@ public class GymInfoDao {
 			pstmt.setString(5, gymInfo.getManagerId());
 			pstmt.setInt   (6, gymInfo.getGymId());
 			
-			// 4. stmt 를 통해서 쿼리 실행 및 결과 전달
 			int count = pstmt.executeUpdate();
 			if (count == 1) return 200;
 
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			db.closePstmt(pstmt);
-			db.closeConnection(conn);
+			Database.closePstmt(pstmt);
+			Database.closeConnection(conn);
 		}	
 		return 400;
 	}
 	
 	public int insertSectorInfo(SectorInfo newSectorInfo) {
-		Database db = new Database();
-		
-		Connection conn = db.getConnection();
+		Connection conn = Database.getConnection();
 		PreparedStatement pstmt = null;
 		
 		try {
@@ -88,21 +78,18 @@ public class GymInfoDao {
 			int count = pstmt.executeUpdate();
 			
 			if (count == 1) return 200;
-			else return 400;
+			else 			return 400;
 		} catch (SQLException e) {
-			e.printStackTrace();
-			
+			e.printStackTrace();			
 			return 409;
 		} finally {
-			db.closePstmt(pstmt);
-			db.closeConnection(conn);
+			Database.closePstmt(pstmt);
+			Database.closeConnection(conn);
 		}
 	}
 
 	public int updateSectorById(SectorInfo sector) {
-		Database db = new Database();
-		
-		Connection conn = db.getConnection();
+		Connection conn = Database.getConnection();
 		PreparedStatement pstmt = null;
 		
 		try {
@@ -116,21 +103,18 @@ public class GymInfoDao {
 			int count = pstmt.executeUpdate();
 			
 			if (count == 1) return 200;
-			else return 400;
+			else 			return 400;
 		} catch (SQLException e) {
-			e.printStackTrace();
-			
+			e.printStackTrace();			
 			return 409;
 		} finally {
-			db.closePstmt(pstmt);
-			db.closeConnection(conn);
+			Database.closePstmt(pstmt);
+			Database.closeConnection(conn);
 		}
 	}
 	
 	public int insertSettingInfo(SettingInfo newSettingInfo) {
-		Database db = new Database();
-		
-		Connection conn = db.getConnection();
+		Connection conn = Database.getConnection();
 		PreparedStatement pstmt = null;
 		
 		try {
@@ -141,24 +125,21 @@ public class GymInfoDao {
 			pstmt.setString (2, newSettingInfo.getSetDate().toString());
 			pstmt.setString (3, newSettingInfo.getRemoveDate().toString());
 
-			int count = pstmt.executeUpdate();
-			
+			int count = pstmt.executeUpdate();			
 			if (count == 1) return 200;
-			else return 400;
+			else 			return 400;
 		} catch (SQLException e) {
 			e.printStackTrace();
 			
 			return 409;
 		} finally {
-			db.closePstmt(pstmt);
-			db.closeConnection(conn);
+			Database.closePstmt(pstmt);
+			Database.closeConnection(conn);
 		}
 	}
 	
 	public int updateSettingById(SettingInfo setting) {
-		Database db = new Database();
-		
-		Connection conn = db.getConnection();
+		Connection conn = Database.getConnection();
 		PreparedStatement pstmt = null;
 		
 		try {
@@ -170,19 +151,16 @@ public class GymInfoDao {
 			pstmt.setString (2, setting.getRemoveDate().toString());
 			pstmt.setInt	(3, setting.getSettingId());
 
-			int count = pstmt.executeUpdate();
-			
+			int count = pstmt.executeUpdate();			
 			if (count == 1) return 200;
-			else return 400;
+			else 			return 400;
 		} catch (SQLException e) {
-			e.printStackTrace();
-			
+			e.printStackTrace();			
 			return 409;
 		} finally {
-			db.closePstmt(pstmt);
-			db.closeConnection(conn);
+			Database.closePstmt(pstmt);
+			Database.closeConnection(conn);
 		}
-	}
-	
+	}	
 
 }

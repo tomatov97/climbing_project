@@ -3,11 +3,11 @@ package vo;
 import java.time.LocalDate;
 
 public class SettingInfo extends SectorInfo{
-	protected int settingId;
-	protected int sectorId;
-	protected LocalDate setDate;
-	protected LocalDate removeDate;
-	protected String dateString;
+	private int settingId;
+	private int sectorId;
+	private LocalDate setDate;
+	private LocalDate removeDate;
+	private String dateString;
 	
 	public String getDateString() {
 		return dateString;

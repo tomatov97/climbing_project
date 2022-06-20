@@ -45,7 +45,7 @@ public class RouteService {
 		int gymId = filter.getGymId();
 		int sector = filter.getSectorId();
 		String hold = filter.getHoldColor();
-		String level = filter.getLeveColor();
+		String level = filter.getLevelColor();
 		LocalDate fromDate = filter.getFromDate();
 		LocalDate toDate = filter.getToDate();
 		String order = filter.getOrder();

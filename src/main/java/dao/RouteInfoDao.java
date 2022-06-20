@@ -13,13 +13,9 @@ import vo.RouteInfo;
 
 public class RouteInfoDao {
 	public int insertRouteInfo(RouteInfo newRouteInfo) {
-		Database db = new Database();
-		
-		Connection conn = db.getConnection();
-		PreparedStatement pstmt = null;
-		
+		Connection conn = Database.getConnection();
+		PreparedStatement pstmt = null;		
 		try {
-			// 3. 쿼리 작성
 			String sql = "INSERT INTO routes(`settingId`, `name`, `holdColor`, `levelColor`, `comment`, `img`, `routeId`) VALUES(?, ?, ?, ?, ?, ?, ?)";
 			
 			pstmt = conn.prepareStatement(sql);
@@ -30,30 +26,27 @@ public class RouteInfoDao {
 			pstmt.setString(5, newRouteInfo.getComment());
 			pstmt.setString(6, newRouteInfo.getImg());
 			pstmt.setInt(7, newRouteInfo.getRouteId());
-			
-			// 4. stmt 를 통해서 쿼리 실행 및 결과 전달
+
 			int count = pstmt.executeUpdate();
 			
 			if (count == 1) return 200;
-			else return 400;
+			else 			return 400;
 		} catch (SQLException e) {
-			e.printStackTrace();
-			
+			e.printStackTrace();			
 			return 409;
 		} finally {
-			db.closePstmt(pstmt);
-			db.closeConnection(conn);
+			Database.closePstmt(pstmt);
+			Database.closeConnection(conn);
 		}
 	}
-	public RouteInfo selectRouteById(int id) {
-		Database db = new Database();		
-		Connection conn = db.getConnection();
+	public RouteInfo selectRouteById(int id) {	
+		Connection conn = Database.getConnection();
 		PreparedStatement pstmt = null;
 		RouteInfo RouteInfo = null;
 		ResultSet rs = null;
 		
 		try {
-			String sql = "SELECT R.name, R.holdColor, R.levelColor, R.comment, R.img, SC.name AS `sectorName`, `sectorName`, CONCAT_WS(~,S.setDate,S.removeDate) AS `date`,"
+			String sql = "SELECT R.name, R.holdColor, R.levelColor, R.comment, R.img, SC.name AS `sectorName`, `sectorName`, CONCAT_WS('~',S.`set-date`,S.`remove-date`) AS `date`,"
 					+ "AVG(RV.levelScore) AS `levelScore-avg`, AVG(RV.funScore) AS `funScore-avg` FROM routes R"
 					+ "JOIN settings S ON S.settingId=R.settingId"
 					+ "JOIN sectors SC ON SC.sectorId=S.sectorId"
@@ -79,18 +72,16 @@ public class RouteInfoDao {
 			}
 			
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
-			db.closePstmt(pstmt);
-			db.closeConnection(conn);
+			Database.closePstmt(pstmt);
+			Database.closeConnection(conn);
 		}
 		return RouteInfo;
 	}
 	
-	public RouteInfo selectRouteBySettingAndName(int id, String name) {
-		Database db = new Database();		
-		Connection conn = db.getConnection();
+	public RouteInfo selectRouteBySettingAndName(int id, String name) {	
+		Connection conn = Database.getConnection();
 		PreparedStatement pstmt = null;
 		RouteInfo RouteInfo = null;
 		ResultSet rs = null;
@@ -99,8 +90,7 @@ public class RouteInfoDao {
 			String sql = "SELECT * FROM routes WHERE `settingId`=? AND `name`=?";			
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, id);
-			pstmt.setString(2, name);
-			
+			pstmt.setString(2, name);			
 			rs = pstmt.executeQuery();
 			
 			if (rs.next()) {
@@ -114,24 +104,19 @@ public class RouteInfoDao {
 			}
 			
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
-			db.closePstmt(pstmt);
-			db.closeConnection(conn);
+			Database.closePstmt(pstmt);
+			Database.closeConnection(conn);
 		}
 		return RouteInfo;
 	}
 	
 	public int countRoutesByColors(int settingId, String holdColor, String levelColor) {
-		Database db = new Database();
-		
-		Connection conn = db.getConnection();
+		Connection conn = Database.getConnection();
 		PreparedStatement pstmt = null;		
-		ResultSet rs = null;
-		
-		int amount = 0;
-		
+		ResultSet rs = null;		
+		int amount = 0;		
 		try {
 			String sql = "SELECT COUNT(*) AS amount FROM routes WHERE `settingId`=? AND `holdColor`=? AND `levelColor`=?";
 			
@@ -145,23 +130,18 @@ public class RouteInfoDao {
 			amount = rs.getInt("amount");
 			
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
-			db.closeResultSet(rs);
-			db.closePstmt(pstmt);
-			db.closeConnection(conn);
-		}
-		
+			Database.closeResultSet(rs);
+			Database.closePstmt(pstmt);
+			Database.closeConnection(conn);
+		}		
 		return amount;		
 	}
 
 	public int updateById(RouteInfo routeInfo) {
-		Database db = new Database();
-		
-		Connection conn = db.getConnection();
-		PreparedStatement pstmt = null;
-		
+		Connection conn = Database.getConnection();
+		PreparedStatement pstmt = null;		
 		try {
 			String sql = "UPDATE routes SET `settingId`=?, `name`=?, `holdColor`=?, `levelColor`=?, `comment`=?, `img`=? WHERE `routeId`=?";
 			
@@ -174,29 +154,24 @@ public class RouteInfoDao {
 			pstmt.setString(6, routeInfo.getImg());
 			pstmt.setInt(7, routeInfo.getRouteId());
 
-			int count = pstmt.executeUpdate();
+			int count = pstmt.executeUpdate();	
 			
 			if (count == 1) return 200;
-			else return 400;
+			else 			return 400;
 		} catch (SQLException e) {
-			e.printStackTrace();
-			
+			e.printStackTrace();			
 			return 409;
 		} finally {
-			db.closePstmt(pstmt);
-			db.closeConnection(conn);
+			Database.closePstmt(pstmt);
+			Database.closeConnection(conn);
 		}
 	}
 	
 	public int getAmountOfRoute(String filter) {
-		Database db = new Database();
-		
-		Connection conn = db.getConnection();
+		Connection conn = Database.getConnection();
 		PreparedStatement pstmt = null;		
-		ResultSet rs = null;
-		
-		int amount = 0;
-		
+		ResultSet rs = null;		
+		int amount = 0;		
 		try {
 			String sql = "SELECT COUNT(*) AS amount FROM routes R"
 					+ "JOIN settings S ON S.settingId=R.settingId"
@@ -204,28 +179,22 @@ public class RouteInfoDao {
 					+ "JOIN gyms G ON G.id=SC.gymId " + filter;
 			
 			pstmt = conn.prepareStatement(sql);
-			rs = pstmt.executeQuery();
-			
+			rs = pstmt.executeQuery();			
 			rs.next();
-			amount = rs.getInt("amount");
-			
+			amount = rs.getInt("amount");			
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
-			db.closeResultSet(rs);
-			db.closePstmt(pstmt);
-			db.closeConnection(conn);
-		}
-		
+			Database.closeResultSet(rs);
+			Database.closePstmt(pstmt);
+			Database.closeConnection(conn);
+		}		
 		return amount;	
 	}
 	
-	public int deleteImg(int id) {
-		Database db = new Database();		
-		Connection conn = db.getConnection();
-		PreparedStatement pstmt = null;
-		
+	public int deleteImg(int id) {	
+		Connection conn = Database.getConnection();
+		PreparedStatement pstmt = null;		
 		try {
 			String sql = "UPDATE routes SET img=? WHERE routeId=?";
 			
@@ -239,15 +208,14 @@ public class RouteInfoDao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			db.closePstmt(pstmt);
-			db.closeConnection(conn);
+			Database.closePstmt(pstmt);
+			Database.closeConnection(conn);
 		}	
 		return 400;
 	}
 
 	public List<Integer> getSettingIdByDate(LocalDate from, LocalDate to, int gymId) {
-		Database db = new Database();		
-		Connection conn = db.getConnection();
+		Connection conn = Database.getConnection();
 		PreparedStatement pstmt = null;		
 		ResultSet rs = null;		
 		List<Integer> settingIds = new ArrayList<>();
@@ -261,25 +229,20 @@ public class RouteInfoDao {
 			pstmt.setInt(3, gymId);
 			rs = pstmt.executeQuery();
 			
-			while(rs.next()) {
-				settingIds.add(rs.getInt("settingId"));
-			};
+			while(rs.next()) settingIds.add(rs.getInt("settingId"));
 			
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
-			db.closeResultSet(rs);
-			db.closePstmt(pstmt);
-			db.closeConnection(conn);
-		}
-		
+			Database.closeResultSet(rs);
+			Database.closePstmt(pstmt);
+			Database.closeConnection(conn);
+		}		
 		return settingIds;
 	}
 	
 	public List<RouteInfo> selectRouteListInfo(int pageNumber, String filter) {
-		Database db = new Database(); 	
-		Connection conn = db.getConnection();
+		Connection conn = Database.getConnection();
 		PreparedStatement pstmt = null; ResultSet rs = null; List<RouteInfo> routeInfoList = null;	
 		try {
 			String sql = "SELECT R.routeId, R.name AS `routeName`, R.holdColor, R.levelColor, R.img, SC.name AS `sectorName`, CONCAT_WS(~,S.setDate,S.removeDate) AS `date`"
@@ -310,12 +273,12 @@ public class RouteInfoDao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			db.closeResultSet(rs); db.closePstmt(pstmt); db.closeConnection(conn);			
-			
+			Database.closeResultSet(rs); 
+			Database.closePstmt(pstmt); 
+			Database.closeConnection(conn);			
 		}	
 		return routeInfoList;	
 	}	
 
-	public 
 }
 

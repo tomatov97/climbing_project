@@ -11,14 +11,10 @@ import vo.MemberInfo;
 
 public class MemberInfoDao {
 	public int insertMemberInfo(MemberInfo newMemberInfo) {
-		Database db = new Database();
-		
-		Connection conn = db.getConnection();
-		PreparedStatement pstmt = null;
-		
+		Connection conn = Database.getConnection();
+		PreparedStatement pstmt = null;		
 		try {
-			// 3. 쿼리 작성
-			String sql = "INSERT INTO memberInfo(`id`, `pw`, `name`, `email`,`regDate`) VALUES(?, ?, ?, ?, ?)";
+			String sql = "INSERT INTO member(`id`, `pw`, `name`, `email`,`regDate`) VALUES(?, ?, ?, ?, ?)";
 			
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, newMemberInfo.getId());
@@ -26,25 +22,22 @@ public class MemberInfoDao {
 			pstmt.setString(3, newMemberInfo.getName());
 			pstmt.setString(4, newMemberInfo.getEmail());
 			pstmt.setString(5, newMemberInfo.getRegDate().toString());
-			
-			// 4. stmt 를 통해서 쿼리 실행 및 결과 전달
+
 			int count = pstmt.executeUpdate();
 			
 			if (count == 1) return 200;
-			else return 400;
+			else 			return 400;
 		} catch (SQLException e) {
-			e.printStackTrace();
-			
+			e.printStackTrace();					
 			return 409;
 		} finally {
-			db.closePstmt(pstmt);
-			db.closeConnection(conn);
+			Database.closePstmt(pstmt);
+			Database.closeConnection(conn);
 		}
 	}
 	
 	public MemberInfo selectMemberById(String id) {
-		Database db = new Database();		
-		Connection conn = db.getConnection();
+		Connection conn = Database.getConnection();
 		PreparedStatement pstmt = null;
 		MemberInfo memberInfo = null;
 		ResultSet rs = null;
@@ -52,8 +45,7 @@ public class MemberInfoDao {
 		try {
 			String sql = "SELECT * FROM member WHERE id=?";			
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, id);
-			
+			pstmt.setString(1, id);			
 			rs = pstmt.executeQuery();
 			
 			if (rs.next()) {
@@ -71,21 +63,18 @@ public class MemberInfoDao {
 				LocalDateTime regDate = LocalDateTime.parse(t_regDate);
 				
 				memberInfo = new MemberInfo(id, pw, name, email, regDate);
-			}
-			
+			}			
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
-			db.closePstmt(pstmt);
-			db.closeConnection(conn);
+			Database.closePstmt(pstmt);
+			Database.closeConnection(conn);
 		}
 		return memberInfo;
 	}
 	
-	public MemberInfo selectMemberByEmail(String email) {
-		Database db = new Database();		
-		Connection conn = db.getConnection();
+	public MemberInfo selectMemberByEmail(String email) {	
+		Connection conn = Database.getConnection();
 		PreparedStatement pstmt = null;
 		MemberInfo memberInfo = null;
 		ResultSet rs = null;
@@ -93,8 +82,7 @@ public class MemberInfoDao {
 		try {
 			String sql = "SELECT * FROM memberInfo WHERE email=?";			
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, email);
-			
+			pstmt.setString(1, email);			
 			rs = pstmt.executeQuery();
 			
 			if (rs.next()) {
@@ -110,15 +98,14 @@ public class MemberInfoDao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			db.closePstmt(pstmt);
-			db.closeConnection(conn);
+			Database.closePstmt(pstmt);
+			Database.closeConnection(conn);
 		}
 		return memberInfo;
 	}
 	
-	public int updateByIdx(MemberInfo memberInfo) {
-		Database db = new Database();		
-		Connection conn = db.getConnection();
+	public int updateByIdx(MemberInfo memberInfo) {	
+		Connection conn = Database.getConnection();
 		PreparedStatement pstmt = null;
 		
 		try {
@@ -130,28 +117,25 @@ public class MemberInfoDao {
 			pstmt.setString(3, memberInfo.getNickname());
 			pstmt.setString(4, memberInfo.getImgPath());
 			pstmt.setInt(5, memberInfo.getIdx());
-			
-			// 4. stmt 를 통해서 쿼리 실행 및 결과 전달
+
 			int count = pstmt.executeUpdate();
 			if (count == 1) return 200;
 
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			db.closePstmt(pstmt);
-			db.closeConnection(conn);
+			Database.closePstmt(pstmt);
+			Database.closeConnection(conn);
 		}	
 		return 400;
 	}
 	
-	public void updatePasswordByIdx(int idx, String newPw) {
-		Database db = new Database();		
-		Connection conn = db.getConnection();
+	public void updatePasswordByIdx(int idx, String newPw) {	
+		Connection conn = Database.getConnection();
 		PreparedStatement pstmt = null;
 		
 		try {
-			String sql = "UPDATE memberInfo SET pw=? WHERE idx=?";
-			
+			String sql = "UPDATE member SET pw=? WHERE idx=?";			
 			pstmt = conn.prepareStatement(sql);			
 			pstmt.setString(1, newPw);
 			pstmt.setInt(2, idx);
@@ -160,28 +144,26 @@ public class MemberInfoDao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			db.closePstmt(pstmt);
-			db.closeConnection(conn);
+			Database.closePstmt(pstmt);
+			Database.closeConnection(conn);
 		}		
 	}
 	
-	public void deleteMemberInfo(int idx) {
-		Database db = new Database();		
-		Connection conn = db.getConnection();
+	public void deleteMemberInfo(int idx) {		
+		Connection conn = Database.getConnection();
 		PreparedStatement pstmt = null;
 		
 		try {
-			String sql = "DELETE FROM memberInfo WHERE idx=?";
+			String sql = "DELETE FROM member WHERE idx=?";
 			
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, idx);
 			pstmt.executeUpdate();
-
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			db.closePstmt(pstmt);
-			db.closeConnection(conn);
+			Database.closePstmt(pstmt);
+			Database.closeConnection(conn);
 		}
 	}
 }
