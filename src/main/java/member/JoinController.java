@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import dao.MemberInfoDao;
-import vo.MemberInfo;
+import vo.Member;
 
 /**
  * Servlet implementation class JoinController
@@ -28,7 +28,7 @@ public class JoinController extends HttpServlet {
 		String email = request.getParameter("email");
 		LocalDateTime regDate = LocalDateTime.now();
 		
-		MemberInfo newMember = new MemberInfo(id,pw,name,email,regDate);
+		Member newMember = new Member(id,pw,name,email,regDate);
 		
 		MemberInfoDao dao = new MemberInfoDao();
 		MemberService service = new MemberService();

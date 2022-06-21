@@ -13,8 +13,8 @@ import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
 import dao.GymInfoDao;
 import exception.BadParameterException;
-import vo.GymInfo;
-import vo.SectorInfo;
+import vo.Gyms;
+import vo.Sectors;
 
 /**
  * Servlet implementation class GymUpdateController
@@ -29,7 +29,7 @@ public class SectorUpdateController extends HttpServlet {
 		int gymId = Integer.parseInt(request.getParameter("gymId"));
 		String sectorName = request.getParameter("sectorName");
 		
-		SectorInfo sector = new SectorInfo(sectorId, gymId, sectorName);
+		Sectors sector = new Sectors(sectorId, gymId, sectorName);
 		
 		GymInfoDao dao = new GymInfoDao();
 		int status = dao.updateSectorById(sector);

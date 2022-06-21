@@ -13,7 +13,7 @@ import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
 import dao.GymInfoDao;
 import exception.BadParameterException;
-import vo.GymInfo;
+import vo.Gyms;
 
 /**
  * Servlet implementation class GymUpdateController
@@ -35,7 +35,7 @@ public class GymUpdateController extends HttpServlet {
 		if (img == null) img = mr.getParameter("img");
 		String manager = mr.getParameter("manager");
 		
-		GymInfo gymInfo = new GymInfo(idx, name, addr, tel, img, manager);
+		Gyms gymInfo = new Gyms(idx, name, addr, tel, img, manager);
 		GymInfoDao dao = new GymInfoDao();
 		int status = dao.updateGymByIdx(gymInfo);
 		

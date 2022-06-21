@@ -13,7 +13,7 @@ import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
 import dao.GymInfoDao;
-import vo.GymInfo;
+import vo.Gyms;
 
 /**
  * Servlet implementation class GymAddController
@@ -34,7 +34,7 @@ public class GymAddController extends HttpServlet {
 		String manager = mr.getParameter("manager");
 		LocalDateTime regDate = LocalDateTime.now();
 		
-		GymInfo newGym = new GymInfo(name,addr,tel,img,manager,regDate);
+		Gyms newGym = new Gyms(name,addr,tel,img,manager,regDate);
 		
 		GymInfoDao dao = new GymInfoDao();
 		int status = dao.insertGymInfo(newGym);

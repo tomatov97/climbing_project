@@ -5,12 +5,12 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 import etc.Database;
-import vo.GymInfo;
-import vo.SectorInfo;
-import vo.SettingInfo;
+import vo.Gyms;
+import vo.Sectors;
+import vo.Settings;
 
 public class GymInfoDao {
-	public int insertGymInfo(GymInfo newGymInfo) {
+	public int insertGymInfo(Gyms newGymInfo) {
 		Connection conn = Database.getConnection();
 		PreparedStatement pstmt = null;
 		
@@ -37,7 +37,7 @@ public class GymInfoDao {
 		}
 	}
 
-	public int updateGymByIdx(GymInfo gymInfo) {
+	public int updateGymByIdx(Gyms gymInfo) {
 		Connection conn = Database.getConnection();
 		PreparedStatement pstmt = null;
 		
@@ -64,7 +64,7 @@ public class GymInfoDao {
 		return 400;
 	}
 	
-	public int insertSectorInfo(SectorInfo newSectorInfo) {
+	public int insertSectorInfo(Sectors newSectorInfo) {
 		Connection conn = Database.getConnection();
 		PreparedStatement pstmt = null;
 		
@@ -88,7 +88,7 @@ public class GymInfoDao {
 		}
 	}
 
-	public int updateSectorById(SectorInfo sector) {
+	public int updateSectorById(Sectors sector) {
 		Connection conn = Database.getConnection();
 		PreparedStatement pstmt = null;
 		
@@ -113,7 +113,7 @@ public class GymInfoDao {
 		}
 	}
 	
-	public int insertSettingInfo(SettingInfo newSettingInfo) {
+	public int insertSettingInfo(Settings newSettingInfo) {
 		Connection conn = Database.getConnection();
 		PreparedStatement pstmt = null;
 		
@@ -138,7 +138,7 @@ public class GymInfoDao {
 		}
 	}
 	
-	public int updateSettingById(SettingInfo setting) {
+	public int updateSettingById(Settings setting) {
 		Connection conn = Database.getConnection();
 		PreparedStatement pstmt = null;
 		

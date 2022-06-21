@@ -2,7 +2,7 @@ package vo;
 
 import java.time.LocalDateTime;
 
-public class GymInfo {
+public class Gyms {
 	private int gymId;
 	private String gymName;
 	private String gymAddr;
@@ -12,7 +12,7 @@ public class GymInfo {
 	private LocalDateTime regDate;
 	
 	// 모두 포함
-	public GymInfo(int gymId, String gymName, String gymAddr, String gymTel, String gymImgPath, String managerId, LocalDateTime regDate) {
+	public Gyms(int gymId, String gymName, String gymAddr, String gymTel, String gymImgPath, String managerId, LocalDateTime regDate) {
 		super();
 		this.gymId = gymId;
 		this.gymName = gymName;
@@ -24,7 +24,7 @@ public class GymInfo {
 	}
 	
 	// 관리자 아이디 제외
-	public GymInfo(int gymId, String gymName, String gymAddr, String gymTel, String gymImgPath, String managerId) {
+	public Gyms(int gymId, String gymName, String gymAddr, String gymTel, String gymImgPath, String managerId) {
 		super();
 		this.gymId = gymId;
 		this.gymName = gymName;
@@ -35,7 +35,7 @@ public class GymInfo {
 	}	
 	
 	// gymId 제외 (정보 등록용)
-	public GymInfo(String gymName, String gymAddr, String gymTel, String gymImgPath, String managerId,
+	public Gyms(String gymName, String gymAddr, String gymTel, String gymImgPath, String managerId,
 			LocalDateTime regDate) {
 		super();
 		this.gymName = gymName;
@@ -46,7 +46,7 @@ public class GymInfo {
 		this.regDate = regDate;
 	}
 	
-	public GymInfo() {}
+	public Gyms() {}
 
 	public int getGymId() {
 		return gymId;

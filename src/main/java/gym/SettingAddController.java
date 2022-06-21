@@ -10,8 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import dao.GymInfoDao;
-import vo.SectorInfo;
-import vo.SettingInfo;
+import vo.Sectors;
+import vo.Settings;
 
 @WebServlet("/setting/add")
 public class SettingAddController extends HttpServlet {
@@ -23,7 +23,7 @@ public class SettingAddController extends HttpServlet {
 		LocalDate setDate = LocalDate.parse(request.getParameter("setDate"));
 		LocalDate removeDate = LocalDate.parse(request.getParameter("removeDate"));
 		
-		SettingInfo newSetting = new SettingInfo(sectorId, setDate, removeDate);
+		Settings newSetting = new Settings(sectorId, setDate, removeDate);
 		
 		GymInfoDao dao = new GymInfoDao();
 		int status = dao.insertSettingInfo(newSetting);

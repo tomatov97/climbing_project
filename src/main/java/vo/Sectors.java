@@ -1,24 +1,24 @@
 package vo;
 
-public class SectorInfo extends GymInfo{
+public class Sectors extends Gyms{
 	private int gymId;
 	private int sectorId;
 	private String sectorName;	
 	
-	public SectorInfo(int gymId, String sectorName) {
+	public Sectors(int gymId, String sectorName) {
 		super();
 		this.gymId = gymId;
 		this.sectorName = sectorName;
 	}
 
-	public SectorInfo(int gymId, int sectorId, String sectorName) {
+	public Sectors(int gymId, int sectorId, String sectorName) {
 		super();
 		this.gymId = gymId;
 		this.sectorId = sectorId;
 		this.sectorName = sectorName;
 	}
 	
-	public SectorInfo() {}
+	public Sectors() {}
 	
 	public int getGymId() {
 		return gymId;

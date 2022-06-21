@@ -2,7 +2,7 @@ package vo;
 
 import java.time.LocalDate;
 
-public class RouteFilter extends RouteInfo {
+public class RouteFilter extends Routes {
 	private int pageNumber;
 	private LocalDate fromDate;
 	private LocalDate toDate;

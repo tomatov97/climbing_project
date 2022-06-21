@@ -2,7 +2,7 @@ package vo;
 
 import java.time.LocalDateTime;
 
-public class MemberInfo {
+public class Member {
 	private int idx;
 	private String id;
 	private String pw;
@@ -13,7 +13,7 @@ public class MemberInfo {
 	private LocalDateTime regDate;
 	
 	// 날짜 제외
-	public MemberInfo(int idx, String id, String pw, String name, String email, String nickname, String imgPath) {
+	public Member(int idx, String id, String pw, String name, String email, String nickname, String imgPath) {
 		super();
 		this.idx = idx;		
 		this.id = id;
@@ -25,7 +25,7 @@ public class MemberInfo {
 	}		
 	
 	// 날짜, 비밀번호 제외 (정보 업데이트용)
-	public MemberInfo(int idx, String id, String name, String email, String nickname, String imgPath) {
+	public Member(int idx, String id, String name, String email, String nickname, String imgPath) {
 		super();
 		this.idx = idx;
 		this.id = id;
@@ -36,7 +36,7 @@ public class MemberInfo {
 	}
 
 	// 닉네임, 이미지 제외 (회원 가입용)
-	public MemberInfo(String id, String pw, String name, String email, LocalDateTime regDate) {
+	public Member(String id, String pw, String name, String email, LocalDateTime regDate) {
 		super();
 		this.id = id;
 		this.nickname = id;
@@ -48,7 +48,7 @@ public class MemberInfo {
 	}
 
 
-	public MemberInfo() {
+	public Member() {
 		// TODO Auto-generated constructor stub
 	}
 	

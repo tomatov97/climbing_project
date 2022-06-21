@@ -1,24 +1,24 @@
 package member;
 
 import dao.MemberInfoDao;
-import vo.MemberInfo;
+import vo.Member;
 
 public class MemberService {
 	private boolean isAlreadyId(String id) {
 		MemberInfoDao dao = new MemberInfoDao();
-		MemberInfo memberInfo = dao.selectMemberById(id);
+		Member memberInfo = dao.selectMemberById(id);
 		if (memberInfo == null) return false;
 		else return true;		
 	}
 	
 	private boolean isAlreadyEmail(String email) {
 		MemberInfoDao dao = new MemberInfoDao();
-		MemberInfo memberInfo = dao.selectMemberByEmail(email);
+		Member memberInfo = dao.selectMemberByEmail(email);
 		if (memberInfo == null) return false;
 		else return true;		
 	}
 	
-	public boolean isAlreadyIdOrEmail(MemberInfo memberInfo) {
+	public boolean isAlreadyIdOrEmail(Member memberInfo) {
 		String id = memberInfo.getId();
 		String email = memberInfo.getEmail();
 		
@@ -27,9 +27,9 @@ public class MemberService {
 		else 							return false;
 	}
 
-	public MemberInfo selectLoginInfo(MemberInfo loginInfo) {
+	public Member selectLoginInfo(Member loginInfo) {
 		MemberInfoDao dao = new MemberInfoDao();
-		MemberInfo memberInfo = dao.selectMemberById(loginInfo.getId());
+		Member memberInfo = dao.selectMemberById(loginInfo.getId());
 		
 		if (memberInfo == null) {
 			return null;

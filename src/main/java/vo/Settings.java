@@ -2,7 +2,7 @@ package vo;
 
 import java.time.LocalDate;
 
-public class SettingInfo extends SectorInfo{
+public class Settings extends Sectors{
 	private int settingId;
 	private int sectorId;
 	private LocalDate setDate;
@@ -15,13 +15,13 @@ public class SettingInfo extends SectorInfo{
 	public void setDateString(String dateString) {
 		this.dateString = dateString;
 	}
-	public SettingInfo(int sectorId, LocalDate setDate, LocalDate removeDate) {
+	public Settings(int sectorId, LocalDate setDate, LocalDate removeDate) {
 		super();
 		this.sectorId = sectorId;
 		this.setDate = setDate;
 		this.removeDate = removeDate;
 	}
-	public SettingInfo(int settingId, int sectorId, LocalDate setDate, LocalDate removeDate) {
+	public Settings(int settingId, int sectorId, LocalDate setDate, LocalDate removeDate) {
 		super();
 		this.settingId = settingId;
 		this.sectorId = sectorId;
@@ -29,7 +29,7 @@ public class SettingInfo extends SectorInfo{
 		this.removeDate = removeDate;
 	}
 	
-	public SettingInfo() {}
+	public Settings() {}
 	
 	public int getSettingId() {
 		return settingId;

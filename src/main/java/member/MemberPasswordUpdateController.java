@@ -12,7 +12,7 @@ import javax.servlet.http.HttpSession;
 import dao.MemberInfoDao;
 import exception.BadParameterException;
 import util.MemberValidator;
-import vo.MemberInfo;
+import vo.Member;
 
 /**
  * Servlet implementation class MemberPasswordUpdateController
@@ -33,7 +33,7 @@ public class MemberPasswordUpdateController extends HttpServlet {
 			else if (!validator.pwValidator(newPwChk)) 	 	throw new BadParameterException();
 			
 			HttpSession session = request.getSession();	
-			MemberInfo loginUserInfo = (MemberInfo) session.getAttribute("loginUserInfo");
+			Member loginUserInfo = (Member) session.getAttribute("loginUserInfo");
 			if (loginUserInfo.getPw().equals(oldPw)) {
 				if (newPw.equals(newPwChk)) {
 					MemberInfoDao dao = new MemberInfoDao();

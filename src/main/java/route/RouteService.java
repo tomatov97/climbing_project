@@ -1,17 +1,18 @@
 package route;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
 import dao.RouteInfoDao;
 import vo.RouteFilter;
-import vo.RouteInfo;
+import vo.Routes;
 
 public class RouteService {
 	public boolean isAlreadyId(int id) {
 		RouteInfoDao dao = new RouteInfoDao();
-		RouteInfo route = dao.selectRouteById(id);
+		Routes route = dao.selectRouteById(id);
 		if(route == null) 	return false;
 		else 				return true;
 	}
@@ -41,7 +42,7 @@ public class RouteService {
 		return name;
 	}
 	
-	public String createWHERE(RouteFilter filter) {		
+	public static String createWHERE(RouteFilter filter) {		
 		int gymId = filter.getGymId();
 		int sector = filter.getSectorId();
 		String hold = filter.getHoldColor();
@@ -72,10 +73,44 @@ public class RouteService {
 		return where;
 	}
 	
-	public int getAmountOfRoute(RouteFilter filter) {
+	public String loadRouteListToJson (RouteFilter filter) {
 		RouteInfoDao dao = new RouteInfoDao();
-		String where = createWHERE(filter);
-		int amount = dao.getAmountOfRoute(where);
-		return amount;
+		List<Routes> routeList = dao.selectRouteListInfo(filter);
+		List<String> tempList = new ArrayList<String>();
+		int amount = dao.getAmountOfRoute(filter);
+		
+		for(Routes route : routeList) {
+			String routeJson = "{\"routeId\":\"(1)\", \"routeName\":\"(2)\", \"holdColor\":\"(3)\", \"levelColor\":\"(4)\", \"img\":\"(5)\", \"sectorName\":\"(6)\", \"settingDate\":\"(7)\"}";
+			routeJson = routeJson.replace("(1)",route.getRouteId()+"");
+			routeJson = routeJson.replace("(2)",route.getRouteName());
+			routeJson = routeJson.replace("(3)",route.getHoldColor());
+			routeJson = routeJson.replace("(4)",route.getLevelColor());
+			if(route.getImg()==null) routeJson = routeJson.replace("(5)","");
+			else routeJson = routeJson.replace("(5)",route.getImg());
+			routeJson = routeJson.replace("(6)",route.getSectorName());
+			routeJson = routeJson.replace("(7)",route.getDateString());
+			tempList.add(routeJson);			
+		}		
+		String jsonData = "{\"routeList\":" + tempList + ", \"amount\":" + amount + "}";
+		return jsonData;
+	}
+
+	public String loadRouteByIdToJson(int id) {
+		RouteInfoDao dao = new RouteInfoDao();
+		Routes route = dao.selectRouteById(id);
+		String jsonData = null;
+		
+		if(route != null) {
+			jsonData = "{\"routeId\":\"(1)\", \"routeName\":\"(2)\", \"levelScore-avg\":\"(3)\", \"funScore\":\"(4)\", \"img\":\"(5)\", \"sectorName\":\"(6)\", \"settingDate\":\"(7)\", \"comment\":\"(8)\"}";
+			jsonData = jsonData.replace("(1)",route.getRouteId()+"");
+			jsonData = jsonData.replace("(2)",route.getRouteName());
+			jsonData = jsonData.replace("(3)",route.getLevelScoreAvg()+"");
+			jsonData = jsonData.replace("(4)",route.getFunScoreAvg()+"");
+			if(route.getImg()==null) jsonData = jsonData.replace("(5)","");
+			else jsonData = jsonData.replace("(5)",route.getImg());
+			jsonData = jsonData.replace("(6)",route.getSectorName());
+			jsonData = jsonData.replace("(7)",route.getDateString());
+		}
+		return jsonData;
 	}
 }

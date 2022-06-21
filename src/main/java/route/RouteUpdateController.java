@@ -13,8 +13,8 @@ import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 import dao.MemberInfoDao;
 import dao.RouteInfoDao;
 import exception.BadParameterException;
-import vo.MemberInfo;
-import vo.RouteInfo;
+import vo.Member;
+import vo.Routes;
 
 
 @WebServlet("/route/update")
@@ -37,7 +37,7 @@ public class RouteUpdateController extends HttpServlet {
 			img = mr.getParameter("img");
 		}
 		
-		RouteInfo routeInfo = new RouteInfo(id, settingId, name, hold, level, comment, img);
+		Routes routeInfo = new Routes(id, settingId, name, hold, level, comment, img);
 		RouteInfoDao dao = new RouteInfoDao();
 		int status = dao.updateById(routeInfo);
 		

@@ -9,10 +9,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import etc.Database;
-import vo.RouteInfo;
+import route.RouteService;
+import vo.RouteFilter;
+import vo.Routes;
 
 public class RouteInfoDao {
-	public int insertRouteInfo(RouteInfo newRouteInfo) {
+	public int insertRouteInfo(Routes newRouteInfo) {
 		Connection conn = Database.getConnection();
 		PreparedStatement pstmt = null;		
 		try {
@@ -39,10 +41,10 @@ public class RouteInfoDao {
 			Database.closeConnection(conn);
 		}
 	}
-	public RouteInfo selectRouteById(int id) {	
+	public Routes selectRouteById(int id) {	
 		Connection conn = Database.getConnection();
 		PreparedStatement pstmt = null;
-		RouteInfo RouteInfo = null;
+		Routes RouteInfo = null;
 		ResultSet rs = null;
 		
 		try {
@@ -68,9 +70,8 @@ public class RouteInfoDao {
 				int levelScoreAvg = rs.getInt("levelScore-avg");
 				int funScoreAvg = rs.getInt("funScore-avg");
 				
-				RouteInfo = new RouteInfo(id, routeName, holdColor, levelColor, comment, img, sectorName, dateString, levelScoreAvg, funScoreAvg);
-			}
-			
+				RouteInfo = new Routes(id, routeName, holdColor, levelColor, comment, img, sectorName, dateString, levelScoreAvg, funScoreAvg);
+			}			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -80,10 +81,10 @@ public class RouteInfoDao {
 		return RouteInfo;
 	}
 	
-	public RouteInfo selectRouteBySettingAndName(int id, String name) {	
+	public Routes selectRouteBySettingAndName(int id, String name) {	
 		Connection conn = Database.getConnection();
 		PreparedStatement pstmt = null;
-		RouteInfo RouteInfo = null;
+		Routes RouteInfo = null;
 		ResultSet rs = null;
 		
 		try {
@@ -100,7 +101,7 @@ public class RouteInfoDao {
 				String comment = rs.getString("comment");
 				String img = rs.getString("img");
 				
-				RouteInfo = new RouteInfo(routeId, id, name, holdColor, levelColor, comment, img);
+				RouteInfo = new Routes(routeId, id, name, holdColor, levelColor, comment, img);
 			}
 			
 		} catch (SQLException e) {
@@ -139,7 +140,7 @@ public class RouteInfoDao {
 		return amount;		
 	}
 
-	public int updateById(RouteInfo routeInfo) {
+	public int updateById(Routes routeInfo) {
 		Connection conn = Database.getConnection();
 		PreparedStatement pstmt = null;		
 		try {
@@ -167,16 +168,16 @@ public class RouteInfoDao {
 		}
 	}
 	
-	public int getAmountOfRoute(String filter) {
+	public int getAmountOfRoute(RouteFilter filter) {
 		Connection conn = Database.getConnection();
 		PreparedStatement pstmt = null;		
 		ResultSet rs = null;		
 		int amount = 0;		
 		try {
-			String sql = "SELECT COUNT(*) AS amount FROM routes R"
+			String sql = "SELECT COUNT(*) AS `amount` FROM routes R"
 					+ "JOIN settings S ON S.settingId=R.settingId"
 					+ "JOIN sectors SC ON SC.sectorId=S.sectorId"
-					+ "JOIN gyms G ON G.id=SC.gymId " + filter;
+					+ "JOIN gyms G ON G.id=SC.gymId " + RouteService.createWHERE(filter);
 			
 			pstmt = conn.prepareStatement(sql);
 			rs = pstmt.executeQuery();			
@@ -241,15 +242,17 @@ public class RouteInfoDao {
 		return settingIds;
 	}
 	
-	public List<RouteInfo> selectRouteListInfo(int pageNumber, String filter) {
+	public List<Routes> selectRouteListInfo(RouteFilter filter) {
 		Connection conn = Database.getConnection();
-		PreparedStatement pstmt = null; ResultSet rs = null; List<RouteInfo> routeInfoList = null;	
+		PreparedStatement pstmt = null; ResultSet rs = null; List<Routes> routeInfoList = null;	
+		String where = RouteService.createWHERE(filter);
+		int pageNumber=filter.getPageNumber();
 		try {
 			String sql = "SELECT R.routeId, R.name AS `routeName`, R.holdColor, R.levelColor, R.img, SC.name AS `sectorName`, CONCAT_WS(~,S.setDate,S.removeDate) AS `date`"
 					+ "FROM routes R"
 					+ "JOIN settings S ON S.settingId=R.settingId"
 					+ "JOIN sectors SC ON SC.sectorId=S.sectorId"
-					+ "JOIN gyms G ON G.id=SC.gymId " + filter + " LIMIT ?, ? ";
+					+ "JOIN gyms G ON G.id=SC.gymId " + where + " LIMIT ?, ? ";
 			int amountPerPage = 15;
 			int startIndex = (pageNumber-1)*amountPerPage;
 			
@@ -267,7 +270,7 @@ public class RouteInfoDao {
 				String sectorName = rs.getString("sectorName");
 				String dateString = rs.getString("date");
 				
-				RouteInfo nthRouteInfo = new RouteInfo(routeId, routeName, holdColor, levelColor, img, sectorName, dateString);			
+				Routes nthRouteInfo = new Routes(routeId, routeName, holdColor, levelColor, img, sectorName, dateString);			
 				routeInfoList.add(nthRouteInfo);
 			}
 		} catch (SQLException e) {

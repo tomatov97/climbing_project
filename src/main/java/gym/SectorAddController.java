@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import dao.GymInfoDao;
-import vo.SectorInfo;
+import vo.Sectors;
 
 @WebServlet("/sector/add")
 public class SectorAddController extends HttpServlet {
@@ -20,7 +20,7 @@ public class SectorAddController extends HttpServlet {
 		int gymId = Integer.parseInt(request.getParameter("gymId"));
 		String sectorName = request.getParameter("sectorName");
 		
-		SectorInfo sector = new SectorInfo(gymId, sectorName);
+		Sectors sector = new Sectors(gymId, sectorName);
 		
 		GymInfoDao dao = new GymInfoDao();
 		int status = dao.insertSectorInfo(sector);

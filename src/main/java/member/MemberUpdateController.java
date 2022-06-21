@@ -13,7 +13,7 @@ import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
 import dao.MemberInfoDao;
 import exception.BadParameterException;
-import vo.MemberInfo;
+import vo.Member;
 
 /**
  * Servlet implementation class UpdateMemberInfo
@@ -38,7 +38,7 @@ public class MemberUpdateController extends HttpServlet {
 			img = mr.getParameter("img");
 		}
 		
-		MemberInfo memberInfo = new MemberInfo(idx, id, name, email, nickname, img);
+		Member memberInfo = new Member(idx, id, name, email, nickname, img);
 		MemberInfoDao dao = new MemberInfoDao();
 		int status = dao.updateByIdx(memberInfo);
 		

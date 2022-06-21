@@ -7,10 +7,10 @@ import java.sql.SQLException;
 import java.time.LocalDateTime;
 
 import etc.Database;
-import vo.MemberInfo;
+import vo.Member;
 
 public class MemberInfoDao {
-	public int insertMemberInfo(MemberInfo newMemberInfo) {
+	public int insertMemberInfo(Member newMemberInfo) {
 		Connection conn = Database.getConnection();
 		PreparedStatement pstmt = null;		
 		try {
@@ -36,10 +36,10 @@ public class MemberInfoDao {
 		}
 	}
 	
-	public MemberInfo selectMemberById(String id) {
+	public Member selectMemberById(String id) {
 		Connection conn = Database.getConnection();
 		PreparedStatement pstmt = null;
-		MemberInfo memberInfo = null;
+		Member memberInfo = null;
 		ResultSet rs = null;
 		
 		try {
@@ -62,7 +62,7 @@ public class MemberInfoDao {
 				System.out.println("regDate => " + t_regDate);
 				LocalDateTime regDate = LocalDateTime.parse(t_regDate);
 				
-				memberInfo = new MemberInfo(id, pw, name, email, regDate);
+				memberInfo = new Member(id, pw, name, email, regDate);
 			}			
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -73,10 +73,10 @@ public class MemberInfoDao {
 		return memberInfo;
 	}
 	
-	public MemberInfo selectMemberByEmail(String email) {	
+	public Member selectMemberByEmail(String email) {	
 		Connection conn = Database.getConnection();
 		PreparedStatement pstmt = null;
-		MemberInfo memberInfo = null;
+		Member memberInfo = null;
 		ResultSet rs = null;
 		
 		try {
@@ -92,7 +92,7 @@ public class MemberInfoDao {
 				String t_regDate = rs.getString("regDate");
 				LocalDateTime regDate = LocalDateTime.parse(t_regDate);
 				
-				memberInfo = new MemberInfo(id, pw, name, email, regDate);
+				memberInfo = new Member(id, pw, name, email, regDate);
 			}
 			
 		} catch (SQLException e) {
@@ -104,7 +104,7 @@ public class MemberInfoDao {
 		return memberInfo;
 	}
 	
-	public int updateByIdx(MemberInfo memberInfo) {	
+	public int updateByIdx(Member memberInfo) {	
 		Connection conn = Database.getConnection();
 		PreparedStatement pstmt = null;
 		

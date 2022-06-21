@@ -12,7 +12,7 @@ import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
 import dao.RouteInfoDao;
-import vo.RouteInfo;
+import vo.Routes;
 
 /**
  * Servlet implementation class RouteAddController
@@ -34,7 +34,7 @@ public class RouteAddController extends HttpServlet {
 		String comment = mr.getParameter("comment");
 		String img = mr.getFilesystemName("img");
 		
-		RouteInfo newRoute = new RouteInfo(routeId, settingId, name, hold, level, comment, img);
+		Routes newRoute = new Routes(routeId, settingId, name, hold, level, comment, img);
 		
 		RouteInfoDao dao = new RouteInfoDao();
 		int status = dao.insertRouteInfo(newRoute);

@@ -11,7 +11,7 @@ import javax.servlet.http.HttpSession;
 
 import exception.BadParameterException;
 import util.MemberValidator;
-import vo.MemberInfo;
+import vo.Member;
 
 /**
  * Servlet implementation class LoginController
@@ -32,7 +32,7 @@ public class LoginController extends HttpServlet {
 			if 		(!validator.idValidator(id)) throw new BadParameterException();
 			else if (!validator.pwValidator(pw)) throw new BadParameterException();
 
-			MemberInfo loginInfo = new MemberInfo();
+			Member loginInfo = new Member();
 			loginInfo.setId(id);
 			loginInfo.setPw(pw);
 
