@@ -244,7 +244,9 @@ public class RouteInfoDao {
 	
 	public List<Routes> selectRouteListInfo(RouteFilter filter) {
 		Connection conn = Database.getConnection();
-		PreparedStatement pstmt = null; ResultSet rs = null; List<Routes> routeInfoList = null;	
+		PreparedStatement pstmt = null; 
+		ResultSet rs = null; 
+		List<Routes> routeInfoList = null;	
 		String where = RouteService.createWHERE(filter);
 		int pageNumber=filter.getPageNumber();
 		try {

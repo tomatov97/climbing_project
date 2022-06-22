@@ -151,10 +151,9 @@ public class MemberInfoDao {
 	
 	public void deleteMemberInfo(int idx) {		
 		Connection conn = Database.getConnection();
-		PreparedStatement pstmt = null;
-		
+		PreparedStatement pstmt = null;		
 		try {
-			String sql = "DELETE FROM member WHERE idx=?";
+			String sql = "DELETE * FROM member WHERE idx=?";
 			
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, idx);

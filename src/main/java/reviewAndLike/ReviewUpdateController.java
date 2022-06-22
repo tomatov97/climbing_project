@@ -13,8 +13,8 @@ import javax.servlet.http.HttpServletResponse;
 import dao.ReviewDao;
 import vo.Review;
 
-@WebServlet("/review/add")
-public class ReviewAddController extends HttpServlet {	
+@WebServlet("/review/update")
+public class ReviewUpdateController extends HttpServlet {	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		
@@ -26,11 +26,10 @@ public class ReviewAddController extends HttpServlet {
 		LocalDate solvedDate = null;
 		if (solved == true) solvedDate = LocalDate.parse(request.getParameter("solvedDate"));
 		String comment = request.getParameter("comment");
-		LocalDateTime reviewDate = LocalDateTime.now();
 		
-		Review newReview = new Review(routeId, memberIdx, levelScore, funScore, solved, solvedDate, comment, reviewDate);
+		Review review = new Review(routeId, memberIdx, levelScore, funScore, solved, solvedDate, comment);
 		ReviewDao dao = new ReviewDao();
-		int status = dao.insertReview(newReview);
+		int status = dao.updateReview(review);
 		response.setStatus(status);
 	}
 

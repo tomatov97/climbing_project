@@ -13,6 +13,21 @@ public class Review {
 	private String comment;
 	private LocalDateTime reviewDate;
 	
+	public Review(int levelScore, int funScore, boolean solved, String comment, LocalDateTime reviewDate) {
+		super();
+		this.levelScore = levelScore;
+		this.funScore = funScore;
+		this.solved = solved;
+		this.comment = comment;
+		this.reviewDate = reviewDate;
+	}
+
+	public Review(int routeId, int memberIdx) {
+		super();
+		this.routeId = routeId;
+		this.memberIdx = memberIdx;
+	}
+
 	public Review(int routeId, int memberIdx, int levelScore, int funScore, boolean solved, LocalDate solvedDate,
 			String comment, LocalDateTime reviewDate) {
 		super();
@@ -25,6 +40,19 @@ public class Review {
 		this.comment = comment;
 		this.reviewDate = reviewDate;
 	}
+	
+	public Review(int routeId, int memberIdx, int levelScore, int funScore, boolean solved, LocalDate solvedDate,
+			String comment) {
+		super();
+		this.routeId = routeId;
+		this.memberIdx = memberIdx;
+		this.levelScore = levelScore;
+		this.funScore = funScore;
+		this.solved = solved;
+		this.solvedDate = solvedDate;
+		this.comment = comment;
+	}
+
 	public int getRouteId() {
 		return routeId;
 	}
