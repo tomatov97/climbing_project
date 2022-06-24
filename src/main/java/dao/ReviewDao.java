@@ -9,6 +9,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import etc.Database;
+import route.RouteService;
 import vo.Review;
 import vo.Routes;
 
@@ -109,16 +110,20 @@ public class ReviewDao {
 		}
 	}
 	
-	public List<Review> selectReviewByRoute(int routeId) {
+	public List<Review> selectReviewByRoute(int routeId, int pageNumber) {
 		Connection conn = Database.getConnection();
 		PreparedStatement pstmt = null;
 		List<Review> reviewList = null;
 		ResultSet rs = null;
+		int amountPerPage = 20;
+		int startIndex = (pageNumber-1)*amountPerPage;
 		
 		try {
-			String sql = "SELECT * FROM review WHERE `routeId`=?";			
+			String sql = "SELECT * FROM review WHERE `routeId`=? LIMIT ?, ?";			
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, routeId);			
+			pstmt.setInt(1, routeId);
+			pstmt.setInt(2, startIndex);
+			pstmt.setInt(3, amountPerPage);
 			rs = pstmt.executeQuery();
 			
 			while (rs.next()) {
@@ -139,5 +144,29 @@ public class ReviewDao {
 			Database.closeConnection(conn);
 		}
 		return reviewList;
+	}
+	
+	public int getAmountOfReview(int routeId) {
+		Connection conn = Database.getConnection();
+		PreparedStatement pstmt = null;		
+		ResultSet rs = null;		
+		int amount = 0;
+		try {
+			String sql = "SELECT COUNT(*) AS `amount` FROM review WHERE routeId=?";
+			
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, routeId);
+			rs = pstmt.executeQuery();			
+			rs.next();
+			amount = rs.getInt("amount");			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			Database.closeResultSet(rs);
+			Database.closePstmt(pstmt);
+			Database.closeConnection(conn);
+		}		
+		return amount;
+		
 	}
 }

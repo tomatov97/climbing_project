@@ -30,7 +30,7 @@
 </head>
 <body class="text-center">    
     <main class="form-login">
-      <form>        
+      <form action="/climbing/login">        
         <h1 class="h3 mb-3 fw-normal">
             <i class="bi bi-droplet-half"></i>
             이름

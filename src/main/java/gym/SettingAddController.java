@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import dao.GymInfoDao;
-import vo.Sectors;
 import vo.Settings;
 
 @WebServlet("/setting/add")
