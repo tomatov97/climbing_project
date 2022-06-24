@@ -80,7 +80,8 @@ public class RouteService {
 		int amount = dao.getAmountOfRoute(filter);
 		
 		for(Routes route : routeList) {
-			String routeJson = "{\"routeId\":\"(1)\", \"routeName\":\"(2)\", \"holdColor\":\"(3)\", \"levelColor\":\"(4)\", \"img\":\"(5)\", \"sectorName\":\"(6)\", \"settingDate\":\"(7)\"}";
+			String routeJson = "{\"routeId\":\"(1)\", \"routeName\":\"(2)\", \"holdColor\":\"(3)\", \"levelColor\":\"(4)\", "
+					+ "\"img\":\"(5)\", \"sectorName\":\"(6)\", \"settingDate\":\"(7)\"}";
 			routeJson = routeJson.replace("(1)",route.getRouteId()+"");
 			routeJson = routeJson.replace("(2)",route.getRouteName());
 			routeJson = routeJson.replace("(3)",route.getHoldColor());
@@ -101,7 +102,8 @@ public class RouteService {
 		String jsonData = null;
 		
 		if(route != null) {
-			jsonData = "{\"routeId\":\"(1)\", \"routeName\":\"(2)\", \"levelScore-avg\":\"(3)\", \"funScore\":\"(4)\", \"img\":\"(5)\", \"sectorName\":\"(6)\", \"settingDate\":\"(7)\", \"comment\":\"(8)\"}";
+			jsonData = "{\"routeId\":\"(1)\", \"routeName\":\"(2)\", \"levelScore-avg\":\"(3)\", \"funScore\":\"(4)\", "
+					+ "\"img\":\"(5)\", \"sectorName\":\"(6)\", \"settingDate\":\"(7)\", \"comment\":\"(8)\"}";
 			jsonData = jsonData.replace("(1)",route.getRouteId()+"");
 			jsonData = jsonData.replace("(2)",route.getRouteName());
 			jsonData = jsonData.replace("(3)",route.getLevelScoreAvg()+"");

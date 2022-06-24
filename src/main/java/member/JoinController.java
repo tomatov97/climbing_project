@@ -34,6 +34,7 @@ public class JoinController extends HttpServlet {
 		MemberService service = new MemberService();
 		if (service.isAlreadyIdOrEmail(newMember)) response.setStatus(HttpServletResponse.SC_CONFLICT);
 		else {
+			System.out.println(newMember.getNickname());
 			int status = dao.insertMemberInfo(newMember);
 			response.setStatus(status);
 		}

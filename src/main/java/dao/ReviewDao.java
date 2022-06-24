@@ -18,7 +18,8 @@ public class ReviewDao {
 		Connection conn = Database.getConnection();
 		PreparedStatement pstmt = null;		
 		try {
-			String sql = "INSERT INTO review(`routeId`, `memberIdx`, `levelScore`, `funScore`,`solved`,`solvedDate`,`comment`,`reviewDate`) VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
+			String sql = "INSERT INTO review(`routeId`, `memberIdx`, `levelScore`, `funScore`,`solved`,`solvedDate`,`comment`,`reviewDate`) "
+					+ "VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
 			
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, review.getRouteId());

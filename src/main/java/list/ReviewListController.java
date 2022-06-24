@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import dao.ReviewDao;
 import vo.Review;
 
-@WebServlet("/reviewList")
+@WebServlet("/review/list")
 public class ReviewListController extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

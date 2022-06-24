@@ -14,14 +14,16 @@ public class MemberInfoDao {
 		Connection conn = Database.getConnection();
 		PreparedStatement pstmt = null;		
 		try {
-			String sql = "INSERT INTO member(`id`, `pw`, `name`, `email`,`regDate`) VALUES(?, ?, ?, ?, ?)";
+			String sql = "INSERT INTO member(`id`, `pw`, `name`, `nickname`, `email`, `img`, `regDate`) VALUES(?, ?, ?, ?, ?, ?, ?)";
 			
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, newMemberInfo.getId());
 			pstmt.setString(2, newMemberInfo.getPw());
 			pstmt.setString(3, newMemberInfo.getName());
-			pstmt.setString(4, newMemberInfo.getEmail());
-			pstmt.setString(5, newMemberInfo.getRegDate().toString());
+			pstmt.setString(4, newMemberInfo.getNickname());
+			pstmt.setString(5, newMemberInfo.getEmail());
+			pstmt.setString(6, newMemberInfo.getImgPath());
+			pstmt.setString(7, newMemberInfo.getRegDate().toString());
 
 			int count = pstmt.executeUpdate();
 			
@@ -80,7 +82,7 @@ public class MemberInfoDao {
 		ResultSet rs = null;
 		
 		try {
-			String sql = "SELECT * FROM memberInfo WHERE email=?";			
+			String sql = "SELECT * FROM member WHERE email=?";			
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, email);			
 			rs = pstmt.executeQuery();
@@ -109,7 +111,7 @@ public class MemberInfoDao {
 		PreparedStatement pstmt = null;
 		
 		try {
-			String sql = "UPDATE memberInfo SET name=?, email=?, nickname=?, img=? WHERE idx=?";
+			String sql = "UPDATE member SET name=?, email=?, nickname=?, img=? WHERE idx=?";
 			
 			pstmt = conn.prepareStatement(sql);			
 			pstmt.setString(1, memberInfo.getName());

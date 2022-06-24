@@ -17,7 +17,7 @@ import vo.Member;
  * Servlet implementation class LoginController
  */
 @WebServlet("/login")
-public class LoginController extends HttpServlet {
+public class LoginLogoutController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		session.removeAttribute("loginUserInfo");		
