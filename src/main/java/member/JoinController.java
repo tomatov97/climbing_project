@@ -12,12 +12,11 @@ import javax.servlet.http.HttpServletResponse;
 import dao.MemberInfoDao;
 import vo.Member;
 
-/**
- * Servlet implementation class JoinController
- */
-@WebServlet("/member/join")
+@WebServlet("/join")
 public class JoinController extends HttpServlet {
-	
+
+	private static final long serialVersionUID = 1L;
+
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		
@@ -34,7 +33,6 @@ public class JoinController extends HttpServlet {
 		MemberService service = new MemberService();
 		if (service.isAlreadyIdOrEmail(newMember)) response.setStatus(HttpServletResponse.SC_CONFLICT);
 		else {
-			System.out.println(newMember.getNickname());
 			int status = dao.insertMemberInfo(newMember);
 			response.setStatus(status);
 		}

@@ -28,9 +28,11 @@ public class LoginLogoutController extends HttpServlet {
 			String id = request.getParameter("id");
 			String pw = request.getParameter("pw");
 
-			MemberValidator validator = new MemberValidator();
-			if 		(!validator.idValidator(id)) throw new BadParameterException();
-			else if (!validator.pwValidator(pw)) throw new BadParameterException();
+			/*
+			 * MemberValidator validator = new MemberValidator(); if
+			 * (!validator.idValidator(id)) throw new BadParameterException(); else if
+			 * (!validator.pwValidator(pw)) throw new BadParameterException();
+			 */
 
 			Member loginInfo = new Member();
 			loginInfo.setId(id);
