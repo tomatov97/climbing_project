@@ -3,6 +3,7 @@ body{
 	margin: auto;
 }
 h3{
+	font-family: 'SpoqaHanSansNeo-Bold';
 	margin-top: 4rem;
 }
 #filter-container {
@@ -48,12 +49,12 @@ h3{
 }
 .hold{
 	position: absolute;
-	top: 0;
+	top: 0.1rem;
 	left: -2.5rem;
 }
 .tape{
 	position: relative;
-	top: 0;
+	top: 0.1rem;
 	left:0;
 }
 .hold>img{	width: 6rem;}
@@ -70,7 +71,8 @@ h3{
 }
 .gray{	color: gray;}
 .bold{
-	font-weight: bold;
+	font-family: 'SpoqaHanSansNeo-Medium';
+	font-size: large;
 	margin-bottom: 0.2rem;
 }
 #add-button{
@@ -81,5 +83,5 @@ h3{
 	color: gray; 
 }
 #add-button:hover{
-	color: light-gray;
+	color: #cacaca;
 }

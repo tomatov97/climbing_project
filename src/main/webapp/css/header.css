@@ -1,9 +1,20 @@
 @charset "UTF-8";
-header .bi {
-	font-size: 25px;
+* { 
+ font-family: 'SpoqaHanSansNeo-Regular';
+}
+
+header{	
+	margin: 1rem 0;
+}	
+header .bi {font-size: 25px;
 }
 header span{
-	font-size: 25px;
+	font-family: 'Rock Salt', cursive;
+	font-size: 3rem;
 }
-header{
-	margin: 5rem 0}
+header ul{
+	display: flex;
+	align-items: flex-start;
+	list-style: none;
+	font-size: small;
+}	

@@ -14,7 +14,9 @@
 <body>
 	<%@ include file="../includes/header.jsp" %>
 	<main class="container-md">
-		<h3>웨이브락 부산대점</h3>
+		<h3>웨이브락 부산대점 
+		<a href="#" target=""><i class="bi bi-arrow-repeat small"></i></a>
+		</h3>
 		<section id="filter-container">
 			<div class="filter">
 				<p>섹터</p>
@@ -139,9 +141,15 @@
             </div>
 		</section>
 		<section>
-			<a href="#" id="add-button"><i class="bi bi-patch-plus-fill"></i></a>
+			<a tabindex="0" href="#" id="add-button" data-bs-toggle="tooltip" data-bs-placement="top" title="새로운 문제 추가하기"><i class="bi bi-patch-plus-fill"></i></a>
 		</section>
 
 	</main>
+	<script>
+	var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+	var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+	  return new bootstrap.Tooltip(tooltipTriggerEl)
+	})
+	</script>
 </body>
 </html>
