@@ -6,6 +6,10 @@ h3{
 	font-family: 'SpoqaHanSansNeo-Bold';
 	margin-top: 4rem;
 }
+.logoTxt{	
+	font-family: 'Rock Salt', cursive;
+	font-size: 3rem;
+}
 #filter-container {
 	margin-top: 1rem;
 	display: flex;	
