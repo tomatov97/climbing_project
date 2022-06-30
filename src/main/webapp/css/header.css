@@ -11,6 +11,7 @@ header .bi {font-size: 25px;
 header span{
 	font-family: 'Rock Salt', cursive;
 	font-size: 3rem;
+	line-height: 120%;
 }
 header ul{
 	display: flex;

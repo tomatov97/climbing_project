@@ -35,7 +35,10 @@ h3{
 	justify-content: space-around;
 	padding: 0 5%;
 }
-.card:hover{
+#list-container{
+	list-style: none;
+}
+#list-container .card:hover{
 	background-color: rgb(210, 223, 228);
 }
 .card>div{
@@ -70,6 +73,9 @@ h3{
 	object-fit: cover;
 }
 .gray{	color: gray;}
+.x-small{
+	font-size: 0.7rem;
+}
 .bold{
 	font-family: 'SpoqaHanSansNeo-Medium';
 	font-size: large;
@@ -85,3 +91,48 @@ h3{
 #add-button:hover{
 	color: #cacaca;
 }
+
+
+.bi-heart{
+	font-size: 1rem;
+	margin-top: 0.5rem;
+}
+.gradient-level {
+	/* fallback for old browsers */
+	background: #a6c0fe;
+  
+	/* Chrome 10-25, Safari 5.1-6 */
+	background: -webkit-linear-gradient(to right, rgba(166, 192, 254, 0.5), rgba(246, 128, 132, 0.5));
+  
+	/* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+	background: linear-gradient(to right, rgba(166, 192, 254, 0.5), rgba(246, 128, 132, 0.5))
+  }
+  .gradient-fun {
+	/* fallback for old browsers */
+	background: #f6d365;
+  
+	/* Chrome 10-25, Safari 5.1-6 */
+	background: -webkit-linear-gradient(to right, rgba(246, 211, 101, 0.5), rgba(253, 160, 133, 0.5));
+  
+	/* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+	background: linear-gradient(to right, rgba(246, 211, 101, 0.5), rgba(253, 160, 133, 0.5))
+  }
+  ul{
+	list-style: none;
+  }
+  li{
+	display: flex;
+  }
+  .infoCard{
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #fff;
+    background-clip: border-box;
+    border: 1px solid rgba(0,0,0,.125);
+    border-radius: 0.25rem;
+  }
+  .progress{
+	width: 50%;
+  }
