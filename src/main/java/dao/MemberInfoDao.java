@@ -38,6 +38,30 @@ public class MemberInfoDao {
 		}
 	}
 	
+	public int selectMemberIdxById(String id) {
+		Connection conn = Database.getConnection();
+		PreparedStatement pstmt = null;
+		int idx = 0;
+		ResultSet rs = null;
+		
+		try {
+			String sql = "SELECT idx FROM member WHERE id=?";			
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, id);			
+			rs = pstmt.executeQuery();
+			
+			if (rs.next()) {
+				idx = rs.getInt("idx");
+			}			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			Database.closePstmt(pstmt);
+			Database.closeConnection(conn);
+		}
+		return idx;
+	}
+	
 	public Member selectMemberById(String id) {
 		Connection conn = Database.getConnection();
 		PreparedStatement pstmt = null;

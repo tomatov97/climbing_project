@@ -10,6 +10,9 @@ h3{
 	font-family: 'Rock Salt', cursive;
 	font-size: 3rem;
 }
+.page-title{
+	margin-top: 4rem;
+}
 #filter-container {
 	margin-top: 1rem;
 	display: flex;	
@@ -35,7 +38,6 @@ h3{
 	width: 100%;
 	margin-bottom: 0.5rem;
 	display: flex;
-	flex-direction: row;
 	justify-content: space-around;
 	padding: 0 5%;
 }
@@ -109,12 +111,22 @@ h3{
 	justify-content: center;
 }
 #review-container{
+	flex-direction : column;
 	padding: 2rem;
 }
-h6{
+.side-info{
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	align-items: flex-end;
+}
+.card-title{
+	font-family: 'SpoqaHanSansNeo-Bold';
 	font-size: 1.4rem;
 }
 .small-txt{
+	font-family: 'SpoqaHanSansNeo-Regular';
+	font-size: 0.8rem;
 	color: rgb(140, 140, 140);
 }
 .detail-img{
@@ -164,7 +176,7 @@ h6{
     border-radius: 0.25rem; */
   }
   .progress{
-	width: 90%;
+	width: 100%;
 	overflow: auto;
   }
   .cardBody{

@@ -44,7 +44,7 @@ public class LoginLogoutController extends HttpServlet {
 				loginInfo = service.selectLoginInfo(loginInfo);
 				
 				HttpSession session = request.getSession();
-				session.setAttribute("loginUserInfo", loginInfo);
+				session.setAttribute("loginMemberId", id);
 				response.setStatus(HttpServletResponse.SC_OK);
 			} else	response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
 		} catch (BadParameterException e) {
