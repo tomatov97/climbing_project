@@ -256,7 +256,7 @@ public class RouteInfoDao {
 					+ "JOIN settings S ON S.settingId=R.settingId "
 					+ "JOIN sectors SC ON SC.sectorId=S.sectorId "
 					+ "JOIN gyms G ON G.gymId=SC.gymId " 
-					+ "JOIN review RV ON RV.routeId=R.routeId " + where + " LIMIT ?, ? ";
+					+ "LEFT OUTER JOIN review RV ON RV.routeId=R.routeId " + where + " LIMIT ?, ? ";
 			int amountPerPage = 15;
 			int startIndex = (pageNumber-1)*amountPerPage;
 			

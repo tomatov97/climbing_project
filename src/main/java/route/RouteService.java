@@ -145,6 +145,7 @@ public class RouteService {
 		case "하양" :return "white"; 
 		case "회색" :return "gray"; 	
 		case "검정" :return "black";
+		case "분홍" :return "pink";
 		default : return null;
 		}
 	}
