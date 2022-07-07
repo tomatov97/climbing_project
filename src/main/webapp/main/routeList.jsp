@@ -289,6 +289,9 @@
     	function goDetail(routeId){
         			location.href="/rockmate/main/routeDetail.jsp?routeId="+routeId;
         		}
+		$("select").change(function(){
+			
+		})
 	</script>
 </body>
 </html>
