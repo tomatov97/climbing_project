@@ -25,7 +25,7 @@ public class SectorAddController extends HttpServlet {
 		GymInfoDao dao = new GymInfoDao();
 		int status = dao.insertSectorInfo(sector);
 		response.setStatus(status);
-		response.sendRedirect("/climbing/main/routeList.jsp");
+		response.sendRedirect("/rockmate/main/routeList.jsp");
 	}
 
 }

@@ -32,15 +32,17 @@ public class RouteAddController extends HttpServlet {
 		String hold = mr.getParameter("holdColor");
 		String level = mr.getParameter("levelColor");
 		String name = service.createName(settingId, hold, level);
-		String comment = mr.getParameter("comment");
-		String img = mr.getFilesystemName("img");
+		String comment = mr.getParameter("comment");		
+		String img = mr.getParameter("img");
+		if (img.equals("")) img = null;
+		else img = mr.getFilesystemName("img");
 		
 		Routes newRoute = new Routes(routeId, settingId, name, hold, level, comment, img);
 		
 		RouteInfoDao dao = new RouteInfoDao();
 		int status = dao.insertRouteInfo(newRoute);
 		response.setStatus(status);	
-		response.sendRedirect("/climbing/main/routeList.jsp");
+		response.sendRedirect("/rockmate/main/routeList.jsp");
 	}
 
 }

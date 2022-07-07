@@ -17,9 +17,9 @@ public class MemberDeleteController extends HttpServlet {
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
-		Member memberInfo = (Member) session.getAttribute("loginUserInfo");
-		int idx = memberInfo.getIdx();
 		MemberInfoDao dao = new MemberInfoDao();
+		String loginMemberId = (String) session.getAttribute("loginMemberId");
+		int idx = dao.selectMemberIdxById(loginMemberId);
 		dao.deleteMemberInfo(idx);
 		session.invalidate();
 		response.setStatus(HttpServletResponse.SC_OK);

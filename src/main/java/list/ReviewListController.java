@@ -29,7 +29,7 @@ public class ReviewListController extends HttpServlet {
 		List<Review> reviewList = dao.selectReviewByRoute(routeId, pageNumber);
 		request.setAttribute("reviewList", reviewList);
 		
-		RequestDispatcher rd = request.getRequestDispatcher("/climbing/detail.jsp");
+		RequestDispatcher rd = request.getRequestDispatcher("/rockmate/detail.jsp");
 		rd.forward(request, response);
 	}
 

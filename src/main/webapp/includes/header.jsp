@@ -14,13 +14,13 @@
     <body>
       <div class="container-lg">
         <header class="d-flex flex-wrap justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
-          <a href="/climbing/main/routeList.jsp" class="d-flex align-items-center col-md-3 mb-2 mb-md-0 text-dark text-decoration-none">
+          <a href="/rockmate/main/routeList.jsp" class="d-flex align-items-center col-md-3 mb-2 mb-md-0 text-dark text-decoration-none">
             <span>Rock Mate</span>
           </a>
           <div>
             <ul>
-                <li><a href="/climbing/member/login.jsp" class="nav-link px-2 link-secondary">로그인</a></li>
-                <li><a href="/climbing/member/join.jsp" class="nav-link px-2 link-dark">회원가입</a></li>
+                <li><a href="/rockmate/member/login.jsp" class="nav-link px-2 link-secondary">로그인</a></li>
+                <li><a href="/rockmate/member/join.jsp" class="nav-link px-2 link-dark">회원가입</a></li>
               </ul>
           </div>      
         </header>

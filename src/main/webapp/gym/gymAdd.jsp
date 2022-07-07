@@ -57,6 +57,7 @@
                 </div>
     
               <button class="w-100 btn btn-primary btn-lg" type="submit">클라이밍장 정보 등록</button>
+              </div>
             </form>
           </div>
         </div>

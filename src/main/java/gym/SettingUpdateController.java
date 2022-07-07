@@ -28,7 +28,7 @@ public class SettingUpdateController extends HttpServlet {
 		GymInfoDao dao = new GymInfoDao();
 		int status = dao.updateSettingById(setting);
 		response.setStatus(status);
-		response.sendRedirect("/climbing/main/routeList.jsp");
+		response.sendRedirect("/rockmate/main/routeList.jsp");
 	}
 
 }

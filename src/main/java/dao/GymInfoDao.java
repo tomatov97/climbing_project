@@ -2,6 +2,7 @@ package dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import etc.Database;
@@ -42,7 +43,7 @@ public class GymInfoDao {
 		PreparedStatement pstmt = null;
 		
 		try {
-			String sql = "UPDATE gyms SET name=?, addr=?, tel=?, img=?, manager=? WHERE id=?";
+			String sql = "UPDATE gyms SET name=?, addr=?, tel=?, img=?, manager=? WHERE GymId=?";
 			
 			pstmt = conn.prepareStatement(sql);			
 			pstmt.setString(1, gymInfo.getGymName());
@@ -162,6 +163,30 @@ public class GymInfoDao {
 			Database.closePstmt(pstmt);
 			Database.closeConnection(conn);
 		}
-	}	
+	}
+	
+	public String selectGymNameById(int id) {
+		Connection conn = Database.getConnection();
+		PreparedStatement pstmt = null;
+		String name = null;
+		ResultSet rs = null;
+		
+		try {
+			String sql = "SELECT name FROM gyms WHERE gymId=?";			
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, id);			
+			rs = pstmt.executeQuery();
+			
+			if (rs.next()) {
+				name = rs.getString("name");
+			}			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			Database.closePstmt(pstmt);
+			Database.closeConnection(conn);
+		}
+		return name;
+	}
 
 }

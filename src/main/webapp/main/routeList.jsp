@@ -21,8 +21,8 @@
 		<section id="filter-container">
 			<div class="filter">
 				<p>섹터</p>
-				<select class="form-select form-select-sm mb-3" aria-label=".form-select-lg example">
-					<option selected>전체</option>
+				<select class="form-select form-select-sm mb-3" id="sector-select" aria-label=".form-select-lg example">
+					<option value=null selected>전체</option>
 					<option value="1">아이스버그</option>
 					<option value="2">버터밀크</option>
 					<option value="3">비숍</option>
@@ -30,7 +30,7 @@
 			</div>
 			<div class="filter">
 				<p>홀드</p>
-				<select class="form-select form-select-sm mb-3" aria-label=".form-select-lg example">
+				<select class="form-select form-select-sm mb-3" id="hold-select" aria-label=".form-select-lg example">
 					<option selected>전체</option>
 					<option value="빨강">빨강</option>
 					<option value="주황">주황</option>
@@ -43,7 +43,7 @@
 			</div>
 			<div class="filter">
 				<p>레벨</p>
-				<select class="form-select form-select-sm mb-3" aria-label=".form-select-lg example">
+				<select class="form-select form-select-sm mb-3" id="level-select" aria-label=".form-select-lg example">
 					<option selected>전체</option>
 					<option value="빨강">빨강</option>
 					<option value="주황">주황</option>
@@ -56,8 +56,8 @@
 			</div>
 			<div class="filter">
 				<p>날짜</p>
-				<select class="form-select form-select-sm mb-3" aria-label=".form-select-lg example">
-					<option selected>오늘</option>
+				<select class="form-select form-select-sm mb-3" id="date-select" aria-label=".form-select-lg example">
+					<option value=null selected>오늘</option>
 					<option value="1">One</option>
 					<option value="2">Two</option>
 					<option value="3">Three</option>
@@ -65,11 +65,11 @@
 			</div>
 			<div class="filter order">
 				<p>정렬</p>
-				<select class="form-select form-select-sm mb-3" aria-label=".form-select-lg example">
-					<option selected>물문제 순</option>
-					<option value="1">불문제 순</option>
-					<option value="2">낮은 재미 순</option>
-					<option value="3">높은 재미 순</option>
+				<select class="form-select form-select-sm mb-3" id="order-select" aria-label=".form-select-lg example">
+					<option value="levelScore-avg_ASC" selected>물문제 순</option>
+					<option value="levelScore-avg_DESC">불문제 순</option>
+					<option value="funScore-avg_ASC">낮은 재미 순</option>
+					<option value="funScore-avg_DESC">높은 재미 순</option>
 				  </select>
 			</div>
 			<div class="filter search">
@@ -82,7 +82,7 @@
 		<section id="route-list">
 			<ul id="list-container">
 				<li>
-					<div class="card">
+					<div class="card" id="simple-route-info">
                 		<div class="icon">
                     		<div class="tape"><img src="../images/icon/tape/navy_tape.png" alt="남색 테이프 이미지">
                         		<div class="hold"><img src="../images/icon/hold/yellow_hold.png" alt="노랑 홀드 이미지"></div>
@@ -99,7 +99,7 @@
 					</div>
 				</li>
 				<li>
-					<div class="card">
+					<div class="card" id="simple-route-info">
 						<div class="icon">
 							<div class="tape"><img src="../images/icon/tape/skyblue.png" alt="하늘 테이프 이미지">
 								<div class="hold"><img src="../images/icon/hold/blue.png" alt="파랑 홀드 이미지"></div>
@@ -116,7 +116,7 @@
 					</div>					
 				</li>
 				<li>
-					<div class="card">
+					<div class="card" id="simple-route-info">
 						<div class="icon">
 							<div class="tape"><img src="../images/icon/tape/yellow.png" alt="노랑 테이프 이미지">
 								<div class="hold"><img src="../images/icon/hold/white.png" alt="하양 홀드 이미지"></div>
@@ -133,7 +133,7 @@
 					</div>				
 				</li>
 				<li>
-					<div class="card">
+					<div class="card" id="simple-route-info">
 						<div class="icon">
 							<div class="tape"><img src="../images/icon/tape/skyblue.png" alt="하늘 테이프 이미지">
 								<div class="hold"><img src="../images/icon/hold/blue.png" alt="파랑 홀드 이미지"></div>
@@ -150,7 +150,7 @@
 					</div>
 				</li>
 				<li>
-					<div class="card">
+					<div class="card" id="simple-route-info">
 						<div class="icon">
 							<div class="tape"><img src="../images/icon/tape/purple.png" alt="보라 테이프 이미지">
 								<div class="hold"><img src="../images/icon/hold/orange.png" alt="주황 홀드 이미지"></div>
@@ -168,6 +168,20 @@
 				</li>
 			</ul>
 		</section>
+		<nav id="pagination_wrapper" aria-label="Page navigation example">
+			<ul class="pagination pagination-md">
+				<li class="page-item">
+				    <a class="page-link" href="#" aria-label="Previous">
+				       <span aria-hidden="true">&laquo;</span>
+				    </a>
+				</li>
+				<li class="page-item">
+				    <a class="page-link" href="#" aria-label="Next">
+				       <span aria-hidden="true">&raquo;</span>
+				    </a>
+				</li>
+			</ul>
+		</nav>
 		<section>
 			<a tabindex="0" href="#" id="add-button" data-bs-toggle="tooltip" data-bs-placement="top" title="새로운 문제 추가하기"><i class="bi bi-patch-plus-fill"></i></a>
 		</section>
@@ -177,7 +191,95 @@
 	var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
 	var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
 	  return new bootstrap.Tooltip(tooltipTriggerEl)
-	})
+	})	
+	</script>
+	<script type="text/javascript">
+		let pageNumber=1;
+		
+		let parameters = location.search;
+		parameters = parameters.substr(1);
+		parameters = parameters.split("&");
+		
+		let pageNumberParam = parameters[1];
+		pageNumberParam = pageNumberParam.split("=");
+		
+		pageNumber = pageNumberParam[1];
+		
+		let gymId = "${sessionScope.gym.id}";
+		<!-- 필터 표시 -->
+		
+		
+		<!-- 리스트 표시 -->
+		let filterData = "pageNumber=(1)&gymId=(2)&sectorId=(3)&holdColor=(4)&levelColor=(5)&"
+		 +"fromDate=(6)&toDate=(7)&order=(8)";
+		
+		filterData = filterData.replace("(1)", pageNumber);
+		filterData = filterData.replace("(2)", "2");
+		filterData = filterData.replace("(3)", $("#sector-select").val());
+		filterData = filterData.replace("(4)", $("#hold-select").val());
+		filterData = filterData.replace("(5)", $("#level-select").val());
+		filterData = filterData.replace("(6)", null);
+		filterData = filterData.replace("(7)", null);
+		filterData = filterData.replace("(8)", $("#order-select").val());
+	
+		$.ajax({
+    		url: "http://localhost/rockmate/list",
+    		type: "get",
+    		data: filterData,
+    		datatype: "json",
+    		success: function(routes){
+    			let gymName = routes.gymName;
+    			$("h3").val(gymName);
+    			
+    			let amount = routes.amount;
+    			let routeList = routes.routeList;
+    			
+    			// 페이지네이션
+    			let pageCount = Math.ceil(amount/10);
+    			for(let count=1; count<=pageCount; count++) {
+    				$("ul.pagination").append("<li class=\"page-item\"><a class=\"page-link\" href=\"/rockmate/main/routeList.jsp?pageNumber="+count+"\">"+count+"</a></li>");
+    			}
+    			
+    			// 문제 목록
+    			let tag = "<li>"
+					+"<div class=\"card\" id=\"simple-route-info\">"
+						+"<div class=\"icon\">"
+							+"<div class=\"tape\"><img src=\"../images/icon/tape/(8).png\" alt=\"(1) 테이프 이미지\">"
+							+"<div class=\"hold\"><img src=\"../images/icon/hold/(9).png\" alt=\"(2) 홀드 이미지\"></div>"
+						+"</div>"                                        
+					+"</div>"
+					+"<div class=\"route-info\">"
+						+"<p class=\"large bold\">(3)</p>"
+						+"<p class=\"small\">(4)((5))</p>"
+						+"<p class=\"small gray\">문제 아이디 <span>(6)</span></p>"
+					+"</div>"
+					+"<div class=\"route-img\">"
+						+"<img src=\"(7)\" alt=\"클라이밍 문제 이미지\">"
+					+"</div>"
+				+"</div>"
+			+"</li>";
+				for (let i=0; i<routeList.length; i++) {
+					let nthRoute = routeList[i];
+					console.log(nthRoute);
+					
+					let nthTag = tag.replace("(1)", nthRoute.levelColor);
+					nthTag = nthTag.replace("(2)", nthRoute.holdColor);
+					nthTag = nthTag.replace("(3)", nthRoute.routeName);
+					nthTag = nthTag.replace("(4)", nthRoute.sectorName);
+					nthTag = nthTag.replace("(5)", nthRoute.settingDate);
+					nthTag = nthTag.replace("(6)", nthRoute.routeId);
+					nthTag = nthTag.replace("(7)", nthRoute.img);
+					nthTag = nthTag.replace("(8)", nthRoute.img);
+					nthTag = nthTag.replace("(9)", nthRoute.img);
+					
+					$("#list-container").append(nthTag);
+				}
+    		},
+    		error: function(){
+    			alert("에러발생!");
+    		}
+    		
+    	})
 	</script>
 </body>
 </html>

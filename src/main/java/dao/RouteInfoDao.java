@@ -52,7 +52,7 @@ public class RouteInfoDao {
 					+ "AVG(RV.levelScore) AS `levelScore-avg`, AVG(RV.funScore) AS `funScore-avg` FROM routes R "
 					+ "JOIN settings S ON S.settingId=R.settingId "
 					+ "JOIN sectors SC ON SC.sectorId=S.sectorId "
-					+ "JOIN gyms G ON G.id=SC.gymId "
+					+ "JOIN gyms G ON G.gymId=SC.gymId "
 					+ "JOIN review RV ON RV.routeId=R.routeId WHERE R.`routeId`=?";			
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, id);

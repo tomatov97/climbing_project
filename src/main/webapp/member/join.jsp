@@ -18,13 +18,12 @@
         <div class="page-title">
           <h2>회원 가입</h2>
           <hr>
-        </div>
-    
-            <form class="needs-validation" novalidate="" action="/climbing/member/join" method="post">
+        </div>    
+            <form class="needs-validation" novalidate="" action="/rockmate/member/join" method="post">
               <div class="row g-3">    
                 <div class="col-sm-6">
                   <label for="name" class="form-label">이름</label>
-                  <input type="text" class="form-control" id="name" placeholder="이름" value="" required="">
+                  <input type="text" class="form-control" id="name" name="name" placeholder="이름" value="" required="">
                   <div class="invalid-feedback">
                     이름을 입력하세요.
                   </div>
@@ -33,7 +32,7 @@
                 <div class="col-12">
                   <label for="username" class="form-label">아이디</label>
                   <div class="input-group has-validation">
-                    <input type="text" class="form-control" id="username" placeholder="아이디" required="">
+                    <input type="text" class="form-control" id="username" name="id"placeholder="아이디" required="">
                     <div class="invalid-feedback">
                       아이디를 입력하세요.
                     </div>
@@ -43,14 +42,14 @@
                 <div class="col-12">
                   <label for="password" class="form-label">비밀번호</label>
                   <div class="input-group has-validation">
-                    <input type="password" class="form-control" id="password" placeholder="비밀번호" required="">
+                    <input type="password" class="form-control" id="password" name="pw" placeholder="비밀번호" required="">
                     <div class="invalid-feedback">
                       비밀번호를 입력하세요.
                     </div>
                   </div>
                   <label for="passwordChk" class="form-label">비밀번호 확인</label>
                   <div class="input-group has-validation">
-                    <input type="password" class="form-control" id="passwordChk" placeholder="비밀번호 확인" required="">
+                    <input type="password" class="form-control" id="passwordChk" name="pwChk" placeholder="비밀번호 확인" required="">
                     <div class="invalid-feedback">
                       비밀번호 확인을 입력하세요.
                     </div>
@@ -59,13 +58,13 @@
     
                 <div class="col-12">
                   <label for="email" class="form-label">이메일</label>
-                  <input type="email" class="form-control" id="email" placeholder="abcd@example.com">
+                  <input type="email" class="form-control" id="email" name="email" placeholder="abcd@example.com">
                   <div class="invalid-feedback">
                     이메일을 입력하세요.
                   </div>
                 </div>
 
-                <input type="button" value="회원가입"></input>
+                <input type="submit" value="회원가입"></input>
               </div>
             </form>
 </body>

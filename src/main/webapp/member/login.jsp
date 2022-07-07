@@ -10,8 +10,9 @@
     <title>로그인</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="/climbing/css/login.css">
-    <link rel="stylesheet" href="/climbing/css/font.css">
+    <link rel="stylesheet" href="/rockmate/css/main.css">
+    <link rel="stylesheet" href="/rockmate/css/login.css">
+    <link rel="stylesheet" href="/rockmate/css/font.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
     <style>
         .bd-placeholder-img {
@@ -31,10 +32,10 @@
 </head>
 <body class="text-center">    
     <main class="form-login">
-      <form action="/climbing/login" method="post">        
+      <form action="/rockmate/login" method="post">        
         <h1 class="h3 mb-3 fw-normal justify-content-center">
-          <a href="/climbing/main/routeList.jsp" class="d-flex align-items-center text-dark text-decoration-none">
-            <span>Rock Mate</span>
+          <a href="/rockmate/main/routeList.jsp" class="d-flex align-items-center text-dark text-decoration-none">
+            <span class="logoTxt">Rock Mate</span>
           </a>
         </h1>
     

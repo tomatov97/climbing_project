@@ -2,14 +2,18 @@ package route;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
+import dao.GymInfoDao;
 import dao.RouteInfoDao;
 import vo.RouteFilter;
 import vo.Routes;
 
 public class RouteService {
+	
 	public boolean isAlreadyId(int id) {
 		RouteInfoDao dao = new RouteInfoDao();
 		Routes route = dao.selectRouteById(id);
@@ -74,7 +78,8 @@ public class RouteService {
 	}
 	
 	public String loadRouteListToJson (RouteFilter filter) {
-		RouteInfoDao dao = new RouteInfoDao();
+		RouteInfoDao dao = new RouteInfoDao(); GymInfoDao gymDao = new GymInfoDao();
+		String gymName = gymDao.selectGymNameById(filter.getGymId());
 		List<Routes> routeList = dao.selectRouteListInfo(filter);
 		List<String> tempList = new ArrayList<String>();
 		int amount = dao.getAmountOfRoute(filter);
@@ -92,10 +97,27 @@ public class RouteService {
 			routeJson = routeJson.replace("(7)",route.getDateString());
 			tempList.add(routeJson);			
 		}		
-		String jsonData = "{\"routeList\":" + tempList + ", \"amount\":" + amount + "}";
+		String jsonData = "{\"gymName\":" + gymName + ", \"routeList\":" + tempList + ", \"amount\":" + amount + "}";
 		return jsonData;
 	}
-
+	public String changeToEng(String color) {
+		switch (color){
+		case "빨강" :return "red"; 
+		case "주황" :return "orange";
+		case "노랑" :return "yellow";
+		case "연두" :return "yellowgreen";
+		case "초록" :return "green";
+		case "민트" :return "mint";
+		case "하늘" :return "skyblue";
+		case "남색" :return "navy"; 
+		case "보라" :return "purple"; 
+		case "갈색" :return "brown"; 
+		case "하양" :return "white"; 
+		case "회색" :return "gray"; 	
+		case "검정" :return "black";
+		default : return null;
+		}
+	}
 	public String loadRouteByIdToJson(int id) {
 		RouteInfoDao dao = new RouteInfoDao();
 		Routes route = dao.selectRouteById(id);

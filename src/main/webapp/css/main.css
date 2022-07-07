@@ -41,6 +41,9 @@ h3{
 	justify-content: space-around;
 	padding: 0 5%;
 }
+#simple-route-info{
+	flex-direction: row;
+}
 #list-container{
 	list-style: none;
 }
