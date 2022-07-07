@@ -69,7 +69,7 @@ public class GymInfoDao {
 		PreparedStatement pstmt = null;
 		
 		try {
-			String sql = "INSERT INTO sectors(`gymId`, `sectorName`) VALUES(?, ?)";
+			String sql = "INSERT INTO sectors(`gymId`, `name`) VALUES(?, ?)";
 			
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, newSectorInfo.getGymId());
@@ -123,7 +123,8 @@ public class GymInfoDao {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt	(1, newSettingInfo.getSectorId());
 			pstmt.setString (2, newSettingInfo.getSetDate().toString());
-			pstmt.setString (3, newSettingInfo.getRemoveDate().toString());
+			if (newSettingInfo.getRemoveDate()==null) pstmt.setString (3, null);
+			else pstmt.setString (3, newSettingInfo.getRemoveDate().toString());
 
 			int count = pstmt.executeUpdate();			
 			if (count == 1) return 200;

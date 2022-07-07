@@ -20,14 +20,16 @@ public class SettingAddController extends HttpServlet {
 
 		int sectorId = Integer.parseInt(request.getParameter("sectorId"));
 		LocalDate setDate = LocalDate.parse(request.getParameter("setDate"));
-		LocalDate removeDate = LocalDate.parse(request.getParameter("removeDate"));
+		LocalDate removeDate;
+		if (request.getParameter("removeDate")=="") {removeDate = null;}
+		else {removeDate = LocalDate.parse(request.getParameter("removeDate"));}
 		
 		Settings newSetting = new Settings(sectorId, setDate, removeDate);
 		
 		GymInfoDao dao = new GymInfoDao();
 		int status = dao.insertSettingInfo(newSetting);
 		response.setStatus(status);
-		response.sendRedirect("/climbing/main/problemList.jsp");
+		response.sendRedirect("/climbing/main/routeList.jsp");
 	}
 
 }

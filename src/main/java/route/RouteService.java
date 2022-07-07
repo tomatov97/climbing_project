@@ -53,8 +53,8 @@ public class RouteService {
 		
 		String where = "WHERE G.gymId=" + gymId;
 		if (sector != 0) where = where + " AND `S.sectorId`="+ sector;
-		if (hold != null) where = where + " AND `R.holdColor`="+ hold;
-		if (level != null) where = where + " AND `R.levelColor`="+ level;
+		if (hold != "all") where = where + " AND `R.holdColor`="+ hold;
+		if (level != "all") where = where + " AND `R.levelColor`="+ level;
 		if (fromDate != null || toDate != null) {
 			// settingId 들고오기
 			RouteInfoDao dao = new RouteInfoDao();

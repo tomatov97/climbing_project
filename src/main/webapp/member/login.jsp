@@ -31,7 +31,7 @@
 </head>
 <body class="text-center">    
     <main class="form-login">
-      <form action="/climbing/login">        
+      <form action="/climbing/login" method="post">        
         <h1 class="h3 mb-3 fw-normal justify-content-center">
           <a href="/climbing/main/routeList.jsp" class="d-flex align-items-center text-dark text-decoration-none">
             <span>Rock Mate</span>

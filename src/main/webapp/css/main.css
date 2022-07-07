@@ -1,4 +1,4 @@
-body{
+body, #body{
 	max-width: 800px;
 	margin: auto;
 }
@@ -97,6 +97,30 @@ h3{
 }
 
 
+.score-container{
+	width: 70%;
+	display: flex;
+	justify-content: flex-end;
+	align-items: center;
+}
+#detail-img-container{
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+#review-container{
+	padding: 2rem;
+}
+h6{
+	font-size: 1.4rem;
+}
+.small-txt{
+	color: rgb(140, 140, 140);
+}
+.detail-img{
+	width: 11rem;
+	height: 11rem;
+}
 .bi-heart{
 	font-size: 1rem;
 	margin-top: 0.5rem;
@@ -121,22 +145,29 @@ h3{
 	/* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 	background: linear-gradient(to right, rgba(246, 211, 101, 0.5), rgba(253, 160, 133, 0.5))
   }
-  ul{
+  #detail-info, #comment-info{
 	list-style: none;
+	padding-top: 1rem;
+	padding-left: 0;
   }
   li{
 	display: flex;
+	justify-content: space-between;
   }
   .infoCard{
     display: flex;
-    flex-direction: column;
     min-width: 0;
     word-wrap: break-word;
     background-color: #fff;
     background-clip: border-box;
-    border: 1px solid rgba(0,0,0,.125);
-    border-radius: 0.25rem;
+    /* border: 1px solid rgba(0,0,0,.125);
+    border-radius: 0.25rem; */
   }
   .progress{
-	width: 50%;
+	width: 90%;
+	overflow: auto;
+  }
+  .cardBody{
+	flex: 1 1 auto;
+    padding: 1.5rem 1.5rem 1.5rem 3.5rem;
   }

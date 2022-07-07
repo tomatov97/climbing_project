@@ -48,12 +48,12 @@ public class RouteInfoDao {
 		ResultSet rs = null;
 		
 		try {
-			String sql = "SELECT R.name, R.holdColor, R.levelColor, R.comment, R.img, SC.name AS `sectorName`, `sectorName`, CONCAT_WS('~',S.`set-date`,S.`remove-date`) AS `date`,"
-					+ "AVG(RV.levelScore) AS `levelScore-avg`, AVG(RV.funScore) AS `funScore-avg` FROM routes R"
-					+ "JOIN settings S ON S.settingId=R.settingId"
-					+ "JOIN sectors SC ON SC.sectorId=S.sectorId"
-					+ "JOIN gyms G ON G.id=SC.gymId"
-					+ "JOIN review RV ON RV.routeId=R.routeId WHERE `routeId`=?";			
+			String sql = "SELECT R.name, R.holdColor, R.levelColor, R.comment, R.img, SC.name AS `sectorName`, CONCAT_WS('~',S.`setDate`,S.`removeDate`) AS `date`,"
+					+ "AVG(RV.levelScore) AS `levelScore-avg`, AVG(RV.funScore) AS `funScore-avg` FROM routes R "
+					+ "JOIN settings S ON S.settingId=R.settingId "
+					+ "JOIN sectors SC ON SC.sectorId=S.sectorId "
+					+ "JOIN gyms G ON G.id=SC.gymId "
+					+ "JOIN review RV ON RV.routeId=R.routeId WHERE R.`routeId`=?";			
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, id);
 			

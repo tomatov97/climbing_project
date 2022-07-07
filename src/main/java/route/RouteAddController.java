@@ -21,6 +21,7 @@ import vo.Routes;
 public class RouteAddController extends HttpServlet {
 	private static final int MAXIMUM_FILE_SIZE = 1 * 1024 * 1024; // 1MB	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		String path = request.getRealPath("images/route");
 		
 		MultipartRequest mr = new MultipartRequest(request, path, MAXIMUM_FILE_SIZE, "UTF-8", new DefaultFileRenamePolicy());
@@ -39,7 +40,7 @@ public class RouteAddController extends HttpServlet {
 		RouteInfoDao dao = new RouteInfoDao();
 		int status = dao.insertRouteInfo(newRoute);
 		response.setStatus(status);	
-		response.sendRedirect("/climbing/main/problemList.jsp");
+		response.sendRedirect("/climbing/main/routeList.jsp");
 	}
 
 }

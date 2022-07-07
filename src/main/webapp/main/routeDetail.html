@@ -31,28 +31,32 @@
     ></script>
     <title>detail</title>
 </head>
-<body>
-    <div class="infoCard">
-        <div class="row g-0">
-          <div class="col-md-3">
-            <img src="..." class="img-fluid rounded-start" alt="...">
+<body id="body">
+    <div class="card">
+      <div class="infoCard">
+          <div class="col-md-3" id="detail-img-container">
+            <img src="../images/route/img1.jpg" class="detail-img" alt="...">
           </div>
           <div class="col-md-7">
-            <div class="card-body">
-              <h6 class="card-title">빨강 홀드 남색 레벨 <small class="text-muted">문제 아이디 16531</small></h6>
-              <ul>
+            <div class="cardBody">
+              <h6 class="card-title">빨강 홀드 남색 레벨 <small class="small-txt">문제 아이디 16531</small></h6>
+              <ul id="detail-info">
                 <li><span>섹터</span>미드나잇 (2022.05.02 ~ 2022.06.02)</li>
                 <li>
                     <span>체감 난이도</span>
-                    <div class="progress">
+                    <div class="score-container">
+                      <div class="progress">
                         <div class="progress-bar bg-danger gradient-level" role="progressbar" style="width: 70%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                    </div>
+                      </div>
+                    </div>                    
                 </li>
                 <li>
                     <span>재미</span>
-                    <div class="progress">
+                    <div class="score-container">
+                      <div class="progress">
                         <div class="progress-bar bg-warning gradient-fun" role="progressbar" style="width: 80%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                    </div>
+                      </div>
+                    </div>                    
                 </li>
               </ul>
               <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
@@ -62,10 +66,30 @@
             <p class="x-small gray">조회수<span>56</span></p>
             <p class="x-small gray"><i class="bi bi-heart"></i> 좋아요 <span>15</span></p>
           </div>
-        </div>
+      </div>
     </div>
-    <section id="review-container">
+    <section id="review-container" class="card">
         <p>코멘트</p>
+        <ul id="comment-info">
+          <li>
+            <div class="card">
+              <p class="username">username</p>
+              <p class="review">review</p>
+            </div>            
+          </li>
+          <li>
+            <div class="card">
+              <p class="username">username</p>
+              <p class="review">review</p>
+            </div>            
+          </li>
+          <li>
+            <div class="card">
+              <p class="username">username</p>
+              <p class="review">review</p>
+            </div>            
+          </li>
+        </ul>
     </section>
 </body>
 </html>

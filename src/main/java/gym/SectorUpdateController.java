@@ -34,7 +34,7 @@ public class SectorUpdateController extends HttpServlet {
 		GymInfoDao dao = new GymInfoDao();
 		int status = dao.updateSectorById(sector);
 		response.setStatus(status);
-		response.sendRedirect("/climbing/main/problemList.jsp");
+		response.sendRedirect("/climbing/main/routeList.jsp");
 	}
 
 }

@@ -39,7 +39,7 @@ public class GymAddController extends HttpServlet {
 		GymInfoDao dao = new GymInfoDao();
 		int status = dao.insertGymInfo(newGym);
 		response.setStatus(status);	
-		response.sendRedirect("/climbing/main/problemList.jsp");
+		response.sendRedirect("/climbing/main/routeList.jsp");
 		
 	}
 
