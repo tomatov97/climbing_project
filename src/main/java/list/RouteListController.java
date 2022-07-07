@@ -21,13 +21,14 @@ public class RouteListController extends HttpServlet {
 		int pageNumber = Integer.parseInt(request.getParameter("pageNumber"));
 		int gymId = Integer.parseInt(request.getParameter("gymId"));
 		int sectorId = 0;
-		if (request.getParameter("sectorId")!=null) sectorId = Integer.parseInt(request.getParameter("sectorId"));
+		if (!request.getParameter("sectorId").equals("all")) sectorId = Integer.parseInt(request.getParameter("sectorId"));
 		String holdColor = request.getParameter("holdColor");
 		String levelColor = request.getParameter("levelColor");
 		LocalDate fromDate = null;
 		LocalDate toDate = null;
-		if (request.getParameter("fromDate")!=null) fromDate = LocalDate.parse(request.getParameter("fromDate"));
-		if (request.getParameter("toDate")!=null) toDate = LocalDate.parse(request.getParameter("toDate"));
+		//if (request.getParameter("fromDate")!=null) fromDate = LocalDate.parse(request.getParameter("fromDate"));
+		//if (request.getParameter("toDate")!=null) toDate = LocalDate.parse(request.getParameter("toDate"));
+		System.out.println(request.getParameter("order"));
 		String order = request.getParameter("order");
 		
 		RouteFilter filter = new RouteFilter(pageNumber, gymId, sectorId, holdColor, levelColor, fromDate, toDate, order);

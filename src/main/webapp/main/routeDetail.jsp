@@ -31,7 +31,7 @@
     type="text/javascript"
     src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/4.2.0/mdb.min.js"
     ></script>
-    <title>detail</title>
+    <title>문제 상세 보기</title>
 </head>
 <body id="body">
 	<%@ include file="../includes/header.jsp" %>
@@ -44,7 +44,9 @@
             <div class="cardBody">
               <h6 class="card-title">빨강 홀드 남색 레벨 <small class="small-txt">문제 아이디 16531</small></h6>
               <ul id="detail-info">
-                <li><span class="bold">섹터</span>미드나잇 (2022.05.02 ~ 2022.06.02)</li>
+                <li>
+                	<span class="bold">섹터</span>미드나잇 (2022.05.02 ~ 2022.06.02)
+                </li>
                 <li>
                     <span class="bold">맵기</span>
                     <div class="score-container">
@@ -94,5 +96,10 @@
           </li>
         </ul>
     </section>
+    <script src="../js/scripts.js"></script>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript">
+    
+    </script>
 </body>
 </html>

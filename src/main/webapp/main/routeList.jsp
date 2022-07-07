@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -22,7 +22,7 @@
 			<div class="filter">
 				<p>섹터</p>
 				<select class="form-select form-select-sm mb-3" id="sector-select" aria-label=".form-select-lg example">
-					<option value=null selected>전체</option>
+					<option value="all" selected>전체</option>
 					<option value="1">아이스버그</option>
 					<option value="2">버터밀크</option>
 					<option value="3">비숍</option>
@@ -31,7 +31,7 @@
 			<div class="filter">
 				<p>홀드</p>
 				<select class="form-select form-select-sm mb-3" id="hold-select" aria-label=".form-select-lg example">
-					<option selected>전체</option>
+					<option value="all" selected>전체</option>
 					<option value="빨강">빨강</option>
 					<option value="주황">주황</option>
 					<option value="노랑">노랑</option>
@@ -44,7 +44,7 @@
 			<div class="filter">
 				<p>레벨</p>
 				<select class="form-select form-select-sm mb-3" id="level-select" aria-label=".form-select-lg example">
-					<option selected>전체</option>
+					<option value="all" selected>전체</option>
 					<option value="빨강">빨강</option>
 					<option value="주황">주황</option>
 					<option value="노랑">노랑</option>
@@ -57,7 +57,7 @@
 			<div class="filter">
 				<p>날짜</p>
 				<select class="form-select form-select-sm mb-3" id="date-select" aria-label=".form-select-lg example">
-					<option value=null selected>오늘</option>
+					<option value="all" selected>오늘</option>
 					<option value="1">One</option>
 					<option value="2">Two</option>
 					<option value="3">Three</option>
@@ -65,7 +65,7 @@
 			</div>
 			<div class="filter order">
 				<p>정렬</p>
-				<select class="form-select form-select-sm mb-3" id="order-select" aria-label=".form-select-lg example">
+				<select class="form-select form-select-sm mb-3" id="order-select" name="order" aria-label=".form-select-lg example">
 					<option value="levelScore-avg_ASC" selected>물문제 순</option>
 					<option value="levelScore-avg_DESC">불문제 순</option>
 					<option value="funScore-avg_ASC">낮은 재미 순</option>
@@ -175,11 +175,6 @@
 				       <span aria-hidden="true">&laquo;</span>
 				    </a>
 				</li>
-				<li class="page-item">
-				    <a class="page-link" href="#" aria-label="Next">
-				       <span aria-hidden="true">&raquo;</span>
-				    </a>
-				</li>
 			</ul>
 		</nav>
 		<section>
@@ -187,6 +182,8 @@
 		</section>
 
 	</main>
+	<script src="../js/scripts.js"></script>
+    <script src="../js/jquery-3.6.0.min.js"></script>
 	<script>
 	var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
 	var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
@@ -195,17 +192,18 @@
 	</script>
 	<script type="text/javascript">
 		let pageNumber=1;
+		console.log("스크립트 시작");
 		
 		let parameters = location.search;
 		parameters = parameters.substr(1);
 		parameters = parameters.split("&");
 		
-		let pageNumberParam = parameters[1];
+		let pageNumberParam = parameters[0];
 		pageNumberParam = pageNumberParam.split("=");
 		
 		pageNumber = pageNumberParam[1];
 		
-		let gymId = "${sessionScope.gym.id}";
+		// let gymId = "${sessionScope.gym.id}";
 		<!-- 필터 표시 -->
 		
 		
@@ -214,7 +212,7 @@
 		 +"fromDate=(6)&toDate=(7)&order=(8)";
 		
 		filterData = filterData.replace("(1)", pageNumber);
-		filterData = filterData.replace("(2)", "2");
+		filterData = filterData.replace("(2)", "1");
 		filterData = filterData.replace("(3)", $("#sector-select").val());
 		filterData = filterData.replace("(4)", $("#hold-select").val());
 		filterData = filterData.replace("(5)", $("#level-select").val());
@@ -239,10 +237,15 @@
     			for(let count=1; count<=pageCount; count++) {
     				$("ul.pagination").append("<li class=\"page-item\"><a class=\"page-link\" href=\"/rockmate/main/routeList.jsp?pageNumber="+count+"\">"+count+"</a></li>");
     			}
+    			$("ul.pagination").append("<li class=\"page-item\">"
+    				    + "<a class=\"page-link\" href=\"#\" aria-label=\"Next\">"
+			       			+"<span aria-hidden=\"true\">&raquo;</span>"
+			    		+ "</a></li>");
+    			
     			
     			// 문제 목록
     			let tag = "<li>"
-					+"<div class=\"card\" id=\"simple-route-info\">"
+					+"<div class=\"card\" id=\"simple-route-info\" onclick=\"goDetail((6))\">"
 						+"<div class=\"icon\">"
 							+"<div class=\"tape\"><img src=\"../images/icon/tape/(8).png\" alt=\"(1) 테이프 이미지\">"
 							+"<div class=\"hold\"><img src=\"../images/icon/hold/(9).png\" alt=\"(2) 홀드 이미지\"></div>"
@@ -258,6 +261,7 @@
 					+"</div>"
 				+"</div>"
 			+"</li>";
+			
 				for (let i=0; i<routeList.length; i++) {
 					let nthRoute = routeList[i];
 					console.log(nthRoute);
@@ -267,19 +271,24 @@
 					nthTag = nthTag.replace("(3)", nthRoute.routeName);
 					nthTag = nthTag.replace("(4)", nthRoute.sectorName);
 					nthTag = nthTag.replace("(5)", nthRoute.settingDate);
-					nthTag = nthTag.replace("(6)", nthRoute.routeId);
+					nthTag = nthTag.replaceAll("(6)", nthRoute.routeId);
 					nthTag = nthTag.replace("(7)", nthRoute.img);
-					nthTag = nthTag.replace("(8)", nthRoute.img);
-					nthTag = nthTag.replace("(9)", nthRoute.img);
+					nthTag = nthTag.replace("(8)", nthRoute.levelEng);
+					nthTag = nthTag.replace("(9)", nthRoute.holdEng);
 					
 					$("#list-container").append(nthTag);
 				}
     		},
-    		error: function(){
+    		error: function(request, status, error){ 
+    			alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);  
     			alert("에러발생!");
     		}
     		
     	})
+    	
+    	function goDetail(routeId){
+        			location.href="/rockmate/main/routeDetail.jsp?routeId="+routeId;
+        		}
 	</script>
 </body>
 </html>

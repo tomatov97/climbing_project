@@ -43,7 +43,7 @@ public class GymInfoDao {
 		PreparedStatement pstmt = null;
 		
 		try {
-			String sql = "UPDATE gyms SET name=?, addr=?, tel=?, img=?, manager=? WHERE GymId=?";
+			String sql = "UPDATE gyms SET name=?, addr=?, tel=?, img=?, manager=? WHERE gymId=?";
 			
 			pstmt = conn.prepareStatement(sql);			
 			pstmt.setString(1, gymInfo.getGymName());

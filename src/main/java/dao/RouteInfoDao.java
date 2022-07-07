@@ -174,10 +174,10 @@ public class RouteInfoDao {
 		ResultSet rs = null;		
 		int amount = 0;		
 		try {
-			String sql = "SELECT COUNT(*) AS `amount` FROM routes R"
-					+ "JOIN settings S ON S.settingId=R.settingId"
-					+ "JOIN sectors SC ON SC.sectorId=S.sectorId"
-					+ "JOIN gyms G ON G.id=SC.gymId " + RouteService.createWHERE(filter);
+			String sql = "SELECT COUNT(*) AS `amount` FROM routes R " 
+					+ "JOIN settings S ON S.settingId=R.settingId "
+					+ "JOIN sectors SC ON SC.sectorId=S.sectorId "
+					+ "JOIN gyms G ON G.gymId=SC.gymId " + RouteService.createWHEREwithoutORDER(filter);
 			
 			pstmt = conn.prepareStatement(sql);
 			rs = pstmt.executeQuery();			
@@ -246,15 +246,17 @@ public class RouteInfoDao {
 		Connection conn = Database.getConnection();
 		PreparedStatement pstmt = null; 
 		ResultSet rs = null; 
-		List<Routes> routeInfoList = null;	
+		List<Routes> routeInfoList = new ArrayList<>();	
 		String where = RouteService.createWHERE(filter);
 		int pageNumber=filter.getPageNumber();
 		try {
-			String sql = "SELECT R.routeId, R.name AS `routeName`, R.holdColor, R.levelColor, R.img, SC.name AS `sectorName`, CONCAT_WS(~,S.setDate,S.removeDate) AS `date`"
-					+ "FROM routes R"
-					+ "JOIN settings S ON S.settingId=R.settingId"
-					+ "JOIN sectors SC ON SC.sectorId=S.sectorId"
-					+ "JOIN gyms G ON G.id=SC.gymId " + where + " LIMIT ?, ? ";
+			String sql = "SELECT R.routeId, R.name AS `routeName`, R.holdColor, R.levelColor, R.img, SC.name AS `sectorName`, CONCAT_WS('~',S.setDate,S.removeDate) AS `date`, "
+					+ "AVG(RV.levelScore) AS `levelScore-avg`, AVG(RV.funScore) AS `funScore-avg` "
+					+ "FROM routes R "
+					+ "JOIN settings S ON S.settingId=R.settingId "
+					+ "JOIN sectors SC ON SC.sectorId=S.sectorId "
+					+ "JOIN gyms G ON G.gymId=SC.gymId " 
+					+ "JOIN review RV ON RV.routeId=R.routeId " + where + " LIMIT ?, ? ";
 			int amountPerPage = 15;
 			int startIndex = (pageNumber-1)*amountPerPage;
 			
@@ -271,8 +273,10 @@ public class RouteInfoDao {
 				String img = rs.getString("img");
 				String sectorName = rs.getString("sectorName");
 				String dateString = rs.getString("date");
+				int levelScoreAvg = rs.getInt("levelScore-avg");
+				int funScoreAvg = rs.getInt("funScore-avg");
 				
-				Routes nthRouteInfo = new Routes(routeId, routeName, holdColor, levelColor, img, sectorName, dateString);			
+				Routes nthRouteInfo = new Routes(routeId, routeName, holdColor, levelColor, img, sectorName, dateString, levelScoreAvg, funScoreAvg);			
 				routeInfoList.add(nthRouteInfo);
 			}
 		} catch (SQLException e) {

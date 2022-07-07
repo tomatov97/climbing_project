@@ -13,7 +13,7 @@ public class Database {
 		try {
 			Class.forName("org.mariadb.jdbc.Driver");
 			
-			conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/rockmate?user=root&password=1234");
+			conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/climbing?user=root&password=1234");
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
 		}

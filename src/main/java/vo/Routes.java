@@ -9,17 +9,7 @@ public class Routes extends Settings{
 	private String img;
 	private int levelScoreAvg;
 	private int funScoreAvg;
-	// 문제 리스트
-	public Routes(int routeId, String routeName, String holdColor, String levelColor, String img, String sectorName, String dateString) {
-		super();
-		this.routeId = routeId;
-		this.routeName = routeName;
-		this.holdColor = holdColor;
-		this.levelColor = levelColor;
-		this.img = img;
-		this.setSectorName(sectorName);
-		this.setDateString(dateString);
-	}
+
 	// 문제 상세 정보
 	public Routes(int routeId, String routeName, String holdColor, String levelColor, String img, String comment, String sectorName, String dateString) {
 		super();
@@ -40,14 +30,28 @@ public class Routes extends Settings{
 		this.holdColor = holdColor;
 		this.levelColor = levelColor;
 		this.img = img;
+		this.setComment(comment);
+		this.setSectorName(sectorName);
+		this.setDateString(dateString);
+		this.levelScoreAvg = levelScoreAvg;
+		this.funScoreAvg = funScoreAvg;		
+	}
+	
+	// 문제 리스트
+	public Routes(int routeId, String routeName, String holdColor, String levelColor, String img, String sectorName, String dateString, int levelScoreAvg, int funScoreAvg) {
+		super();
+		this.routeId = routeId;
+		this.routeName = routeName;
+		this.holdColor = holdColor;
+		this.levelColor = levelColor;
+		this.img = img;
 		this.setSectorName(sectorName);
 		this.setDateString(dateString);
 		this.levelScoreAvg = levelScoreAvg;
 		this.funScoreAvg = funScoreAvg;		
 	}
 			
-	public Routes(int routeId, int settingId, String routeName, String holdColor, String levelColor, String comment,
-			String img) {
+	public Routes(int routeId, int settingId, String routeName, String holdColor, String levelColor, String comment, String img) {
 		super();
 		this.routeId = routeId;
 		this.setSettingId(settingId);

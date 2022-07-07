@@ -57,8 +57,8 @@ public class RouteService {
 		
 		String where = "WHERE G.gymId=" + gymId;
 		if (sector != 0) where = where + " AND `S.sectorId`="+ sector;
-		if (hold != "all") where = where + " AND `R.holdColor`="+ hold;
-		if (level != "all") where = where + " AND `R.levelColor`="+ level;
+		if (!hold.equals("all")) where = where + " AND `R.holdColor`="+ hold;
+		if (!level.equals("all")) where = where + " AND `R.levelColor`="+ level;
 		if (fromDate != null || toDate != null) {
 			// settingId 들고오기
 			RouteInfoDao dao = new RouteInfoDao();
@@ -70,10 +70,38 @@ public class RouteService {
 			// 이어 붙이기
 			where = where + " AND (" + settingIdQuery + ")";
 		}
+		where += " GROUP BY R.routeId ";
 		if (order != null) {
 			String[] orders = order.split("_");
-			where = where + " ORDER BY " + orders[0] + " " + orders[1];
+			where = where + " ORDER BY `" + orders[0] + "` " + orders[1];
 		}		
+		return where;
+	}
+	
+	public static String createWHEREwithoutORDER(RouteFilter filter) {		
+		int gymId = filter.getGymId();
+		int sector = filter.getSectorId();
+		String hold = filter.getHoldColor();
+		String level = filter.getLevelColor();
+		LocalDate fromDate = filter.getFromDate();
+		LocalDate toDate = filter.getToDate();
+		
+		String where = "WHERE G.gymId=" + gymId;
+		if (sector != 0) where = where + " AND `S.sectorId`="+ sector;
+		if (!hold.equals("all")) where = where + " AND `R.holdColor`="+ hold;
+		if (!level.equals("all")) where = where + " AND `R.levelColor`="+ level;
+		if (fromDate != null || toDate != null) {
+			// settingId 들고오기
+			RouteInfoDao dao = new RouteInfoDao();
+			List<Integer> settingIds = dao.getSettingIdByDate(fromDate, toDate, gymId);
+			String settingIdQuery = null;
+			// settingId를 이용한 쿼리 만들기
+			for (int id : settingIds) settingIdQuery = settingIdQuery + " OR S.settingId="+id;
+			settingIdQuery = settingIdQuery.substring(4);
+			// 이어 붙이기
+			where = where + " AND (" + settingIdQuery + ")";
+		}	
+		where += " GROUP BY R.routeId ";
 		return where;
 	}
 	
@@ -86,7 +114,7 @@ public class RouteService {
 		
 		for(Routes route : routeList) {
 			String routeJson = "{\"routeId\":\"(1)\", \"routeName\":\"(2)\", \"holdColor\":\"(3)\", \"levelColor\":\"(4)\", "
-					+ "\"img\":\"(5)\", \"sectorName\":\"(6)\", \"settingDate\":\"(7)\"}";
+					+ "\"img\":\"(5)\", \"sectorName\":\"(6)\", \"settingDate\":\"(7)\", \"holdEng\":\"(8)\", \"levelEng\":\"(9)\"}";
 			routeJson = routeJson.replace("(1)",route.getRouteId()+"");
 			routeJson = routeJson.replace("(2)",route.getRouteName());
 			routeJson = routeJson.replace("(3)",route.getHoldColor());
@@ -95,9 +123,11 @@ public class RouteService {
 			else routeJson = routeJson.replace("(5)",route.getImg());
 			routeJson = routeJson.replace("(6)",route.getSectorName());
 			routeJson = routeJson.replace("(7)",route.getDateString());
+			routeJson = routeJson.replace("(8)",changeToEng(route.getHoldColor()));
+			routeJson = routeJson.replace("(9)",changeToEng(route.getLevelColor()));
 			tempList.add(routeJson);			
 		}		
-		String jsonData = "{\"gymName\":" + gymName + ", \"routeList\":" + tempList + ", \"amount\":" + amount + "}";
+		String jsonData = "{\"gymName\": \"" + gymName + "\", \"routeList\":" + tempList + ", \"amount\":" + amount + "}";
 		return jsonData;
 	}
 	public String changeToEng(String color) {
