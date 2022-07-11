@@ -1,7 +1,9 @@
 package route;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -44,5 +46,26 @@ public class RouteAddController extends HttpServlet {
 		response.setStatus(status);	
 		response.sendRedirect("/rockmate/main/routeList.jsp");
 	}
+	
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		req.setCharacterEncoding("UTF-8");
+		
+		RouteService service = new RouteService();
+		int settingId = Integer.parseInt(req.getParameter("settingId"));
+		String hold = req.getParameter("holdColor");
+		String level = req.getParameter("levelColor");
+		
+		int count = service.isAlreadyColors(settingId, hold, level);
+		
+		resp.setContentType("application/json;charset=UTF-8");
+		PrintWriter out = resp.getWriter();
+		
+		out.print("{\"count\":"+count+"}");
+		
+		out.close();
+	}
+	
+	
 
 }

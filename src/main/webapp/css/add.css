@@ -1,0 +1,79 @@
+/* 섹터, 세팅 선택 */
+#select-container p {
+    width: 100%
+}
+#date-info{
+	width: 12rem;
+}
+.form-disabled{
+	background-color: #e9ecef;
+    opacity: 1;
+}
+.form-select, .form-control {
+    height: 2rem;
+    margin: 1rem 0.2rem;
+}
+.form-select{
+    width: 110%;
+    margin-right: 5rem;
+}
+
+/* 색 선택 */
+#color-select-container p{
+    margin: 0.5rem 0;    
+}
+section[id$=container] {
+    margin-bottom: 1rem;
+}
+#route-number{
+	margin-left: 0.5rem;
+}
+input[type="radio"] {display : none;}
+label[class$="button"] {
+    cursor: pointer;
+    width: 1.3rem;
+    height: 1.3rem;
+    border-radius: 60%;
+}
+label[class$="button"]:hover{
+    border: 2px rgb(239, 255, 182) solid;
+}
+input[type="radio"]:checked + label {
+    width: 1.6rem;
+    height: 1.6rem;
+    outline: 2.5px rgb(165, 207, 255) solid;
+}
+.color-buttons{
+    margin: 0 3rem;
+    width: 45%;
+}
+.pink-button{ background-color: rgb(255, 163, 163); }
+.red-button{ background-color: rgb(255, 54, 19); }
+.orange-button{ background-color: rgb(255, 145, 19); }
+.yellow-button{ background-color: rgb(255, 230, 0); }
+.yellowgreen-button{ background-color: yellowgreen; }
+.green-button{ background-color: green; }
+.mint-button{ background-color: rgb(118, 238, 198); }
+.skyblue-button{ background-color: skyblue; }
+.blue-button{ background-color: rgb(72, 105, 255); }
+.navy-button{ background-color: navy; }
+.purple-button{ background-color: purple; }
+.white-button{ background-color: rgb(255, 255, 255); border: 1px gray solid;}
+.gray-button{ background-color: gray; }
+.black-button{ background-color: black; }
+
+/*사진 첨부 및 코멘트*/
+#formFileSm{
+    width: 50%;
+    margin-left: 2rem;
+}
+#comment-input{
+    width: 80%;
+    resize: none;
+    height: 100%;
+    margin-left: 2rem;
+}
+input[type="button"]{
+    padding: 0.5rem;
+    width: 5rem;
+}

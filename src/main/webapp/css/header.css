@@ -9,6 +9,7 @@ header{
 header .bi {font-size: 25px;
 }
 header span{
+	width : 15rem;
 	font-family: 'Rock Salt', cursive;
 	font-size: 3rem;
 	line-height: 120%;
@@ -18,4 +19,7 @@ header ul{
 	align-items: flex-start;
 	list-style: none;
 	font-size: small;
+}
+.container-lg{
+	padding : 0;
 }	

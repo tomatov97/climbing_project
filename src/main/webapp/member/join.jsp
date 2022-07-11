@@ -16,7 +16,7 @@
 	<%@ include file="../includes/header.jsp" %>
     <main>
         <div class="page-title">
-          <h2>회원 가입</h2>
+          <h3>회원 가입</h3>
           <hr>
         </div>    
             <form class="needs-validation" novalidate="" action="/rockmate/member/join" method="post">
@@ -67,5 +67,6 @@
                 <input type="submit" value="회원가입"></input>
               </div>
             </form>
+        </main>
 </body>
 </html>

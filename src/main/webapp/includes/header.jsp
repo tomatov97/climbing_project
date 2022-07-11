@@ -12,9 +12,9 @@
     <link rel="stylesheet" href="../css/font.css">
     </head>
     <body>
-      <div class="container-lg">
+      <div class="container-fluid">
         <header class="d-flex flex-wrap justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
-          <a href="/rockmate/main/routeList.jsp" class="d-flex align-items-center col-md-3 mb-2 mb-md-0 text-dark text-decoration-none">
+          <a href="/rockmate/main/routeList.jsp?pageNumber=1&gymId=1" class="d-flex align-items-center col-md-3 mb-2 mb-md-0 text-dark text-decoration-none">
             <span>Rock Mate</span>
           </a>
           <div>

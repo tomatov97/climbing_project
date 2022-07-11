@@ -47,6 +47,14 @@ public class Gyms {
 	}
 	
 	public Gyms() {}
+	
+	// 검색용
+	public Gyms(int gymId, String gymName, String gymAddr) {
+		super();
+		this.gymId = gymId;
+		this.gymName = gymName;
+		this.gymAddr = gymAddr;
+	}
 
 	public int getGymId() {
 		return gymId;

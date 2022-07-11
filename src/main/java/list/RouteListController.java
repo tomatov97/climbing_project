@@ -18,6 +18,8 @@ import vo.RouteFilter;
 public class RouteListController extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding("UTF-8");
+		
 		int pageNumber = Integer.parseInt(request.getParameter("pageNumber"));
 		int gymId = Integer.parseInt(request.getParameter("gymId"));
 		int sectorId = 0;

@@ -14,10 +14,25 @@
 </head>
 <body>
 	<%@ include file="../includes/header.jsp" %>
-	<main class="container-md">
+	<main>
 		<h3>웨이브락 부산대점 
-		<a href="#" target=""><i class="bi bi-arrow-repeat small"></i></a>
+		<a data-bs-toggle="offcanvas" href="#gym-search-container" role="button"><i class="bi bi-arrow-repeat small"></i></a>
 		</h3>
+		<div class="offcanvas offcanvas-start" tabindex="-1" id="gym-search-container" aria-labelledby="offcanvasExampleLabel">
+		  <div class="offcanvas-header">
+		    <h5 class="offcanvas-title" id="gym-search-title">클라이밍장 검색</h5>
+		    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+		  </div>
+		  <div class="offcanvas-body">
+		    <div class="input-group mb-3">
+			  <input type="text" class="form-control" placeholder="클라이밍장 이름">
+			  <button class="btn btn-outline-secondary" type="button" id="gym-search">검색</button>
+			  <ul id="find-gyms">
+			  	
+			  </ul>
+			</div>
+		  </div>
+		</div>
 		<section id="filter-container">
 			<div class="filter">
 				<p>섹터</p>
@@ -168,7 +183,7 @@
 				</li>
 			</ul>
 		</section>
-		<nav id="pagination_wrapper" aria-label="Page navigation example">
+		<nav id="pagination_wrapper" aria-label="Page navigation">
 			<ul class="pagination pagination-md">
 				<li class="page-item">
 				    <a class="page-link" href="#" aria-label="Previous">
@@ -178,7 +193,7 @@
 			</ul>
 		</nav>
 		<section>
-			<a tabindex="0" href="#" id="add-button" data-bs-toggle="tooltip" data-bs-placement="top" title="새로운 문제 추가하기"><i class="bi bi-patch-plus-fill"></i></a>
+			<a tabindex="0" href="../addAndUpdate/routeAdd.jsp?gymId=${param.gymId}" id="add-button" data-bs-toggle="tooltip" data-bs-placement="top" title="새로운 문제 추가하기"><i class="bi bi-patch-plus-fill"></i></a>
 		</section>
 
 	</main>
@@ -203,7 +218,7 @@
 		
 		pageNumber = pageNumberParam[1];
 		
-		// let gymId = "${sessionScope.gym.id}";
+		let gymId = "${param.gymId}";
 		<!-- 필터 표시 -->
 		
 		
@@ -212,14 +227,14 @@
 		 +"fromDate=(6)&toDate=(7)&order=(8)";
 		
 		filterData = filterData.replace("(1)", pageNumber);
-		filterData = filterData.replace("(2)", "1");
+		filterData = filterData.replace("(2)", gymId);
 		filterData = filterData.replace("(3)", $("#sector-select").val());
 		filterData = filterData.replace("(4)", $("#hold-select").val());
 		filterData = filterData.replace("(5)", $("#level-select").val());
 		filterData = filterData.replace("(6)", null);
 		filterData = filterData.replace("(7)", null);
 		filterData = filterData.replace("(8)", $("#order-select").val());
-	
+		
 		$.ajax({
     		url: "http://localhost/rockmate/list",
     		type: "get",
@@ -281,7 +296,6 @@
     		},
     		error: function(request, status, error){ 
     			alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);  
-    			alert("에러발생!");
     		}
     		
     	})
@@ -289,8 +303,23 @@
     	function goDetail(routeId){
         			location.href="/rockmate/main/routeDetail.jsp?routeId="+routeId;
         		}
-		$("select").change(function(){
-			
+		
+		$("#gym-search").click(function(){
+			var gymKeywrd = $(".offcanvas-body input").val();
+			$.ajax({
+				ax({
+		    		url: "http://localhost/rockmate/gym/search",
+		    		type: "get",
+		    		data: "gymKeywrd="+gymKeywrd,
+		    		datatype: "json",
+		    		success: function(status, gymLList) {
+		    			console.log("실행");
+		    			console.log(status);
+		    		},
+		    		error: function() {
+		    			}
+		    		}
+			})
 		})
 	</script>
 </body>

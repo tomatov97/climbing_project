@@ -33,7 +33,7 @@
     ></script>
     <title>문제 상세 보기</title>
 </head>
-<body id="body">
+<body>
 	<%@ include file="../includes/header.jsp" %>
     <div class="card">
       <div class="infoCard">

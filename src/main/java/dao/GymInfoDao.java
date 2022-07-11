@@ -4,9 +4,13 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import etc.Database;
+import route.RouteService;
 import vo.Gyms;
+import vo.Routes;
 import vo.Sectors;
 import vo.Settings;
 
@@ -188,5 +192,34 @@ public class GymInfoDao {
 		}
 		return name;
 	}
-
+	
+	public List<Gyms> selectGymsByKeywrd(String key) {
+		Connection conn = Database.getConnection();
+		PreparedStatement pstmt = null; 
+		ResultSet rs = null; 
+		List<Gyms> GymList = new ArrayList<>();	
+		try {
+			String sql = "SELECT gymId, name, addr FROM gyms WHERE name LIKE '%?%' LIMIT 15 ";
+			
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, key);	
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				int gymId = rs.getInt("gymId");
+				String name = rs.getString("name");
+				String addr = rs.getString("addr");
+				
+				Gyms nthGym = new Gyms(gymId, name, addr);			
+				GymList.add(nthGym);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			Database.closeResultSet(rs); 
+			Database.closePstmt(pstmt); 
+			Database.closeConnection(conn);			
+		}	
+		return GymList;
+	}
 }
