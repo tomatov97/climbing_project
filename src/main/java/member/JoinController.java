@@ -35,7 +35,7 @@ public class JoinController extends HttpServlet {
 		else {
 			int status = dao.insertMemberInfo(newMember);
 			response.setStatus(status);
-			response.sendRedirect("/rockmate/main/routeList.jsp");
+			response.sendRedirect("/rockmate/member/joinSuccess.jsp");
 		}
 	
 	}
