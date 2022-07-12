@@ -15,21 +15,20 @@
 <body>
 	<%@ include file="../includes/header.jsp" %>
 	<main>
-		<h3>웨이브락 부산대점 
-		<a data-bs-toggle="offcanvas" href="#gym-search-container" role="button"><i class="bi bi-arrow-repeat small"></i></a>
-		</h3>
+		<h3 id="gym-name">웨이브락 부산대점</h3>
+		<h3 id="go-to-search"><a data-bs-toggle="offcanvas" href="#gym-search-container" role="button"><i class="bi bi-arrow-repeat small"></i></a></h3>
 		<div class="offcanvas offcanvas-start" tabindex="-1" id="gym-search-container" aria-labelledby="offcanvasExampleLabel">
 		  <div class="offcanvas-header">
 		    <h5 class="offcanvas-title" id="gym-search-title">클라이밍장 검색</h5>
 		    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
 		  </div>
 		  <div class="offcanvas-body">
-		    <div class="input-group mb-3">
-			  <input type="text" class="form-control" placeholder="클라이밍장 이름">
-			  <button class="btn btn-outline-secondary" type="button" id="gym-search">검색</button>
-			  <ul id="find-gyms">
-			  	
-			  </ul>
+		    <div class="input-group">
+			  <input type="text" class="form-control" id="search-blank" placeholder="클라이밍장 이름">
+			  <button class="btn btn-outline-secondary" type="button" id="gym-search">검색</button>			  
+			</div>
+			<div>
+				<ul id="find-gyms"></ul>
 			</div>
 		  </div>
 		</div>
@@ -95,93 +94,7 @@
 			</div>
 		</section>
 		<section id="route-list">
-			<ul id="list-container">
-				<li>
-					<div class="card" id="simple-route-info">
-                		<div class="icon">
-                    		<div class="tape"><img src="../images/icon/tape/navy_tape.png" alt="남색 테이프 이미지">
-                        		<div class="hold"><img src="../images/icon/hold/yellow_hold.png" alt="노랑 홀드 이미지"></div>
-                    		</div>                                        
-                		</div>
-						<div class="route-info">
-							<p class="bold">노랑 홀드 남색 레벨</p>
-							<p class="small">버터밀크(2022.06.01~2022.07.17)</p>
-							<p class="small gray">문제 아이디 <span>38273</span></p>
-						</div>
-						<div class="route-img">
-							<img src="../images/route/img1.jpg" alt="">
-						</div>
-					</div>
-				</li>
-				<li>
-					<div class="card" id="simple-route-info">
-						<div class="icon">
-							<div class="tape"><img src="../images/icon/tape/skyblue.png" alt="하늘 테이프 이미지">
-								<div class="hold"><img src="../images/icon/hold/blue.png" alt="파랑 홀드 이미지"></div>
-							</div>                                        
-						</div>
-						<div class="route-info">
-							<p class="large bold">파랑 홀드 하늘 레벨</p>
-							<p class="small">버터밀크(2022.06.01~2022.07.17)</p>
-							<p class="small gray">문제 아이디 <span>45642</span></p>
-						</div>
-						<div class="route-img">
-							<img src="https://i.ytimg.com/vi/so5s21EqB6M/maxresdefault.jpg" alt="">
-						</div>
-					</div>					
-				</li>
-				<li>
-					<div class="card" id="simple-route-info">
-						<div class="icon">
-							<div class="tape"><img src="../images/icon/tape/yellow.png" alt="노랑 테이프 이미지">
-								<div class="hold"><img src="../images/icon/hold/white.png" alt="하양 홀드 이미지"></div>
-							</div>                                        
-						</div>
-						<div class="route-info">
-							<p class="bold">하양 홀드 노랑 레벨</p>
-							<p class="small">아이스버그(2022.05.11~2022.07.31)</p>
-							<p class="small gray">문제 아이디 <span>13982</span></p>
-						</div>
-						<div class="route-img">
-							<img src="https://lh3.googleusercontent.com/p/AF1QipPEQmed9miR8U-9gVbvRAvq6BlOVXhzBLqsFaPr=w768-h768-n-o-k-v1" alt="">
-						</div>
-					</div>				
-				</li>
-				<li>
-					<div class="card" id="simple-route-info">
-						<div class="icon">
-							<div class="tape"><img src="../images/icon/tape/skyblue.png" alt="하늘 테이프 이미지">
-								<div class="hold"><img src="../images/icon/hold/blue.png" alt="파랑 홀드 이미지"></div>
-							</div>                                        
-						</div>
-						<div class="route-info">
-							<p class="large bold">파랑 홀드 하늘 레벨 2</p>
-							<p class="small">버터밀크(2022.06.01~2022.07.17)</p>
-							<p class="small gray">문제 아이디 <span>26586</span></p>
-						</div>
-						<div class="route-img">
-							<img src="https://i.ytimg.com/vi/so5s21EqB6M/maxresdefault.jpg" alt="">
-						</div>
-					</div>
-				</li>
-				<li>
-					<div class="card" id="simple-route-info">
-						<div class="icon">
-							<div class="tape"><img src="../images/icon/tape/purple.png" alt="보라 테이프 이미지">
-								<div class="hold"><img src="../images/icon/hold/orange.png" alt="주황 홀드 이미지"></div>
-							</div>                                        
-						</div>
-						<div class="route-info">
-							<p class="bold">주황 홀드 보라 레벨</p>
-							<p class="small">비숍(2022.04.20~2022.06.26)</p>
-							<p class="small gray">문제 아이디 <span>89430</span></p>
-						</div>
-						<div class="route-img">
-							<img src="https://cdn.imweb.me/upload/S2021011502a2f4eeeb339/8f368d6bd96b6.jpg" alt="">
-						</div>
-					</div>
-				</li>
-			</ul>
+			<ul id="list-container"></ul>
 		</section>
 		<nav id="pagination_wrapper" aria-label="Page navigation">
 			<ul class="pagination pagination-md">
@@ -193,7 +106,7 @@
 			</ul>
 		</nav>
 		<section>
-			<a tabindex="0" href="../addAndUpdate/routeAdd.jsp?gymId=${param.gymId}" id="add-button" data-bs-toggle="tooltip" data-bs-placement="top" title="새로운 문제 추가하기"><i class="bi bi-patch-plus-fill"></i></a>
+			<a tabindex="0" href="../route/add?gymId=${param.gymId}" id="add-button" data-bs-toggle="tooltip" data-bs-placement="top" title="새로운 문제 추가하기"><i class="bi bi-patch-plus-fill"></i></a>
 		</section>
 
 	</main>
@@ -220,7 +133,28 @@
 		
 		let gymId = "${param.gymId}";
 		<!-- 필터 표시 -->
-		
+		$.ajax({
+			url: "http://localhost/rockmate/sector/search",
+    		type: "get",
+    		data: "gymId="+gymId,
+    		datatype: "json",
+    		success: function(response){
+    			$("#sector-select").empty();
+    			$("#sector-select").append("<option value=\"all\" selected>전체</option>");
+    			let sectors = response.sectorList;
+    			let tag = "<option value=\"(1)\">(2)</option>";
+					for (let i=0; i<sectors.length; i++) {
+						let nthSector = sectors[i];
+						let nthTag = tag.replace("(1)", nthSector.sectorId);
+						nthTag = nthTag.replace("(2)", nthSector.name);
+						
+						$("#sector-select").append(nthTag);
+					}
+    		},
+    		error: function(){
+    			
+    		}			
+		})
 		
 		<!-- 리스트 표시 -->
 		let filterData = "pageNumber=(1)&gymId=(2)&sectorId=(3)&holdColor=(4)&levelColor=(5)&"
@@ -242,7 +176,7 @@
     		datatype: "json",
     		success: function(routes){
     			let gymName = routes.gymName;
-    			$("h3").val(gymName);
+    			$("#gym-name").text(gymName);
     			
     			let amount = routes.amount;
     			let routeList = routes.routeList;
@@ -260,7 +194,7 @@
     			
     			// 문제 목록
     			let tag = "<li>"
-					+"<div class=\"card\" id=\"simple-route-info\" onclick=\"goDetail((6))\">"
+					+"<div class=\"card row-flex\" onclick=\"goDetail((6))\">"
 						+"<div class=\"icon\">"
 							+"<div class=\"tape\"><img src=\"../images/icon/tape/(8).png\" alt=\"(1) 테이프 이미지\">"
 							+"<div class=\"hold\"><img src=\"../images/icon/hold/(9).png\" alt=\"(2) 홀드 이미지\"></div>"
@@ -272,14 +206,13 @@
 						+"<p class=\"small gray\">문제 아이디 <span>(6)</span></p>"
 					+"</div>"
 					+"<div class=\"route-img\">"
-						+"<img src=\"(7)\" alt=\"클라이밍 문제 이미지\">"
+						+"<img src=\"/rockmate/images/route/(7)\" alt=\"클라이밍 문제 이미지\">"
 					+"</div>"
 				+"</div>"
 			+"</li>";
 			
 				for (let i=0; i<routeList.length; i++) {
 					let nthRoute = routeList[i];
-					console.log(nthRoute);
 					
 					let nthTag = tag.replace("(1)", nthRoute.levelColor);
 					nthTag = nthTag.replace("(2)", nthRoute.holdColor);
@@ -306,21 +239,43 @@
 		
 		$("#gym-search").click(function(){
 			var gymKeywrd = $(".offcanvas-body input").val();
-			$.ajax({
-				ax({
+			if (gymKeywrd != "") {
+				$("#find-gyms").empty();
+				$.ajax({
 		    		url: "http://localhost/rockmate/gym/search",
 		    		type: "get",
 		    		data: "gymKeywrd="+gymKeywrd,
 		    		datatype: "json",
-		    		success: function(status, gymLList) {
-		    			console.log("실행");
-		    			console.log(status);
+		    		success: function(response) {
+						let list = response.gymList;
+						if (list.length == 0) {
+							$("#find-gyms").append("<p>일치하는 정보가 없습니다.</p>");
+						} else {
+							let tag = "<li class=\"column-flex card\" onclick=\"changeGym((1))\">"
+						  		+"<h6 class=\"bold\">(2)</h6>"
+						  		+"<p class=\"gray\">(3)</p>"
+						  		+"</li>";
+								for (let i=0; i<list.length; i++) {
+									let nthGym = list[i];
+									console.log(nthGym);
+									let nthTag = tag.replace("(1)", nthGym.gymId);
+									nthTag = nthTag.replace("(2)", nthGym.name);
+									nthTag = nthTag.replace("(3)", nthGym.addr);
+									
+									$("#find-gyms").append(nthTag);
+								}
+						}												
 		    		},
-		    		error: function() {
+		    		error: function(request, status, error) {
+		    			alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
 		    			}
-		    		}
-			})
+				})
+			}			
 		})
+		
+		function changeGym(gymId) {
+			location.href="/rockmate/main/routeList.jsp?pageNumber=1&gymId="+gymId;
+		}
 	</script>
 </body>
 </html>

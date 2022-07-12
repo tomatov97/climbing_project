@@ -17,11 +17,24 @@
 </head>
 
 <body>
-  <div>
-    <h2>리뷰 작성</h2>
-    <hr>
-  </div>
   <main class="column-flex">
+    <section class="card" id="simple-route-info">
+      <ul>
+        <li>
+          <span class="bold">섹터</span>
+          미드나잇 (2022.05.02 ~ 2022.06.02)
+        </li>
+        <li>
+          <span class="bold">문제</span>
+          <span id="route-name"></span>
+          <span id="route-id"></span>
+        </li>
+      </ul>
+    </section>
+    <div>
+      <h2>리뷰 작성</h2>
+      <hr>
+    </div>
     <form class="needs-validation" novalidate="" action="/rockmate/route/add" method="post">
       <section id="select-container" class="row-flex flex-between">
         <div class="row-flex">
@@ -56,33 +69,6 @@
           <label for="customRange2" class="form-label">재미</label>
           <input type="range" class="form-range" min="0" max="10" id="fun-score">
         </div>
-
-        <div id="new-level-color" class="row-flex">
-          <p>레벨색</p>
-          <div class="row-flex flex-between color-buttons">
-            <input type="radio" name="levelColor" id="pink-level" value="분홍" /> <label for="pink-level" class="pink-button"></label>
-            <input type="radio" name="levelColor" id="red-level" value="빨강" /> <label for="red-level" class="red-button"></label>
-            <input type="radio" name="levelColor" id="orange-level" value="주황" /> <label for="orange-level"
-              class="orange-button"></label>
-            <input type="radio" name="levelColor" id="yellow-level" value="노랑" /> <label for="yellow-level"
-              class="yellow-button"></label>
-            <input type="radio" name="levelColor" id="green-level" value="초록" /> <label for="green-level"
-              class="green-button"></label>
-            <input type="radio" name="levelColor" id="skyblue-level" value="하늘" /> <label for="skyblue-level"
-              class="skyblue-button"></label>
-            <input type="radio" name="levelColor" id="navy-level" value="남색" /> <label for="navy-level" class="navy-button"></label>
-            <input type="radio" name="levelColor" id="purple-level" value="보라" /> <label for="purple-level"
-              class="purple-button"></label>
-            <input type="radio" name="levelColor" id="white-level" value="흰색" /> <label for="white-level"
-              class="white-button"></label>
-            <input type="radio" name="levelColor" id="gray-level" value="회색" /> <label for="gray-level" class="gray-button"></label>
-            <input type="radio" name="levelColor" id="black-level" value="검정" /> <label for="black-level"
-              class="black-button"></label>
-          </div>
-          <span id="level-name"> <span id="route-number"></span></span>
-        </div>
-
-        <p class="pink-txt">* 해당 섹터에 같은 색 홀드, 같은 레벨의 문제가 <span id="same-route-amt">0</span>개 있어요!</p>
       </section>
 
       <hr class="gray">

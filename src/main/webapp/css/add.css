@@ -1,9 +1,9 @@
 /* 섹터, 세팅 선택 */
 #select-container p {
-    width: 100%
+    min-width: 4.5rem;
 }
 #date-info{
-	width: 12rem;
+	min-width: 14rem;
 }
 .form-disabled{
 	background-color: #e9ecef;
@@ -14,7 +14,7 @@
     margin: 1rem 0.2rem;
 }
 .form-select{
-    width: 110%;
+    min-width: 6rem;
     margin-right: 5rem;
 }
 

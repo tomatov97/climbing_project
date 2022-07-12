@@ -139,6 +139,31 @@ public class RouteInfoDao {
 		}		
 		return amount;		
 	}
+	
+	public int countRoutesById(int newId) {
+		Connection conn = Database.getConnection();
+		PreparedStatement pstmt = null;		
+		ResultSet rs = null;		
+		int amount = 0;		
+		try {
+			String sql = "SELECT COUNT(*) AS amount FROM routes WHERE `routeId`=?";
+			
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, newId);
+			rs = pstmt.executeQuery();
+			
+			rs.next();
+			amount = rs.getInt("amount");
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			Database.closeResultSet(rs);
+			Database.closePstmt(pstmt);
+			Database.closeConnection(conn);
+		}		
+		return amount;		
+	}
 
 	public int updateById(Routes routeInfo) {
 		Connection conn = Database.getConnection();

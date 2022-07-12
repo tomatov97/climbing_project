@@ -7,8 +7,12 @@ public class Settings extends Sectors{
 	private int sectorId;
 	private LocalDate setDate;
 	private LocalDate removeDate;
-	private String dateString;
+	private String dateString;	
 	
+	public Settings(int settingId, String dateString) {
+		this.settingId = settingId;
+		this.dateString = dateString;
+	}
 	public String getDateString() {
 		return dateString;
 	}

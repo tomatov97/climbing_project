@@ -35,35 +35,24 @@ public class RouteAddController extends HttpServlet {
 		String level = mr.getParameter("levelColor");
 		String name = service.createName(settingId, hold, level);
 		String comment = mr.getParameter("comment");		
-		String img = mr.getParameter("img");
-		if (img.equals("")) img = null;
-		else img = mr.getFilesystemName("img");
+		String img = mr.getFilesystemName("img");
+		int gymId = Integer.parseInt(mr.getParameter("gymId"));
 		
 		Routes newRoute = new Routes(routeId, settingId, name, hold, level, comment, img);
 		
 		RouteInfoDao dao = new RouteInfoDao();
 		int status = dao.insertRouteInfo(newRoute);
 		response.setStatus(status);	
-		response.sendRedirect("/rockmate/main/routeList.jsp");
+		response.sendRedirect("/rockmate/main/routeList.jsp?pageNumber=1&gymId="+gymId);
 	}
 	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		req.setCharacterEncoding("UTF-8");
+		int gymId = Integer.parseInt(req.getParameter("gymId"));
+		req.setAttribute("gymId", gymId);
 		
-		RouteService service = new RouteService();
-		int settingId = Integer.parseInt(req.getParameter("settingId"));
-		String hold = req.getParameter("holdColor");
-		String level = req.getParameter("levelColor");
-		
-		int count = service.isAlreadyColors(settingId, hold, level);
-		
-		resp.setContentType("application/json;charset=UTF-8");
-		PrintWriter out = resp.getWriter();
-		
-		out.print("{\"count\":"+count+"}");
-		
-		out.close();
+		RequestDispatcher rd = req.getRequestDispatcher("../addAndUpdate/routeAdd.jsp");
+		rd.forward(req, resp);
 	}
 	
 	

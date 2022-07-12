@@ -4,7 +4,7 @@ public class Sectors extends Gyms{
 	private int gymId;
 	private int sectorId;
 	private String sectorName;	
-	
+	//insert용
 	public Sectors(int gymId, String sectorName) {
 		super();
 		this.gymId = gymId;

@@ -16,8 +16,8 @@ public class RouteService {
 	
 	public boolean isAlreadyId(int id) {
 		RouteInfoDao dao = new RouteInfoDao();
-		Routes route = dao.selectRouteById(id);
-		if(route == null) 	return false;
+		int amount = dao.countRoutesById(id);
+		if(amount == 0) 	return false;
 		else 				return true;
 	}
 	

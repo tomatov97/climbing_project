@@ -26,11 +26,11 @@
     <hr>
   </div>
   
-    <form class="needs-validation" action="/rockmate/route/add" method="post">
+    <form class="needs-validation" action="/rockmate/route/add?gymId=${gymId }" method="post" enctype="multipart/form-data">
       <section id="select-container" class="row-flex">
         <div class="row-flex">
           <p class="center">섹터</p>
-          <select class="form-select form-select-sm" id="sector-select" aria-label=".form-select-lg example">
+          <select class="form-select form-select-sm" id="sector-select" aria-label=".form-select-lg">
             <option selected>선택</option>
             <option value="1">아이스버그</option>
             <option value="2">버터밀크</option>
@@ -41,11 +41,7 @@
         <div class="row-flex">
           <p class="center">세팅 날짜</p>
           <input type="text" class="form-control" id="date-info" readonly>
-          <select class="form-select form-select-sm" id="setting-select" aria-label=".form-select-lg example">
-            <option value="1" selected>가장 최근</option>
-            <option value="4">아이스버그</option>
-            <option value="2">버터밀크</option>
-            <option value="3">비숍</option>
+          <select class="form-select form-select-sm" id="setting-select" name="settingId" aria-label=".form-select-lg">
           </select>
         </div>
       </section>
@@ -112,27 +108,85 @@
       <section id="comment-img-container">
         <div class="row-flex">
           <label for="formFileSm" class="form-label">사진 첨부</label>
-          <input class="form-control form-control-sm" id="formFileSm" type="file">
+          <input class="form-control form-control-sm" id="formFileSm" name="img" type="file">
           <span></span>
         </div>
 
         <div class="mb-3 row-flex">
           <label for="comment-input" class="form-label">기타 설명</label>
-          <textarea class="form-control" id="comment-input" rows="3" 
+          <textarea class="form-control" id="comment-input" name="comment" rows="3" 
           placeholder="대략적인 위치 (오른쪽, 왼쪽), 홀드 모양 등 참고할 만한 정보들을 적어 주시면 문제 찾기가 더 쉬워져요!"></textarea>
           <span></span>
         </div>        
       </section>
       <div class="row-flex flex-end">
-        <input type="button" value="등록"></input>
+        <input type="submit" value="등록"></input>
       </div>
     </form>
 </main>
 <script src="../js/scripts.js"></script>
 <script src="../js/jquery-3.6.0.min.js"></script>
 <script>
-    var holdColor = undefined;
-    var levelColor = undefined;
+//섹터 표시
+let gymId = "${gymId}";
+$.ajax({
+	url: "http://localhost/rockmate/sector/search",
+	type: "get",
+	data: "gymId="+gymId,
+	datatype: "json",
+	success: function(response){
+		$("#sector-select").empty();
+		$("#sector-select").append("<option value=\"\" selected>선택</option>");
+		let sectors = response.sectorList;
+		let tag = "<option value=\"(1)\">(2)</option>";
+			for (let i=0; i<sectors.length; i++) {
+				let nthSector = sectors[i];
+				let nthTag = tag.replace("(1)", nthSector.sectorId);
+				nthTag = nthTag.replace("(2)", nthSector.name);
+				
+				$("#sector-select").append(nthTag);
+			}
+	},
+	error: function(){
+		
+	}			
+})
+// 세팅 날짜 표시
+$("#sector-select").change(function(){
+	let sectorId = this.value;
+	if (sectorId == "") {
+		$("#setting-select").empty();
+		$("#date-info").val("");
+	} else {
+		$.ajax({
+			url: "http://localhost/rockmate/setting/search",
+			type: "get",
+			data: "sectorId="+sectorId,
+			datatype: "json",
+			success: function(response){
+				let settings = response.settingList;
+				$("#setting-select").empty();
+				$("#setting-select").append("<option value=\""+settings[0].settingId+"\" selected>가장 최근</option>");	
+				$("#date-info").val(settings[0].date);
+				let tag = "<option value=\"(1)\">(2)</option>";
+					for (let i=1; i<settings.length; i++) {
+						let nthSetting = settings[i];
+						let nthTag = tag.replace("(1)", nthSetting.settingId);
+						nthTag = nthTag.replace("(2)", nthSetting.date);
+						
+						$("#setting-select").append(nthTag);
+					}
+			},
+			error: function(request, status, error){ 
+				alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);  			
+			}
+		})
+	}	
+})
+
+// 색깔 글자로 표시
+    let holdColor = undefined;
+    let levelColor = undefined;
     $("input[name='holdColor']:radio").change(function () {
         holdColor = this.value;                        
         $("#hold-name").text(holdColor+" 홀드");
@@ -151,14 +205,14 @@
 
     function amountOfSameColors(holdColor, levelColor) {
         $.ajax({
-        	url: "http://localhost/rockmate/route/add",
+        	url: "http://localhost/rockmate/route/count",
     		type: "get",
     		data: "settingId="+$("#setting-select").val()+"&holdColor="+holdColor+"&levelColor="+levelColor,
     		datatype: "json",
     		success: function(amount){
     			var count = amount.count;
     			$("#same-route-amt").text(count);
-    			if(parseInt(count)>1) {	$("#route-number").text(" "+ (parseInt(count)+1));}
+    			if(parseInt(count)>=1) {	$("#route-number").text(" "+ (parseInt(count)+1));}
     			else {$("#route-number").text(" ");}
     		},
     		error: function(request, status, error){ 
@@ -167,7 +221,7 @@
         })
       }
 
-  </script>
+</script>
 </body>
 
 </html>
