@@ -1,6 +1,11 @@
 * { 
  font-family: 'SpoqaHanSansNeo-Regular';
 }
+main{
+	min-width: 400px;
+    width: 90%;
+	margin: auto;
+}
 
 html,
 body {

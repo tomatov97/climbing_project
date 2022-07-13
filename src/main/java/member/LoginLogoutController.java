@@ -20,10 +20,12 @@ import vo.Member;
 public class LoginLogoutController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
-		session.removeAttribute("loginUserInfo");		
-		response.sendRedirect("/rockmate/main");
+		session.removeAttribute("loginMember");
+		int gymId = (int) session.getAttribute("gymId");
+		response.sendRedirect("/rockmate/main/routeList.jsp?pageNumber=1&gymId="+gymId);
 	}
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding("UTF-8");
 		try {
 			String id = request.getParameter("id");
 			String pw = request.getParameter("pw");
@@ -44,12 +46,16 @@ public class LoginLogoutController extends HttpServlet {
 				loginInfo = service.selectLoginInfo(loginInfo);
 				
 				HttpSession session = request.getSession();
-				session.setAttribute("loginMemberId", id);
+				session.setAttribute("loginMember", loginInfo);
+				int gymId = (int) session.getAttribute("gymId");
 				response.setStatus(HttpServletResponse.SC_OK);
+				response.sendRedirect("/rockmate/main/routeList.jsp?pageNumber=1&gymId="+gymId);
 			} else	response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
 		} catch (BadParameterException e) {
 			response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
 		}
 	}
+	
+	
 
 }

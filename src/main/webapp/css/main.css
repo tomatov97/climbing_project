@@ -36,7 +36,8 @@ h3{
     margin: 1rem 1.5rem 1rem 0;
 }
 
-.logoTxt{	
+.logoTxt{
+	width: 8rem;
 	font-family: 'Rock Salt', cursive;
 	font-size: 3rem;
 }
@@ -46,7 +47,15 @@ h3{
 .page-title{
 	margin-top: 4rem;
 }
+#find-gyms{
+	margin-top: 2rem;
+	padding: 0;
+}
+#find-gyms>li{
+	padding: 1rem 1.5rem 0.5rem;
+}
 #gym-name, #go-to-search{
+	height: 2rem;
 	display : inline-block;
 }
 #filter-container {
@@ -65,7 +74,6 @@ h3{
 	font-size: small;
 }
 .input-group input{
-	margin-bottom: 1rem;
 	padding-top: 0.25rem;
 	padding-bottom: 0.25rem;
 	font-size:0.875rem;
@@ -77,8 +85,8 @@ h3{
 	justify-content: space-around;
 	padding: 0 5%;
 }
-#simple-route-info{
-	flex-direction: row;
+#route-list{
+	margin-top:2rem;
 }
 #list-container{
 	padding: 0 5%;

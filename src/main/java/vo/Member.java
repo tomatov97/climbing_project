@@ -46,6 +46,15 @@ public class Member {
 		this.imgPath = "default.png";
 		this.regDate = regDate;
 	}
+	
+	public Member(int idx, String id, String pw, String name, String nickname) {
+		super();
+		this.idx = idx;
+		this.id = id;
+		this.name = name;
+		this.pw = pw;
+		this.nickname = nickname;
+	}
 
 
 	public Member() {

@@ -29,14 +29,16 @@ public class MemberService {
 
 	public Member selectLoginInfo(Member loginInfo) {
 		MemberInfoDao dao = new MemberInfoDao();
-		Member memberInfo = dao.selectMemberById(loginInfo.getId());
+		Member memberInfo = dao.selectSimpleMemberById(loginInfo.getId());
 		
 		if (memberInfo == null) {
 			return null;
 		} else {
 			if (!loginInfo.getPw().equals(memberInfo.getPw())) {
 				return null;
-			} else return memberInfo;
+			} else {
+				memberInfo.setPw("********");
+				return memberInfo;}
 		}
 	}
 	

@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import dao.RouteInfoDao;
 import route.RouteService;
@@ -21,7 +22,8 @@ public class RouteListController extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		
 		int pageNumber = Integer.parseInt(request.getParameter("pageNumber"));
-		int gymId = Integer.parseInt(request.getParameter("gymId"));
+		int gymId = request.getParameter("gymId")==null ? 1 : Integer.parseInt(request.getParameter("gymId"));
+		System.out.println(gymId);
 		int sectorId = 0;
 		if (!request.getParameter("sectorId").equals("all")) sectorId = Integer.parseInt(request.getParameter("sectorId"));
 		String holdColor = request.getParameter("holdColor");
@@ -30,8 +32,10 @@ public class RouteListController extends HttpServlet {
 		LocalDate toDate = null;
 		//if (request.getParameter("fromDate")!=null) fromDate = LocalDate.parse(request.getParameter("fromDate"));
 		//if (request.getParameter("toDate")!=null) toDate = LocalDate.parse(request.getParameter("toDate"));
-		System.out.println(request.getParameter("order"));
 		String order = request.getParameter("order");
+		
+		HttpSession session = request.getSession();
+		session.setAttribute("gymId", gymId);
 		
 		RouteFilter filter = new RouteFilter(pageNumber, gymId, sectorId, holdColor, levelColor, fromDate, toDate, order);
 		RouteInfoDao dao = new RouteInfoDao();

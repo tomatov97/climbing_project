@@ -77,6 +77,7 @@ public class MemberInfoDao {
 			if (rs.next()) {
 				String pw = rs.getString("pw");
 				String name = rs.getString("name");
+				String nickname = rs.getString("nickname");
 				String email = rs.getString("email");
 				String t_regDate = rs.getString("regDate");
 				System.out.println("regDate => " + t_regDate);
@@ -89,6 +90,35 @@ public class MemberInfoDao {
 				LocalDateTime regDate = LocalDateTime.parse(t_regDate);
 				
 				memberInfo = new Member(id, pw, name, email, regDate);
+			}			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			Database.closePstmt(pstmt);
+			Database.closeConnection(conn);
+		}
+		return memberInfo;
+	}
+	
+	public Member selectSimpleMemberById(String id) {
+		Connection conn = Database.getConnection();
+		PreparedStatement pstmt = null;
+		Member memberInfo = null;
+		ResultSet rs = null;
+		
+		try {
+			String sql = "SELECT * FROM member WHERE id=?";			
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, id);			
+			rs = pstmt.executeQuery();
+			
+			if (rs.next()) {
+				int idx = rs.getInt("idx");
+				String pw = rs.getString("pw");
+				String name = rs.getString("name");
+				String nickname = rs.getString("nickname");
+				
+				memberInfo = new Member(idx, id, pw, name, nickname);
 			}			
 		} catch (SQLException e) {
 			e.printStackTrace();

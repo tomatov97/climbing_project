@@ -37,10 +37,7 @@
 				<p>섹터</p>
 				<select class="form-select form-select-sm mb-3" id="sector-select" aria-label=".form-select-lg example">
 					<option value="all" selected>전체</option>
-					<option value="1">아이스버그</option>
-					<option value="2">버터밀크</option>
-					<option value="3">비숍</option>
-				  </select>
+				</select>
 			</div>
 			<div class="filter">
 				<p>홀드</p>
@@ -106,7 +103,7 @@
 			</ul>
 		</nav>
 		<section>
-			<a tabindex="0" href="../route/add?gymId=${param.gymId}" id="add-button" data-bs-toggle="tooltip" data-bs-placement="top" title="새로운 문제 추가하기"><i class="bi bi-patch-plus-fill"></i></a>
+			<a tabindex="0" href="../route/add?gymId=${gymId}" id="add-button" data-bs-toggle="tooltip" data-bs-placement="top" title="새로운 문제 추가하기"><i class="bi bi-patch-plus-fill"></i></a>
 		</section>
 
 	</main>
@@ -119,17 +116,7 @@
 	})	
 	</script>
 	<script type="text/javascript">
-		let pageNumber=1;
-		console.log("스크립트 시작");
-		
-		let parameters = location.search;
-		parameters = parameters.substr(1);
-		parameters = parameters.split("&");
-		
-		let pageNumberParam = parameters[0];
-		pageNumberParam = pageNumberParam.split("=");
-		
-		pageNumber = pageNumberParam[1];
+		pageNumber = "${param.pageNumber}";
 		
 		let gymId = "${param.gymId}";
 		<!-- 필터 표시 -->
@@ -159,6 +146,7 @@
 		<!-- 리스트 표시 -->
 		let filterData = "pageNumber=(1)&gymId=(2)&sectorId=(3)&holdColor=(4)&levelColor=(5)&"
 		 +"fromDate=(6)&toDate=(7)&order=(8)";
+		console.log(filterData);
 		
 		filterData = filterData.replace("(1)", pageNumber);
 		filterData = filterData.replace("(2)", gymId);
@@ -168,6 +156,11 @@
 		filterData = filterData.replace("(6)", null);
 		filterData = filterData.replace("(7)", null);
 		filterData = filterData.replace("(8)", $("#order-select").val());
+		console.log(filterData);
+		
+		$("select").change(function(){
+			
+		})
 		
 		$.ajax({
     		url: "http://localhost/rockmate/list",
@@ -175,63 +168,69 @@
     		data: filterData,
     		datatype: "json",
     		success: function(routes){
-    			let gymName = routes.gymName;
-    			$("#gym-name").text(gymName);
-    			
-    			let amount = routes.amount;
-    			let routeList = routes.routeList;
-    			
-    			// 페이지네이션
-    			let pageCount = Math.ceil(amount/10);
-    			for(let count=1; count<=pageCount; count++) {
-    				$("ul.pagination").append("<li class=\"page-item\"><a class=\"page-link\" href=\"/rockmate/main/routeList.jsp?pageNumber="+count+"\">"+count+"</a></li>");
-    			}
-    			$("ul.pagination").append("<li class=\"page-item\">"
-    				    + "<a class=\"page-link\" href=\"#\" aria-label=\"Next\">"
-			       			+"<span aria-hidden=\"true\">&raquo;</span>"
-			    		+ "</a></li>");
-    			
-    			
-    			// 문제 목록
-    			let tag = "<li>"
-					+"<div class=\"card row-flex\" onclick=\"goDetail((6))\">"
-						+"<div class=\"icon\">"
-							+"<div class=\"tape\"><img src=\"../images/icon/tape/(8).png\" alt=\"(1) 테이프 이미지\">"
-							+"<div class=\"hold\"><img src=\"../images/icon/hold/(9).png\" alt=\"(2) 홀드 이미지\"></div>"
-						+"</div>"                                        
-					+"</div>"
-					+"<div class=\"route-info\">"
-						+"<p class=\"large bold\">(3)</p>"
-						+"<p class=\"small\">(4)((5))</p>"
-						+"<p class=\"small gray\">문제 아이디 <span>(6)</span></p>"
-					+"</div>"
-					+"<div class=\"route-img\">"
-						+"<img src=\"/rockmate/images/route/(7)\" alt=\"클라이밍 문제 이미지\">"
-					+"</div>"
-				+"</div>"
-			+"</li>";
-			
-				for (let i=0; i<routeList.length; i++) {
-					let nthRoute = routeList[i];
-					
-					let nthTag = tag.replace("(1)", nthRoute.levelColor);
-					nthTag = nthTag.replace("(2)", nthRoute.holdColor);
-					nthTag = nthTag.replace("(3)", nthRoute.routeName);
-					nthTag = nthTag.replace("(4)", nthRoute.sectorName);
-					nthTag = nthTag.replace("(5)", nthRoute.settingDate);
-					nthTag = nthTag.replaceAll("(6)", nthRoute.routeId);
-					nthTag = nthTag.replace("(7)", nthRoute.img);
-					nthTag = nthTag.replace("(8)", nthRoute.levelEng);
-					nthTag = nthTag.replace("(9)", nthRoute.holdEng);
-					
-					$("#list-container").append(nthTag);
-				}
+    			loadRouteList(routes)
     		},
     		error: function(request, status, error){ 
     			alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);  
     		}
     		
     	})
+    	function loadRouteList(routes) {
+			let gymName = routes.gymName;
+			$("#gym-name").text(gymName);
+			
+			let amount = routes.amount;
+			let routeList = routes.routeList;    			
+			// 페이지네이션    			
+			pagenation(amount);
+			// 문제 목록
+			addRoutes(routeList);
+		}
+    	function pagenation(amount) {
+			let pageCount = Math.ceil(amount/10);
+			for(let count=1; count<=pageCount; count++) {
+				$("ul.pagination").append("<li class=\"page-item\"><a class=\"page-link\" href=\"/rockmate/main/routeList.jsp?pageNumber="+count+"\">"+count+"</a></li>");
+			}
+			$("ul.pagination").append("<li class=\"page-item\">"
+				    + "<a class=\"page-link\" href=\"#\" aria-label=\"Next\">"
+		       			+"<span aria-hidden=\"true\">&raquo;</span>"
+		    		+ "</a></li>");
+		}
+    	function addRoutes(routeList) {
+			let tag = "<li>"
+				+"<div class=\"card row-flex\" onclick=\"goDetail((6))\">"
+					+"<div class=\"icon\">"
+						+"<div class=\"tape\"><img src=\"../images/icon/tape/(8).png\" alt=\"(1) 테이프 이미지\">"
+						+"<div class=\"hold\"><img src=\"../images/icon/hold/(9).png\" alt=\"(2) 홀드 이미지\"></div>"
+					+"</div>"                                        
+				+"</div>"
+				+"<div class=\"route-info\">"
+					+"<p class=\"large bold\">(3)</p>"
+					+"<p class=\"small\">(4)((5))</p>"
+					+"<p class=\"small gray\">문제 아이디 <span>(6)</span></p>"
+				+"</div>"
+				+"<div class=\"route-img\">"
+					+"<img src=\"/rockmate/images/route/(7)\" alt=\"클라이밍 문제 이미지\">"
+				+"</div>"
+			+"</div>"
+		+"</li>";
+		
+			for (let i=0; i<routeList.length; i++) {
+				let nthRoute = routeList[i];
+				
+				let nthTag = tag.replace("(1)", nthRoute.levelColor);
+				nthTag = nthTag.replace("(2)", nthRoute.holdColor);
+				nthTag = nthTag.replace("(3)", nthRoute.routeName);
+				nthTag = nthTag.replace("(4)", nthRoute.sectorName);
+				nthTag = nthTag.replace("(5)", nthRoute.settingDate);
+				nthTag = nthTag.replaceAll("(6)", nthRoute.routeId);
+				nthTag = nthTag.replace("(7)", nthRoute.img);
+				nthTag = nthTag.replace("(8)", nthRoute.levelEng);
+				nthTag = nthTag.replace("(9)", nthRoute.holdEng);
+				
+				$("#list-container").append(nthTag);
+			}
+		}
     	
     	function goDetail(routeId){
         			location.href="/rockmate/main/routeDetail.jsp?routeId="+routeId;

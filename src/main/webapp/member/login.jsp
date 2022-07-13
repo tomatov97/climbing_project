@@ -34,17 +34,17 @@
     <main class="form-login">
       <form action="/rockmate/login" method="post">        
         <h1 class="h3 mb-3 fw-normal justify-content-center">
-          <a href="/rockmate/main/routeList.jsp" class="d-flex align-items-center text-dark text-decoration-none">
+          <a href="/rockmate/main/routeList.jsp?pageNumber=1&gymId=1" class="d-flex align-items-center text-dark text-decoration-none">
             <span class="logoTxt">Rock Mate</span>
           </a>
         </h1>
     
         <div class="form-floating">
-          <input type="text" class="form-control" id="floatingInput" placeholder="id">
+          <input type="text" class="form-control" id="floatingInput" name="id" placeholder="id">
           <label for="floatingInput">아이디</label>
         </div>
         <div class="form-floating">
-          <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
+          <input type="password" class="form-control" id="floatingPassword" name="pw" placeholder="Password">
           <label for="floatingPassword">비밀번호</label>
         </div>
     
