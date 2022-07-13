@@ -116,8 +116,7 @@
 	})	
 	</script>
 	<script type="text/javascript">
-		pageNumber = "${param.pageNumber}";
-		
+		pageNumber = "${param.pageNumber}";		
 		let gymId = "${param.gymId}";
 		<!-- 필터 표시 -->
 		$.ajax({

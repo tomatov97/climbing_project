@@ -21,8 +21,8 @@ public class RouteListController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		
-		int pageNumber = Integer.parseInt(request.getParameter("pageNumber"));
-		int gymId = request.getParameter("gymId")==null ? 1 : Integer.parseInt(request.getParameter("gymId"));
+		int pageNumber = request.getParameter("pageNumber").equals("") ? 1 :Integer.parseInt(request.getParameter("pageNumber"));
+		int gymId = request.getParameter("gymId").equals("") ? 1 : Integer.parseInt(request.getParameter("gymId"));
 		System.out.println(gymId);
 		int sectorId = 0;
 		if (!request.getParameter("sectorId").equals("all")) sectorId = Integer.parseInt(request.getParameter("sectorId"));
